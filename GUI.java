@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 
 /**
  * GUI - TODO Describe purpose of this user-defined type
- * @author crews (2020)
  * 
  */
 public class GUI extends Application {
