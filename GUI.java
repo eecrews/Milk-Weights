@@ -44,6 +44,23 @@ public class GUI extends Application {
 		pageThreeRoot.setRight(pageThreeRightVbox);
 
 		Scene dataAddPage = new Scene(pageThreeRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// Final step in GUI -- setting app title and setting the scene to the
+		//						welcome page
+		
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(welcomePage); // not created yet
+		primaryStage.show();
 
 	}
 
