@@ -30,7 +30,20 @@ public class GUI extends Application {
 
 	@Override
 	public void start(Stage arg0) throws Exception {
-		// TODO Auto-generated method stub
+		// dataAddPage (#3) -- by Erin
+		
+		BorderPane pageThreeRoot = new BorderPane();
+		
+		VBox pageThreeLeftVbox = new VBox(new Label("Manual Entry"), idEntry, 
+				yearEntry, monthEntry, dateEntry, weightEntry, new Button("Enter"));
+		HBox fileEntry = new HBox(new Label("File location"), new TextField());
+		VBox pageThreeRightVbox = new VBox(new Label("Add from File"), fileEntry,
+				new Button("Enter")); 
+		
+		pageThreeRoot.setLeft(pageThreeLeftVbox);
+		pageThreeRoot.setRight(pageThreeRightVbox);
+
+		Scene dataAddPage = new Scene(pageThreeRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	}
 
