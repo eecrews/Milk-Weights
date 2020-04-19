@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 
 /**
  * Driver - TODO Describe purpose of this user-defined type
- * @author crews (2020)
  * 
  */
 public class Driver extends Application {
