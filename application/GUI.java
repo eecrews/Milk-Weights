@@ -146,14 +146,28 @@ public class GUI extends Application {
 
 		pageThreeRoot.setLeft(pageThreeLeftVbox);
 		pageThreeRoot.setRight(pageThreeRightVbox);
+		
+		Button backButton = new Button("Back");
+		backButton.setPrefSize(150, 50);
+		backButton.setLayoutX(0);
+		backButton.setLayoutY(450);
+		backButton.setOnAction(value -> {
+			try {
+				menuPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		pageThreeRoot.setBottom(backButton);
 
-		Scene dataAddPage = new Scene(pageThreeRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+		Scene dataEntryPage = new Scene(pageThreeRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		// Final step in GUI -- setting app title and setting the scene to the
 		// welcome page
 
 		primaryStage.setTitle(APP_TITLE);
-		primaryStage.setScene(dataAddPage); // not created yet
+		primaryStage.setScene(dataEntryPage); // not created yet
 		primaryStage.show();
 
 	}
