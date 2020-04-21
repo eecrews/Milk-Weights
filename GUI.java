@@ -36,6 +36,7 @@ public class GUI extends Application {
 
 		Pane pageOneRoot = new Pane();
 
+		// Canvas for title Graphics
 		Canvas canvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(Color.BLUEVIOLET);
@@ -44,13 +45,15 @@ public class GUI extends Application {
 		gc.setFill(Color.DARKBLUE);
 		gc.setFont(new Font(35));
 		gc.fillText("M i l k   A n a l y z e r !", 180, 120);
+
+		// Start button, links to second page method
 		Button startButton = new Button("Enter the Analyzer");
 		startButton.setPrefSize(200, 50);
 		startButton.setLayoutX(250);
 		startButton.setLayoutY(300);
 		startButton.setOnAction(value -> {
 			try {
-				dataEntryPage(primaryStage);
+				menuPage(primaryStage);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -60,9 +63,65 @@ public class GUI extends Application {
 		pageOneRoot.getChildren().addAll(header, startButton);
 
 		Scene landingPage = new Scene(pageOneRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
-
+		// Scene for landing Page
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(landingPage);
+		primaryStage.show();
+	}
+
+	public void menuPage(Stage primaryStage) throws Exception {
+		Pane pageTwoRoot = new Pane();
+
+		Button b1 = new Button("Add New Data");
+		b1.setPrefSize(150, 50);
+		b1.setOnAction(value -> {
+			try {
+				dataEntryPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		Button b2 = new Button("Edit Current Data");
+		b2.setPrefSize(150, 50);
+		Button b3 = new Button("View Analysis");
+		b3.setPrefSize(150, 50);
+
+		VBox centerBox = new VBox(b1, b2, b3);
+		centerBox.setLayoutX(270);
+		centerBox.setLayoutY(150);
+
+		Button b4 = new Button("Back");
+		b4.setPrefSize(150, 50);
+		b4.setLayoutX(0);
+		b4.setLayoutY(450);
+		b4.setOnAction(value -> {
+			try {
+				start(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+
+		Button b5 = new Button("Feedback");
+		b5.setPrefSize(150, 50);
+		b5.setLayoutX(550);
+		b5.setLayoutY(450);
+		b5.setOnAction(value -> {
+			try {
+				start(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+
+		pageTwoRoot.getChildren().addAll(centerBox, b4, b5);
+		Scene menuPage = new Scene(pageTwoRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(menuPage);
 		primaryStage.show();
 	}
 
