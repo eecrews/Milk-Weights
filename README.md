@@ -8,6 +8,6 @@
 # Tushar Lakshminarayanan, Lec 001, XTeam 185
 # Richard Horn, Lec 002, XTeam 226
 # Akshay Suresh, Lec 001, XTeam  103
-# No one was on an XTeam together 
-# Other notes / comments to the grader: we love u
+# No one was on an XTeam together. 
+# Other notes / comments to the grader: we love u. 
 # No other comments 
