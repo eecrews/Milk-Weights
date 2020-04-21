@@ -70,8 +70,11 @@ public class GUI extends Application {
 	}
 
 	public void menuPage(Stage primaryStage) throws Exception {
+		// menuPage (#2) -- by Tushar
+
 		Pane pageTwoRoot = new Pane();
 
+		// Buttons for checking data
 		Button b1 = new Button("Add New Data");
 		b1.setPrefSize(150, 50);
 		b1.setOnAction(value -> {
@@ -82,15 +85,20 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
+
 		Button b2 = new Button("Edit Current Data");
 		b2.setPrefSize(150, 50);
+
 		Button b3 = new Button("View Analysis");
 		b3.setPrefSize(150, 50);
 
+		// Vbox for 3 main buttons
 		VBox centerBox = new VBox(b1, b2, b3);
 		centerBox.setLayoutX(270);
 		centerBox.setLayoutY(150);
+		centerBox.setSpacing(10);
 
+		// Sends user back to landing page
 		Button b4 = new Button("Back");
 		b4.setPrefSize(150, 50);
 		b4.setLayoutX(0);
@@ -104,13 +112,14 @@ public class GUI extends Application {
 			}
 		});
 
+		// Sends user to feedback page
 		Button b5 = new Button("Feedback");
 		b5.setPrefSize(150, 50);
 		b5.setLayoutX(550);
 		b5.setLayoutY(450);
 		b5.setOnAction(value -> {
 			try {
-				start(primaryStage);
+				feedbackPage(primaryStage);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -130,10 +139,10 @@ public class GUI extends Application {
 
 		BorderPane pageThreeRoot = new BorderPane();
 
-		VBox pageThreeLeftVbox = new VBox(new Label("Manual Entry"), idEntry, yearEntry, monthEntry,
-				dateEntry, weightEntry, new Button("Enter"));
-		HBox fileEntry = new HBox(new Label("File location"), new TextField());
-		VBox pageThreeRightVbox = new VBox(new Label("Add from File"), fileEntry, new Button(
+		VBox pageThreeLeftVbox = new VBox(new Label("Manual Entry "), idEntry, yearEntry,
+				monthEntry, dateEntry, weightEntry, new Button("Enter "));
+		HBox fileEntry = new HBox(new Label("File location "), new TextField());
+		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, new Button(
 				"Enter"));
 
 		pageThreeRoot.setLeft(pageThreeLeftVbox);
@@ -148,6 +157,50 @@ public class GUI extends Application {
 		primaryStage.setScene(dataAddPage); // not created yet
 		primaryStage.show();
 
+	}
+
+	public void feedbackPage(Stage primaryStage) throws Exception {
+		// feedbackPage (#14) -- by Tushar
+
+		BorderPane pageFourteenRoot = new BorderPane();
+
+		HBox nameLine = new HBox(new Label("Name: "), new TextField());
+		HBox emailLine = new HBox(new Label("Email: "), new TextField());
+		TextField fbField = new TextField();
+		fbField.setPrefSize(300, 300);
+		HBox feedbackLine = new HBox(new Label("Feedback: "), fbField);
+
+		// Sends user back to menu page
+		Button back = new Button("Back");
+		back.setPrefSize(150, 50);
+		back.setLayoutX(0);
+		back.setLayoutY(450);
+		back.setOnAction(value -> {
+			try {
+				menuPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+
+		// Sends user to feedback page
+		Button enter = new Button("Enter");
+		enter.setPrefSize(150, 50);
+		enter.setLayoutX(550);
+		enter.setLayoutY(450);
+		HBox buttons = new HBox(back, enter);
+		buttons.setSpacing(400);
+		VBox lines = new VBox(nameLine, emailLine, feedbackLine);
+
+		pageFourteenRoot.setTop(lines);
+		pageFourteenRoot.setBottom(buttons);
+
+		Scene feedbackPage = new Scene(pageFourteenRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(feedbackPage);
+		primaryStage.show();
 	}
 
 }
