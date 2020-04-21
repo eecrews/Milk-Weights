@@ -99,6 +99,13 @@ public class GUI extends Application {
 
 		Button b3 = new Button("View Analysis");
 		b3.setPrefSize(150, 50);
+		b3.setOnAction(value -> {
+			try {
+				analysisMenuPage(primaryStage);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		});
 
 		// Vbox for 3 main buttons
 		VBox centerBox = new VBox(b1, b2, b3);
@@ -268,8 +275,83 @@ public class GUI extends Application {
 	 * TODO: implement this. I just needed the method to call from my page methods
 	 */
 	public void analysisMenuPage(Stage primaryStage) {
+		//Analysis menu page (#5) by Me
+		//jk it's by Akshay
+		// Main layout is Border Pane example (top,left,center,right,bottom)
+		Pane root = new Pane();
+		Button farmReportButton = new Button("Farm Report");
+		Button AnnualReportButton = new Button("Annual Report");
+		Button MonthlyReportButton = new Button("Monthly Report");
+		Button RangeReportButton = new Button("Date Range Report");
+		Button backButton = new Button("Back");
+
+
+		// Add the vertical box to the center of the root pane
+
+		farmReportButton.setLayoutX(WINDOW_WIDTH/2);
+		farmReportButton.setLayoutY(WINDOW_HEIGHT/4);
+		farmReportButton.setOnAction(value -> {
+			try {
+				farmAnalysisPage(primaryStage);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+
+		AnnualReportButton.setLayoutX(WINDOW_WIDTH/2);
+		AnnualReportButton.setLayoutY(WINDOW_HEIGHT/2);
+		AnnualReportButton.setOnAction(value -> {
+			try {
+				annualAnalysisPage(primaryStage);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		MonthlyReportButton.setLayoutX(WINDOW_WIDTH/2);
+		MonthlyReportButton.setLayoutY((3/4)*WINDOW_HEIGHT);
+		MonthlyReportButton.setOnAction(value -> {
+			try {
+				monthlyAnalysisPage(primaryStage);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		RangeReportButton.setLayoutX(WINDOW_WIDTH/2);
+		RangeReportButton.setLayoutY(WINDOW_HEIGHT-(WINDOW_HEIGHT/4));
+		RangeReportButton.setOnAction(value -> {
+			try {
+				dateRangeAnalysisPage(primaryStage);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		root.getChildren().add(farmReportButton);
+		root.getChildren().add(AnnualReportButton);
+		root.getChildren().add(MonthlyReportButton);
+		root.getChildren().add(RangeReportButton);
+		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutX(10);
+		root.getChildren().add(backButton);
+		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// Add the stuff and set the primary stage
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(mainScene);
+		primaryStage.show();
 	}
 	
+	backButton.setOnAction(value -> {
+			try {
+				menuPage(primaryStage);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 	public void farmAnalysisPage(Stage primaryStage) throws Exception {
 		//Farm Analysis Page (#6) by Akshay
 		// Main layout is Border Pane example (top,left,center,right,bottom)
@@ -355,7 +437,7 @@ public class GUI extends Application {
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
 		enter.setLayoutY(450);
-		back.setOnAction(value -> {
+		enter.setOnAction(value -> {
 			try {
 				annualOutputPage(primaryStage);
 			} catch (Exception e) {
@@ -407,7 +489,7 @@ public class GUI extends Application {
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
 		enter.setLayoutY(450);
-		back.setOnAction(value -> {
+		enter.setOnAction(value -> {
 			try {
 				monthlyOutputPage(primaryStage);
 			} catch (Exception e) {
@@ -467,7 +549,7 @@ public class GUI extends Application {
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
 		enter.setLayoutY(450);
-		back.setOnAction(value -> {
+		enter.setOnAction(value -> {
 			try {
 				dateRangeOutputPage(primaryStage);
 			} catch (Exception e) {
