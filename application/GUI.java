@@ -139,7 +139,7 @@ public class GUI extends Application {
 
 		BorderPane pageThreeRoot = new BorderPane();
 
-		VBox pageThreeLeftVbox = new VBox(new Label("Manual Entry "), idEntry, yearEntry, monthEntry, dateEntry,
+		VBox pageThreeLeftVbox = new VBox(new Label("Manual Entry"), idEntry, yearEntry, monthEntry, dateEntry,
 				weightEntry, new Button("Enter "));
 		HBox fileEntry = new HBox(new Label("File location "), new TextField());
 		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, new Button("Enter"));
@@ -170,6 +170,36 @@ public class GUI extends Application {
 		primaryStage.setScene(dataEntryPage); // not created yet
 		primaryStage.show();
 
+	}
+	
+	public void dataEditPage(Stage primaryStage) throws Exception {
+		// edit data (#4) -- by Erin 
+		
+		BorderPane pageFourRoot = new BorderPane();
+		
+		VBox pageFourLeftVbox = new VBox(new Label("Delete an Entry"), idEntry, yearEntry, monthEntry, dateEntry,
+				weightEntry, new Button("Enter ")); // TODO: remove weight entry if not needed
+		VBox pageFourRightVbox = new VBox(new Label("Edit an Entry\nLeave blank if no change"), idEntry, yearEntry, monthEntry, dateEntry,
+				weightEntry, new Button("Enter ")); 
+		Button backButton = new Button("Back");
+		backButton.setPrefSize(150, 50);
+		backButton.setLayoutX(0);
+		backButton.setLayoutY(450);
+		backButton.setOnAction(value -> {
+			try {
+				menuPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		pageFourRoot.setBottom(backButton);
+		 
+		Scene dataEditPage = new Scene(pageFourRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+		
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(dataEditPage); 
+		primaryStage.show();
 	}
 
 	public void feedbackPage(Stage primaryStage) throws Exception {
