@@ -91,7 +91,14 @@ public class GUI extends Application {
 
 		Button b3 = new Button("View Analysis");
 		b3.setPrefSize(150, 50);
-
+		b3.setOnAction(value -> {
+			try {
+				analysisMenuPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 		// Vbox for 3 main buttons
 		VBox centerBox = new VBox(b1, b2, b3);
 		centerBox.setLayoutX(270);
@@ -200,6 +207,158 @@ public class GUI extends Application {
 
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(feedbackPage);
+		primaryStage.show();
+	}
+
+	public void analysisMenuPage(Stage primaryStage) throws Exception {
+
+		//Analysis menu page (#5) by Me
+		//jk it's by Akshay
+		// Main layout is Border Pane example (top,left,center,right,bottom)
+		Pane root = new Pane();
+		Button farmReportButton = new Button("Farm Report");
+		Button AnnualReportButton = new Button("Annual Report");
+		Button MonthlyReportButton = new Button("Monthly Report");
+		Button RangeReportButton = new Button("Date Range Report");
+		Button backButton = new Button("Back");
+
+
+		// Add the vertical box to the center of the root pane
+
+		farmReportButton.setLayoutX(WINDOW_WIDTH/2);
+		farmReportButton.setLayoutY(WINDOW_HEIGHT/4);
+		farmReportButton.setOnAction(value -> {
+			try {
+				farmAnalysisPage(primaryStage);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+
+		AnnualReportButton.setLayoutX(WINDOW_WIDTH/2);
+		AnnualReportButton.setLayoutY(WINDOW_HEIGHT/2);
+		MonthlyReportButton.setLayoutX(WINDOW_WIDTH/2);
+		MonthlyReportButton.setLayoutY((3/4)*WINDOW_HEIGHT);
+		RangeReportButton.setLayoutX(WINDOW_WIDTH/2);
+		RangeReportButton.setLayoutY(WINDOW_HEIGHT-(WINDOW_HEIGHT/4));
+		root.getChildren().add(farmReportButton);
+		root.getChildren().add(AnnualReportButton);
+		root.getChildren().add(MonthlyReportButton);
+		root.getChildren().add(RangeReportButton);
+		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutX(10);
+		root.getChildren().add(backButton);
+		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// Add the stuff and set the primary stage
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(mainScene);
+		primaryStage.show();
+	}
+
+	public void farmAnalysisPage(Stage primaryStage) throws Exception {
+		//Farm Analysis Page (#6) by Akshay
+		// Main layout is Border Pane example (top,left,center,right,bottom)
+		Pane root = new Pane();
+		Label idLabel = new Label("Farm ID: ");
+		TextField id = new TextField();
+		Label yearLabel = new Label("Year: ");
+		TextField year = new TextField();
+		Button backButton = new Button("Back");
+		Button enterButton = new Button("Enter");
+
+
+
+		// Add the vertical box to the center of the root pane
+
+		id.setLayoutX((WINDOW_WIDTH/2)-75);
+		id.setLayoutY(WINDOW_HEIGHT/4);
+		idLabel.setLayoutX((WINDOW_WIDTH/2)-125);
+		idLabel.setLayoutY(WINDOW_HEIGHT/4);
+		yearLabel.setLayoutX((WINDOW_WIDTH/2)-125);
+		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
+		year.setLayoutX((WINDOW_WIDTH/2)-75);
+		year.setLayoutY(WINDOW_HEIGHT*(3/4));
+		enterButton.setLayoutX(WINDOW_WIDTH/2);
+		enterButton.setLayoutY(WINDOW_HEIGHT-150);
+		enterButton.setOnAction(value -> {
+			try {
+				farmOutputPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		root.getChildren().add(id);
+		root.getChildren().add(idLabel);
+		root.getChildren().add(year);
+		root.getChildren().add(yearLabel);
+		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutX(10);
+		backButton.setOnAction(value -> {
+			try {
+				analysisMenuPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		root.getChildren().add(backButton);
+		root.getChildren().add(enterButton);
+		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// Add the stuff and set the primary stage
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(mainScene);
+		primaryStage.show();
+	}
+
+	public void farmOutputPage(Stage primaryStage) throws Exception {
+		// Main layout is Border Pane example (top,left,center,right,bottom)
+		Pane root = new Pane();
+		Label idLabel = new Label("Total Weight: ");
+		TextField id = new TextField();
+		Label yearLabel = new Label("Percent of Total: ");
+		TextField year = new TextField();
+		Button backButton = new Button("Back");
+		Button enterButton = new Button("Enter");
+
+
+
+		// Add the vertical box to the center of the root pane
+
+		id.setLayoutX((WINDOW_WIDTH/2)-75);
+		id.setLayoutY(WINDOW_HEIGHT/4);
+		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		idLabel.setLayoutY(WINDOW_HEIGHT/4);
+		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
+		year.setLayoutX((WINDOW_WIDTH/2)-75);
+		year.setLayoutY(WINDOW_HEIGHT*(3/4));
+		enterButton.setLayoutX(WINDOW_WIDTH/2);
+		enterButton.setLayoutY(WINDOW_HEIGHT-150);
+		root.getChildren().add(id);
+		root.getChildren().add(idLabel);
+		root.getChildren().add(year);
+		root.getChildren().add(yearLabel);
+		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutX(10);
+		backButton.setOnAction(value -> {
+			try {
+				farmAnalysisPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		root.getChildren().add(backButton);
+		root.getChildren().add(enterButton);
+		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// Add the stuff and set the primary stage
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(mainScene);
 		primaryStage.show();
 	}
 
