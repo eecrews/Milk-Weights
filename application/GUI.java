@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -537,31 +538,178 @@ public class GUI extends Application {
 		primaryStage.show();
 	}
 	
+
 	/**
-	 * TODO:Implement this, needed the method to call in other method
-	 * 
-	 * @param primaryStage
+	 * Annual output Page (11)
+	 *
+	 * @author Richard
 	 */
+
 	public void annualOutputPage(Stage primaryStage) {
+		// Main layout is Border Pane example (top,left,center,right,bottom)
+		Pane root = new Pane();
+		Label idLabel = new Label("Annual Total Weight: ");
+		ListView id = new ListView();
+		Label yearLabel = new Label("Annual Percent of Total: ");
+		ListView year = new ListView();
+		Button backButton = new Button("Back");
+		Button enterButton = new Button("Enter");
+
+		// Add the vertical box to the center of the root pane
+
+
+		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		idLabel.setLayoutY(WINDOW_HEIGHT/4);
+		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
+		enterButton.setLayoutX(WINDOW_WIDTH/2);
+		enterButton.setLayoutY(WINDOW_HEIGHT-150);
+		year.setPrefSize(300,75);
+		id.setPrefSize(300,75);
+		id.setLayoutX((WINDOW_WIDTH/2)-60);
+		id.setLayoutY(WINDOW_HEIGHT/4);
+		year.setLayoutX((WINDOW_WIDTH/2)-50);
+		year.setLayoutY(WINDOW_HEIGHT*(3/4));
+		root.getChildren().add(id);
+		root.getChildren().add(idLabel);
+		root.getChildren().add(year);
+		root.getChildren().add(yearLabel);
+		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutX(10);
+		backButton.setOnAction(value -> {
+			try {
+				annualAnalysisPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		root.getChildren().add(backButton);
+		root.getChildren().add(enterButton);
+		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// Add the stuff and set the primary stage
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(mainScene);
+		primaryStage.show();
 
 	}
 
 	/**
-	 * TODO:Implement this, needed the method to call in other method
-	 * 
-	 * @param primaryStage
+	 * Monthly Output Page (12)
+	 *
+	 * @author Richard
 	 */
 	public void monthlyOutputPage(Stage primaryStage) {
 
+		// Main layout is Border Pane example (top,left,center,right,bottom)
+		Pane root = new Pane();
+		Label idLabel = new Label("Monthly Total Weight: ");
+		ListView id = new ListView();
+		Label yearLabel = new Label("Monthly Percent of Total: ");
+		ListView year = new ListView();
+		Button backButton = new Button("Back");
+		Button enterButton = new Button("Enter");
+
+		// Add the vertical box to the center of the root pane
+
+
+		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		idLabel.setLayoutY(WINDOW_HEIGHT/4);
+		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
+		enterButton.setLayoutX(WINDOW_WIDTH/2);
+		enterButton.setLayoutY(WINDOW_HEIGHT-150);
+		year.setPrefSize(300,75);
+		id.setPrefSize(300,75);
+		id.setLayoutX((WINDOW_WIDTH/2)-50);
+		id.setLayoutY(WINDOW_HEIGHT/4);
+		year.setLayoutX((WINDOW_WIDTH/2)-40);
+		year.setLayoutY(WINDOW_HEIGHT*(3/4));
+		root.getChildren().add(id);
+		root.getChildren().add(idLabel);
+		root.getChildren().add(year);
+		root.getChildren().add(yearLabel);
+		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutX(10);
+		backButton.setOnAction(value -> {
+			try {
+				annualAnalysisPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		root.getChildren().add(backButton);
+		root.getChildren().add(enterButton);
+		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// Add the stuff and set the primary stage
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(mainScene);
+		primaryStage.show();
+
+
 	}
 
 	/**
-	 * TODO:Implement this, needed the method to call in other method
-	 * 
-	 * @param primaryStage
+	 * Data Range Analysis Page (13)
+	 *
+	 * @author Richard
 	 */
 	public void dateRangeOutputPage(Stage primaryStage) {
 
+		// Main layout is Border Pane example (top,left,center,right,bottom)
+		Pane root = new Pane();
+		Label idLabel = new Label("Total Weight: ");
+		ListView id = new ListView();
+		Label yearLabel = new Label("Percent of Total: ");
+		ListView year = new ListView();
+		Button backButton = new Button("Back");
+		Button enterButton = new Button("Enter");
+
+		// Add the vertical box to the center of the root pane
+
+
+		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		idLabel.setLayoutY(WINDOW_HEIGHT/4);
+		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
+		enterButton.setLayoutX(WINDOW_WIDTH/2);
+		enterButton.setLayoutY(WINDOW_HEIGHT-150);
+		year.setPrefSize(300,75);
+		id.setPrefSize(300,75);
+		id.setLayoutX((WINDOW_WIDTH/2)-50);
+		id.setLayoutY(WINDOW_HEIGHT/4);
+		year.setLayoutX((WINDOW_WIDTH/2)-40);
+		year.setLayoutY(WINDOW_HEIGHT*(3/4));
+		root.getChildren().add(id);
+		root.getChildren().add(idLabel);
+		root.getChildren().add(year);
+		root.getChildren().add(yearLabel);
+		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutX(10);
+		backButton.setOnAction(value -> {
+			try {
+				dateRangeAnalysisPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		root.getChildren().add(backButton);
+		root.getChildren().add(enterButton);
+		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// Add the stuff and set the primary stage
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(mainScene);
+		primaryStage.show();
+
+
+
 	}
+	
+	
 
 }
