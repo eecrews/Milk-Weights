@@ -329,6 +329,15 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
+			
+		backButton.setOnAction(value -> {
+			try {
+				menuPage(primaryStage);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 		root.getChildren().add(farmReportButton);
 		root.getChildren().add(AnnualReportButton);
 		root.getChildren().add(MonthlyReportButton);
@@ -343,15 +352,7 @@ public class GUI extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 	}
-	
-	backButton.setOnAction(value -> {
-			try {
-				menuPage(primaryStage);
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
+
 	public void farmAnalysisPage(Stage primaryStage) throws Exception {
 		//Farm Analysis Page (#6) by Akshay
 		// Main layout is Border Pane example (top,left,center,right,bottom)
