@@ -25,7 +25,7 @@ public class GUI extends Application {
 	private static final int WINDOW_HEIGHT = 500;
 	private static final String APP_TITLE = "Milk Weights";
 
-	private static final HBox idEntry = new HBox(new Label(" ID "), new TextField());
+	private static final HBox idEntry = new HBox(new Label(" Farm ID "), new TextField());
 	private static final HBox yearEntry = new HBox(new Label(" Year "), new TextField());
 	private static final HBox monthEntry = new HBox(new Label(" Month "), new TextField());
 	private static final HBox dateEntry = new HBox(new Label(" Date "), new TextField());
@@ -146,7 +146,7 @@ public class GUI extends Application {
 
 		BorderPane pageThreeRoot = new BorderPane();
 
-		VBox pageThreeLeftVbox = new VBox(new Label("Manual Entry"), idEntry, yearEntry, monthEntry, dateEntry,
+		VBox pageThreeLeftVbox = new VBox(new Label("Manual Entry "), idEntry, yearEntry, monthEntry, dateEntry,
 				weightEntry, new Button("Enter "));
 		HBox fileEntry = new HBox(new Label("File location "), new TextField());
 		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, new Button("Enter"));
@@ -170,11 +170,8 @@ public class GUI extends Application {
 
 		Scene dataEntryPage = new Scene(pageThreeRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-		// Final step in GUI -- setting app title and setting the scene to the
-		// welcome page
-
 		primaryStage.setTitle(APP_TITLE);
-		primaryStage.setScene(dataEntryPage); // not created yet
+		primaryStage.setScene(dataEntryPage); 
 		primaryStage.show();
 
 	}
@@ -182,12 +179,23 @@ public class GUI extends Application {
 	public void dataEditPage(Stage primaryStage) throws Exception {
 		// edit data (#4) -- by Erin 
 		
-		BorderPane pageFourRoot = new BorderPane();
+		HBox idEntry = new HBox(new Label(" Farm ID "), new TextField());
+		HBox yearEntry = new HBox(new Label(" Year "), new TextField());
+		HBox monthEntry = new HBox(new Label(" Month "), new TextField());
+		HBox dateEntry = new HBox(new Label(" Date "), new TextField());
 		
-		VBox pageFourLeftVbox = new VBox(new Label("Delete an Entry"), idEntry, yearEntry, monthEntry, dateEntry,
-				weightEntry, new Button("Enter ")); // TODO: remove weight entry if not needed
-		VBox pageFourRightVbox = new VBox(new Label("Edit an Entry\nLeave blank if no change"), idEntry, yearEntry, monthEntry, dateEntry,
-				weightEntry, new Button("Enter ")); 
+		BorderPane pageFourRoot = new BorderPane();
+
+		VBox pageFourLeftVbox = new VBox(new Label("Delete an Entry "), 
+				GUI.idEntry, GUI.yearEntry, GUI.monthEntry, GUI.dateEntry, GUI.weightEntry, new Button("Enter "));
+		
+		pageFourRoot.setLeft(pageFourLeftVbox);
+		
+		VBox pageFourRightVbox = new VBox(new Label("Edit an Entry\nLeave field blank if no change "), idEntry,
+				yearEntry, monthEntry, dateEntry, new Button("Enter "));
+
+		pageFourRoot.setRight(pageFourRightVbox);
+		
 		Button backButton = new Button("Back");
 		backButton.setPrefSize(150, 50);
 		backButton.setLayoutX(0);
@@ -200,13 +208,15 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		pageFourRoot.setBottom(backButton);
-		 
-		Scene dataEditPage = new Scene(pageFourRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
 		
+		pageFourRoot.setBottom(backButton);
+
+		Scene dataEditPage = new Scene(pageFourRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(dataEditPage); 
 		primaryStage.show();
+
 	}
 
 	public void feedbackPage(Stage primaryStage) throws Exception {
