@@ -1,15 +1,20 @@
 package application;
 
+import javafx.scene.control.SpinnerValueFactory;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MilkOperations<Farm> {
 
-    Farm[] Farms = new Farm[];
+    Farm[] Farms;
 
     MilkOperations(Farm[] temp) {
         Farms = temp;
     }
-    public class MilkData {
+    public class MilkData implements Comparable<MilkData> {
         Farm F;
         int amount;
         int percentage;
@@ -28,11 +33,16 @@ public class MilkOperations<Farm> {
         public int getPercentage() {
             return percentage;
         }
-        public int addToAmount(int add) {
+        public void addToAmount(int add) {
             amount+=add;
         }
-        public int setPercentage(int p) {
+        public void setPercentage(int p) {
             percentage=p;
+        }
+
+        @Override
+        public int compareTo(MilkData k) {
+            return k.getF().getID().compareTo(this.getF.getID());
         }
     }
     /**
@@ -100,7 +110,7 @@ public class MilkOperations<Farm> {
             weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getId())), getTotal(farmReport(farms.get(i).getId()))/sold));
 
         }
-
+        Collections.sort(weights);
         return weights;
     }
 
@@ -127,11 +137,37 @@ public class MilkOperations<Farm> {
             weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getId())), getTotal(farmReport(farms.get(i).getId()))/sold));
 
         }
-
+        Collections.sort(weights);
         return weights;
     }
 
-    
+    public ArrayList<MilkData> DateRangeReport(int year1, int month1, int day1, int year2, int month2, int day2) {
+        LocalDate D1 = LocalDate.of((Integer)year1, (Integer)month1, (Integer)day1);
+        LocalDate D2 = LocalDate.of((Integer)year2, (Integer)month2, (Integer)day2);
+        ArrayList<MilkData> weights = new ArrayList<MilkData>();
+        ArrayList<Farm> farms = new ArrayList<Farm>();
+        int sold = 0;
+        for(int i=0;i<Farms.length;i++) {
+            for(int j=0;j<Farms[i].entryList.size();j++) {
+                LocalDate D3 = LocalDate.of((Integer)Farms[i].entryList[j].getYear(), (Integer)Farms[i].entryList[j].getMonth(), (Integer)Farms[i].entryList[j].getDay());
+                if(D3.compareTo(D1)==1&&D3.compareTo(D2)==-1) {//is in year range
+                    sold+=Farms[i].entryList[j].getWeight();
+                    if(!farms.contains(Farms[i])) farms.add(Farms[i]);
+                }
+            }
+        }
+
+        for(int i=0;i<farms.size();i++) {
+            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getId())), getTotal(farmReport(farms.get(i).getId()))/sold));
+
+        }
+        Collections.sort(weights);
+        return weights;
+    }
+
+
+
+
 
 
 
