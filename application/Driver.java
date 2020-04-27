@@ -14,6 +14,7 @@ import javafx.application.Application;
 public class Driver {
 	
 	private static ArrayList<Farm> farmArray = new ArrayList<Farm>();
+	private static MilkOperations<Farm> operator;
 	
 	public static void parseFile(String fileName) {
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
@@ -43,6 +44,10 @@ public class Driver {
 				farmArray.get(i).addEntry(weightArray.get(i), dateArray.get(i));
 			}
 		}
+		
+		operator = new MilkOperations<Farm>(Arrays.toArray(farmArray));
+		
+		
 	}
 	
 	public static String printFarmReport(String farmID) {
