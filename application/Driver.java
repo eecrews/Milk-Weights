@@ -34,14 +34,15 @@ public class Driver {
 		}
 		
 		for(int i=0; i<farmIDArray.size(); i++) {
-			if(!farmArray.contains(farmIDArray.get(i))) {
+			if(!farmArray.contains(farmIDArray.get(i))) { // this line might not work, will .contains be effective
 				Farm newFarm = new Farm(farmIDArray.get(i));
 				newFarm.addEntry(weightArray.get(i), dateArray.get(i));
 				farmArray.add(newFarm);
-				
+			}
+			else {
+				farmArray.get(i).addEntry(weightArray.get(i), dateArray.get(i));
 			}
 		}
-		
 	}
 	
 	public static String printFarmReport(String farmID) {
