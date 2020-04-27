@@ -43,6 +43,16 @@ public class Driver {
 		}
 		
 	}
+	
+	public static String printFarmReport(String farmID) {
+		ArrayList<MilkData> milkDataList = MilkOperations.farmReport(farmID);
+		String output = milkDataList.getTotal() + "\n";
+		for(int i=0; i<milkDataList.size(); i++) {
+			output += "Month: " + (i+1) + "\tPercent of total: " + milkDataList.get(i).getPercentage();
+		}
+		
+		return output;
+	}
 
 	
 
