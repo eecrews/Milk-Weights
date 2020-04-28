@@ -10,6 +10,19 @@ public class mArray {
 
 	}
 
+	public double getMilkWeight(int i) {
+		return year[i].getMilkWeight();
+	}
+	public LocalDate getMilkDate(int i) {
+		return year[i].getMilkDate();
+	}
+	public String getFarmID(int i) {
+		return year[i].getFarmID();
+	}
+	public Node getNext(int i) {
+		return year[i].getNext();
+	}
+
 	public void addDay(double milk, LocalDate date, String ID) {
 		int index = date.getDayOfYear();
 		year[index] = new Node(milk, date, ID);
