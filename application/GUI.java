@@ -154,9 +154,6 @@ public class GUI extends Application {
 
 		BorderPane pageThreeRoot = new BorderPane();
 
-		VBox pageThreeLeftVbox = new VBox(new Label("Manual Entry "), idEntry, yearEntry, monthEntry, dateEntry,
-				weightEntry, new Button("Enter "));
-		
 		TextField fileEntryField = new TextField();
 		
 		HBox fileEntry = new HBox(new Label("File location "), fileEntryField);
@@ -165,7 +162,6 @@ public class GUI extends Application {
 		
 		enterButton.setOnAction(e -> Driver.parseFile(fileEntryField.getText()));
 
-		pageThreeRoot.setLeft(pageThreeLeftVbox);
 		pageThreeRoot.setRight(pageThreeRightVbox);
 		
 		Button backButton = new Button("Back");
@@ -473,9 +469,11 @@ public class GUI extends Application {
 	 */
 	public void monthlyAnalysisPage(Stage primaryStage) throws Exception {
 		BorderPane pageEightRoot = new BorderPane();
+		TextField yearEntry = new TextField();
+		TextField monthEntry = new TextField();
 
-		HBox yearInput = new HBox(new Label("Year     "), new TextField());
-		HBox monthInput = new HBox(new Label("Month "), new TextField());
+		HBox yearInput = new HBox(new Label("Year     "), yearEntry);
+		HBox monthInput = new HBox(new Label("Month "), monthEntry);
 		VBox inputs = new VBox(yearInput, monthInput);
 		
 		// Sends user back to analysis menu page
@@ -498,7 +496,7 @@ public class GUI extends Application {
 		enter.setLayoutY(450);
 		enter.setOnAction(value -> {
 			try {
-				monthlyOutputPage(primaryStage);
+				monthlyOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()), Integer.parseInt(monthEntry.getText()));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -689,7 +687,7 @@ public class GUI extends Application {
 	 *
 	 * @author Richard
 	 */
-	public void monthlyOutputPage(Stage primaryStage) {
+	public void monthlyOutputPage(Stage primaryStage, int yearInput, int monthInput) {
 
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
@@ -703,7 +701,7 @@ public class GUI extends Application {
 		// Add the vertical box to the center of the root pane
 		
 
-		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		/*idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
 		idLabel.setLayoutY(WINDOW_HEIGHT/4);
 		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
 		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
@@ -718,7 +716,9 @@ public class GUI extends Application {
 		root.getChildren().add(id);
 		root.getChildren().add(idLabel);
 		root.getChildren().add(year);
-		root.getChildren().add(yearLabel);
+		root.getChildren().add(yearLabel); */
+		
+		root.getChildren().add(new Label(Driver.printMonthlyReport(yearInput, monthInput)));
 		backButton.setLayoutY(WINDOW_HEIGHT-30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
