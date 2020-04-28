@@ -87,5 +87,9 @@ public class Driver {
 		
 		return output;
 	}
+	
+	public static void main(String[] args) {
+		Application.launch(GUI.class, args);
+	}
 
 }
