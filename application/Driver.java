@@ -32,7 +32,10 @@ public class Driver {
 				farmIDArray.add(lineInfo[1]);
 				weightArray.add(Integer.parseInt(lineInfo[2]));
 				
-			}
+			} 
+		}
+			catch(Exception e) {
+				System.out.println(e.getMessage());
 		}
 		
 		for(int i=0; i<farmIDArray.size(); i++) {
