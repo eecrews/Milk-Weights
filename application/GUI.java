@@ -156,8 +156,14 @@ public class GUI extends Application {
 
 		VBox pageThreeLeftVbox = new VBox(new Label("Manual Entry "), idEntry, yearEntry, monthEntry, dateEntry,
 				weightEntry, new Button("Enter "));
-		HBox fileEntry = new HBox(new Label("File location "), new TextField());
-		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, new Button("Enter"));
+		
+		TextField fileEntryField = new TextField();
+		
+		HBox fileEntry = new HBox(new Label("File location "), fileEntryField);
+		Button enterButton = new Button("Enter");
+		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, enterButton);
+		
+		enterButton.setOnAction(e -> Driver.parseFile(fileEntryField.getText()));
 
 		pageThreeRoot.setLeft(pageThreeLeftVbox);
 		pageThreeRoot.setRight(pageThreeRightVbox);
