@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import application.MilkOperations.MilkData;
 import javafx.application.Application;
 
 /**
@@ -50,16 +51,41 @@ public class Driver {
 		
 	}
 	
-	public static String printFarmReport(String farmID) {
-		ArrayList<MilkData> milkDataList = MilkOperations.farmReport(farmID);
-		String output = milkDataList.getTotal() + "\n";
+	public static String printFarmReport(String farmID, int year) {
+		ArrayList<MilkData> milkDataList = operator.farmReport(farmID, year);
+		String output = "";
 		for(int i=0; i<milkDataList.size(); i++) {
-			output += "Month: " + (i+1) + "\tPercent of total: " + milkDataList.get(i).getPercentage();
+			output += "\nMonth: " + (i+1) + "\tTotal Weight: " + 
+					milkDataList.get(i).getAmount() + "\tPercent of yearly weight: " + 
+						milkDataList.get(i).getPercentage();
 		}
 		
 		return output;
 	}
-
 	
+	public static String printMonthlyReport(int year, int month) {
+		ArrayList<MilkData> milkDataList = operator.MonthlyReport(year, month);
+		String output = "";
+		for(int i=0; i<milkDataList.size(); i++) {
+			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + 
+					milkDataList.get(i).getAmount() + "\tPercent of total for month: " + 
+						milkDataList.get(i).getPercentage();
+		}
+		
+		return output;
+		
+	}
+	
+	public static String printDateRangeReport(int year1, int month1, int day1, int year2, int month2, int day2) {
+		ArrayList<MilkData> milkDataList = operator.DateRangeReport(year1, month1, day1, year2, month2, day2);
+		String output = "";
+		for(int i=0; i<milkDataList.size(); i++) {
+			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + 
+					milkDataList.get(i).getAmount() + "\tPercent of total over range: " + 
+						milkDataList.get(i).getPercentage();
+		}
+		
+		return output;
+	}
 
 }

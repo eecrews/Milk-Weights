@@ -639,15 +639,6 @@ public class GUI extends Application {
 		Button enterButton = new Button("Enter");
 
 		// Add the vertical box to the center of the root pane
-		
-		id.getItems().add("Farm 1: 3020");
-        id.getItems().add("Farm 2: 4030");
-        id.getItems().add("Farm 3: 5070");
-        id.getItems().add("Farm 4: 6070");
-        year.getItems().add("Farm 1: 15%");
-        year.getItems().add("Farm 2: 17%");
-        year.getItems().add("Farm 3: 20%");
-        year.getItems().add("Farm 4: 40%");
 
 
 		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
@@ -705,15 +696,6 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 		
-		id.getItems().add("Farm 1: 3020");
-        id.getItems().add("Farm 2: 4030");
-        id.getItems().add("Farm 3: 5070");
-        id.getItems().add("Farm 4: 6070");
-        year.getItems().add("Farm 1: 15%");
-        year.getItems().add("Farm 2: 17%");
-        year.getItems().add("Farm 3: 20%");
-        year.getItems().add("Farm 4: 40%");
-
 
 		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
 		idLabel.setLayoutY(WINDOW_HEIGHT/4);
@@ -770,15 +752,6 @@ public class GUI extends Application {
 		Button enterButton = new Button("Enter");
 
 		// Add the vertical box to the center of the root pane
-		
-		id.getItems().add("Farm 1: 3020");
-        id.getItems().add("Farm 2: 4030");
-        id.getItems().add("Farm 3: 5070");
-        id.getItems().add("Farm 4: 6070");
-        year.getItems().add("Farm 1: 15%");
-        year.getItems().add("Farm 2: 17%");
-        year.getItems().add("Farm 3: 20%");
-        year.getItems().add("Farm 4: 40%");
 
 
 		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
