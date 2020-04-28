@@ -1,7 +1,6 @@
 package application;
 
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -92,7 +91,7 @@ public class GUI extends Application {
 		b2.setOnAction(value -> {
 			try {
 				dataEditPage(primaryStage);
-			} catch(Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
@@ -102,7 +101,7 @@ public class GUI extends Application {
 		b3.setOnAction(value -> {
 			try {
 				analysisMenuPage(primaryStage);
-			} catch(Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
@@ -151,17 +150,14 @@ public class GUI extends Application {
 
 	public void dataEntryPage(Stage primaryStage) throws Exception {
 		// dataAddPage (#3) -- by Erin
-
 		BorderPane pageThreeRoot = new BorderPane();
 
-		VBox pageThreeLeftVbox = new VBox(new Label("Manual Entry "), idEntry, yearEntry, monthEntry, dateEntry,
-				weightEntry, new Button("Enter "));
 		HBox fileEntry = new HBox(new Label("File location "), new TextField());
-		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, new Button("Enter"));
+		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, new Button(
+				"Enter"));
 
-		pageThreeRoot.setLeft(pageThreeLeftVbox);
 		pageThreeRoot.setRight(pageThreeRightVbox);
-		
+
 		Button backButton = new Button("Back");
 		backButton.setPrefSize(150, 50);
 		backButton.setLayoutX(0);
@@ -179,31 +175,27 @@ public class GUI extends Application {
 		Scene dataEntryPage = new Scene(pageThreeRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		primaryStage.setTitle(APP_TITLE);
-		primaryStage.setScene(dataEntryPage); 
+		primaryStage.setScene(dataEntryPage);
 		primaryStage.show();
 
 	}
-	
+
 	public void dataEditPage(Stage primaryStage) throws Exception {
-		// edit data (#4) -- by Erin 
-		
+		// edit data (#4) -- by Erin
+
 		HBox idEntry = new HBox(new Label(" Farm ID "), new TextField());
 		HBox yearEntry = new HBox(new Label(" Year "), new TextField());
 		HBox monthEntry = new HBox(new Label(" Month "), new TextField());
 		HBox dateEntry = new HBox(new Label(" Date "), new TextField());
-		
+
 		BorderPane pageFourRoot = new BorderPane();
 
-		VBox pageFourLeftVbox = new VBox(new Label("Delete an Entry "), 
-				GUI.idEntry, GUI.yearEntry, GUI.monthEntry, GUI.dateEntry, GUI.weightEntry, new Button("Enter "));
-		
-		pageFourRoot.setLeft(pageFourLeftVbox);
-		
-		VBox pageFourRightVbox = new VBox(new Label("Edit an Entry\nLeave field blank if no change "), idEntry,
-				yearEntry, monthEntry, dateEntry, new Button("Enter "));
+		VBox pageFourRightVbox = new VBox(new Label(
+				"Edit an Entry\nLeave field blank if no change "), idEntry, yearEntry, monthEntry,
+				dateEntry, new Button("Enter "));
 
 		pageFourRoot.setRight(pageFourRightVbox);
-		
+
 		Button backButton = new Button("Back");
 		backButton.setPrefSize(150, 50);
 		backButton.setLayoutX(0);
@@ -216,13 +208,13 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		
+
 		pageFourRoot.setBottom(backButton);
 
 		Scene dataEditPage = new Scene(pageFourRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		primaryStage.setTitle(APP_TITLE);
-		primaryStage.setScene(dataEditPage); 
+		primaryStage.setScene(dataEditPage);
 		primaryStage.show();
 
 	}
@@ -275,8 +267,8 @@ public class GUI extends Application {
 	 * TODO: implement this. I just needed the method to call from my page methods
 	 */
 	public void analysisMenuPage(Stage primaryStage) {
-		//Analysis menu page (#5) by Me
-		//jk it's by Akshay
+		// Analysis menu page (#5) by Me
+		// jk it's by Akshay
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
 		Button farmReportButton = new Button("Farm Report");
@@ -285,56 +277,50 @@ public class GUI extends Application {
 		Button RangeReportButton = new Button("Date Range Report");
 		Button backButton = new Button("Back");
 
-
 		// Add the vertical box to the center of the root pane
 
-		farmReportButton.setLayoutX(WINDOW_WIDTH/2);
-		farmReportButton.setLayoutY(WINDOW_HEIGHT/4);
+		farmReportButton.setLayoutX(WINDOW_WIDTH / 2);
+		farmReportButton.setLayoutY(WINDOW_HEIGHT / 4);
 		farmReportButton.setOnAction(value -> {
 			try {
 				farmAnalysisPage(primaryStage);
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
 
-		AnnualReportButton.setLayoutX(WINDOW_WIDTH/2);
-		AnnualReportButton.setLayoutY(WINDOW_HEIGHT/2);
+		AnnualReportButton.setLayoutX(WINDOW_WIDTH / 2);
+		AnnualReportButton.setLayoutY(WINDOW_HEIGHT / 2);
 		AnnualReportButton.setOnAction(value -> {
 			try {
 				annualAnalysisPage(primaryStage);
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
-		MonthlyReportButton.setLayoutX(WINDOW_WIDTH/2);
-		MonthlyReportButton.setLayoutY((3/4)*WINDOW_HEIGHT);
+		MonthlyReportButton.setLayoutX(WINDOW_WIDTH / 2);
+		MonthlyReportButton.setLayoutY((3 / 4) * WINDOW_HEIGHT);
 		MonthlyReportButton.setOnAction(value -> {
 			try {
 				monthlyAnalysisPage(primaryStage);
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
-		RangeReportButton.setLayoutX(WINDOW_WIDTH/2);
-		RangeReportButton.setLayoutY(WINDOW_HEIGHT-(WINDOW_HEIGHT/4));
+		RangeReportButton.setLayoutX(WINDOW_WIDTH / 2);
+		RangeReportButton.setLayoutY(WINDOW_HEIGHT - (WINDOW_HEIGHT / 4));
 		RangeReportButton.setOnAction(value -> {
 			try {
 				dateRangeAnalysisPage(primaryStage);
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
-			
+
 		backButton.setOnAction(value -> {
 			try {
 				menuPage(primaryStage);
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
@@ -342,7 +328,7 @@ public class GUI extends Application {
 		root.getChildren().add(AnnualReportButton);
 		root.getChildren().add(MonthlyReportButton);
 		root.getChildren().add(RangeReportButton);
-		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutY(WINDOW_HEIGHT - 30);
 		backButton.setLayoutX(10);
 		root.getChildren().add(backButton);
 		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -354,7 +340,7 @@ public class GUI extends Application {
 	}
 
 	public void farmAnalysisPage(Stage primaryStage) throws Exception {
-		//Farm Analysis Page (#6) by Akshay
+		// Farm Analysis Page (#6) by Akshay
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
 		Label idLabel = new Label("Farm ID: ");
@@ -364,20 +350,18 @@ public class GUI extends Application {
 		Button backButton = new Button("Back");
 		Button enterButton = new Button("Enter");
 
-
-
 		// Add the vertical box to the center of the root pane
 
-		id.setLayoutX((WINDOW_WIDTH/2)-75);
-		id.setLayoutY(WINDOW_HEIGHT/4);
-		idLabel.setLayoutX((WINDOW_WIDTH/2)-125);
-		idLabel.setLayoutY(WINDOW_HEIGHT/4);
-		yearLabel.setLayoutX((WINDOW_WIDTH/2)-125);
-		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
-		year.setLayoutX((WINDOW_WIDTH/2)-75);
-		year.setLayoutY(WINDOW_HEIGHT*(3/4));
-		enterButton.setLayoutX(WINDOW_WIDTH/2);
-		enterButton.setLayoutY(WINDOW_HEIGHT-150);
+		id.setLayoutX((WINDOW_WIDTH / 2) - 75);
+		id.setLayoutY(WINDOW_HEIGHT / 4);
+		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 125);
+		idLabel.setLayoutY(WINDOW_HEIGHT / 4);
+		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 125);
+		yearLabel.setLayoutY(WINDOW_HEIGHT * (3 / 4));
+		year.setLayoutX((WINDOW_WIDTH / 2) - 75);
+		year.setLayoutY(WINDOW_HEIGHT * (3 / 4));
+		enterButton.setLayoutX(WINDOW_WIDTH / 2);
+		enterButton.setLayoutY(WINDOW_HEIGHT - 150);
 		enterButton.setOnAction(value -> {
 			try {
 				farmOutputPage(primaryStage);
@@ -390,7 +374,7 @@ public class GUI extends Application {
 		root.getChildren().add(idLabel);
 		root.getChildren().add(year);
 		root.getChildren().add(yearLabel);
-		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutY(WINDOW_HEIGHT - 30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
 			try {
@@ -433,7 +417,7 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		//Sends user to annual analysis output page
+		// Sends user to annual analysis output page
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
@@ -446,7 +430,7 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		
+
 		HBox buttons = new HBox(back, enter);
 		buttons.setSpacing(400);
 
@@ -471,7 +455,7 @@ public class GUI extends Application {
 		HBox yearInput = new HBox(new Label("Year     "), new TextField());
 		HBox monthInput = new HBox(new Label("Month "), new TextField());
 		VBox inputs = new VBox(yearInput, monthInput);
-		
+
 		// Sends user back to analysis menu page
 		Button back = new Button("Back");
 		back.setPrefSize(150, 50);
@@ -485,7 +469,7 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		//Sends user to monthly analysis output page
+		// Sends user to monthly analysis output page
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
@@ -498,7 +482,7 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		
+
 		HBox buttons = new HBox(back, enter);
 		buttons.setSpacing(400);
 
@@ -520,7 +504,7 @@ public class GUI extends Application {
 	 */
 	public void dateRangeAnalysisPage(Stage primaryStage) throws Exception {
 		BorderPane pageNineRoot = new BorderPane();
-		//Initialize and combine fields and labels
+		// Initialize and combine fields and labels
 		Label start = new Label("Start");
 		Label end = new Label("End");
 		HBox yearInput = new HBox(new Label("Year     "), new TextField());
@@ -531,7 +515,7 @@ public class GUI extends Application {
 		VBox startInputs = new VBox(start, yearInput, monthInput, dayInput);
 		VBox endInputs = new VBox(end, monthInput2, dayInput2);
 		HBox inputs = new HBox(startInputs, endInputs);
-		
+
 		// Sends user back to analysis menu page
 		Button back = new Button("Back");
 		back.setPrefSize(150, 50);
@@ -545,7 +529,7 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		//Sends user to data range analysis output page
+		// Sends user to data range analysis output page
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
@@ -558,7 +542,7 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		
+
 		HBox buttons = new HBox(back, enter);
 		buttons.setSpacing(400);
 
@@ -583,25 +567,23 @@ public class GUI extends Application {
 		Button backButton = new Button("Back");
 		Button enterButton = new Button("Enter");
 
-
-
 		// Add the vertical box to the center of the root pane
 
-		id.setLayoutX((WINDOW_WIDTH/2)-75);
-		id.setLayoutY(WINDOW_HEIGHT/4);
-		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		idLabel.setLayoutY(WINDOW_HEIGHT/4);
-		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
-		year.setLayoutX((WINDOW_WIDTH/2)-75);
-		year.setLayoutY(WINDOW_HEIGHT*(3/4));
-		enterButton.setLayoutX(WINDOW_WIDTH/2);
-		enterButton.setLayoutY(WINDOW_HEIGHT-150);
+		id.setLayoutX((WINDOW_WIDTH / 2) - 75);
+		id.setLayoutY(WINDOW_HEIGHT / 4);
+		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+		idLabel.setLayoutY(WINDOW_HEIGHT / 4);
+		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+		yearLabel.setLayoutY(WINDOW_HEIGHT * (3 / 4));
+		year.setLayoutX((WINDOW_WIDTH / 2) - 75);
+		year.setLayoutY(WINDOW_HEIGHT * (3 / 4));
+		enterButton.setLayoutX(WINDOW_WIDTH / 2);
+		enterButton.setLayoutY(WINDOW_HEIGHT - 150);
 		root.getChildren().add(id);
 		root.getChildren().add(idLabel);
 		root.getChildren().add(year);
 		root.getChildren().add(yearLabel);
-		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutY(WINDOW_HEIGHT - 30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
 			try {
@@ -620,7 +602,6 @@ public class GUI extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 	}
-	
 
 	/**
 	 * Annual output Page (11)
@@ -640,24 +621,23 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-
-		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		idLabel.setLayoutY(WINDOW_HEIGHT/4);
-		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
-		enterButton.setLayoutX(WINDOW_WIDTH/2);
-		enterButton.setLayoutY(WINDOW_HEIGHT-150);
-		year.setPrefSize(300,75);
-		id.setPrefSize(300,75);
-		id.setLayoutX((WINDOW_WIDTH/2)-60);
-		id.setLayoutY(WINDOW_HEIGHT/4);
-		year.setLayoutX((WINDOW_WIDTH/2)-50);
-		year.setLayoutY(WINDOW_HEIGHT*(3/4));
+		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+		idLabel.setLayoutY(WINDOW_HEIGHT / 4);
+		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+		yearLabel.setLayoutY(WINDOW_HEIGHT * (3 / 4));
+		enterButton.setLayoutX(WINDOW_WIDTH / 2);
+		enterButton.setLayoutY(WINDOW_HEIGHT - 150);
+		year.setPrefSize(300, 75);
+		id.setPrefSize(300, 75);
+		id.setLayoutX((WINDOW_WIDTH / 2) - 60);
+		id.setLayoutY(WINDOW_HEIGHT / 4);
+		year.setLayoutX((WINDOW_WIDTH / 2) - 50);
+		year.setLayoutY(WINDOW_HEIGHT * (3 / 4));
 		root.getChildren().add(id);
 		root.getChildren().add(idLabel);
 		root.getChildren().add(year);
 		root.getChildren().add(yearLabel);
-		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutY(WINDOW_HEIGHT - 30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
 			try {
@@ -695,25 +675,24 @@ public class GUI extends Application {
 		Button enterButton = new Button("Enter");
 
 		// Add the vertical box to the center of the root pane
-		
 
-		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		idLabel.setLayoutY(WINDOW_HEIGHT/4);
-		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
-		enterButton.setLayoutX(WINDOW_WIDTH/2);
-		enterButton.setLayoutY(WINDOW_HEIGHT-150);
-		year.setPrefSize(300,75);
-		id.setPrefSize(300,75);
-		id.setLayoutX((WINDOW_WIDTH/2)-50);
-		id.setLayoutY(WINDOW_HEIGHT/4);
-		year.setLayoutX((WINDOW_WIDTH/2)-40);
-		year.setLayoutY(WINDOW_HEIGHT*(3/4));
+		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+		idLabel.setLayoutY(WINDOW_HEIGHT / 4);
+		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+		yearLabel.setLayoutY(WINDOW_HEIGHT * (3 / 4));
+		enterButton.setLayoutX(WINDOW_WIDTH / 2);
+		enterButton.setLayoutY(WINDOW_HEIGHT - 150);
+		year.setPrefSize(300, 75);
+		id.setPrefSize(300, 75);
+		id.setLayoutX((WINDOW_WIDTH / 2) - 50);
+		id.setLayoutY(WINDOW_HEIGHT / 4);
+		year.setLayoutX((WINDOW_WIDTH / 2) - 40);
+		year.setLayoutY(WINDOW_HEIGHT * (3 / 4));
 		root.getChildren().add(id);
 		root.getChildren().add(idLabel);
 		root.getChildren().add(year);
 		root.getChildren().add(yearLabel);
-		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutY(WINDOW_HEIGHT - 30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
 			try {
@@ -731,7 +710,6 @@ public class GUI extends Application {
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
-
 
 	}
 
@@ -753,24 +731,23 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-
-		idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		idLabel.setLayoutY(WINDOW_HEIGHT/4);
-		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
-		enterButton.setLayoutX(WINDOW_WIDTH/2);
-		enterButton.setLayoutY(WINDOW_HEIGHT-150);
-		year.setPrefSize(300,75);
-		id.setPrefSize(300,75);
-		id.setLayoutX((WINDOW_WIDTH/2)-50);
-		id.setLayoutY(WINDOW_HEIGHT/4);
-		year.setLayoutX((WINDOW_WIDTH/2)-40);
-		year.setLayoutY(WINDOW_HEIGHT*(3/4));
+		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+		idLabel.setLayoutY(WINDOW_HEIGHT / 4);
+		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+		yearLabel.setLayoutY(WINDOW_HEIGHT * (3 / 4));
+		enterButton.setLayoutX(WINDOW_WIDTH / 2);
+		enterButton.setLayoutY(WINDOW_HEIGHT - 150);
+		year.setPrefSize(300, 75);
+		id.setPrefSize(300, 75);
+		id.setLayoutX((WINDOW_WIDTH / 2) - 50);
+		id.setLayoutY(WINDOW_HEIGHT / 4);
+		year.setLayoutX((WINDOW_WIDTH / 2) - 40);
+		year.setLayoutY(WINDOW_HEIGHT * (3 / 4));
 		root.getChildren().add(id);
 		root.getChildren().add(idLabel);
 		root.getChildren().add(year);
 		root.getChildren().add(yearLabel);
-		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutY(WINDOW_HEIGHT - 30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
 			try {
@@ -789,10 +766,6 @@ public class GUI extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 
-
-
 	}
-	
-	
 
 }
