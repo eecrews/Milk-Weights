@@ -46,13 +46,13 @@ public class Driver {
 			}
 		}
 		
-		operator = new MilkOperations<Farm>(Arrays.toArray(farmArray));
+		operator = new MilkOperations<Farm>((Farm[])farmArray.toArray());
 		
 		
 	}
 	
 	public static String printFarmReport(String farmID, int year) {
-		ArrayList<MilkData> milkDataList = operator.farmReport(farmID, year);
+		ArrayList<MilkOperations<Farm>.MilkData> milkDataList = operator.farmReport(farmID, year);
 		String output = "";
 		for(int i=0; i<milkDataList.size(); i++) {
 			output += "\nMonth: " + (i+1) + "\tTotal Weight: " + 
@@ -64,7 +64,7 @@ public class Driver {
 	}
 	
 	public static String printMonthlyReport(int year, int month) {
-		ArrayList<MilkData> milkDataList = operator.MonthlyReport(year, month);
+		ArrayList<MilkOperations<Farm>.MilkData> milkDataList = operator.MonthlyReport(year, month);
 		String output = "";
 		for(int i=0; i<milkDataList.size(); i++) {
 			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + 
@@ -77,7 +77,7 @@ public class Driver {
 	}
 	
 	public static String printDateRangeReport(int year1, int month1, int day1, int year2, int month2, int day2) {
-		ArrayList<MilkData> milkDataList = operator.DateRangeReport(year1, month1, day1, year2, month2, day2);
+		ArrayList<MilkOperations<Farm>.MilkData> milkDataList = operator.DateRangeReport(year1, month1, day1, year2, month2, day2);
 		String output = "";
 		for(int i=0; i<milkDataList.size(); i++) {
 			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + 
