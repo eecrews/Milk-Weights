@@ -55,7 +55,7 @@ public class Driver {
 		ArrayList<MilkData> milkDataList = operator.farmReport(farmID, year);
 		String output = "";
 		for(int i=0; i<milkDataList.size(); i++) {
-			output += "Month: " + (i+1) + "\tTotal Weight: " + 
+			output += "\nMonth: " + (i+1) + "\tTotal Weight: " + 
 					milkDataList.get(i).getAmount() + "\tPercent of yearly weight: " + 
 						milkDataList.get(i).getPercentage();
 		}
@@ -67,7 +67,7 @@ public class Driver {
 		ArrayList<MilkData> milkDataList = operator.MonthlyReport(year, month);
 		String output = "";
 		for(int i=0; i<milkDataList.size(); i++) {
-			output += milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + 
+			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + 
 					milkDataList.get(i).getAmount() + "\tPercent of total for month: " + 
 						milkDataList.get(i).getPercentage();
 		}
@@ -80,7 +80,7 @@ public class Driver {
 		ArrayList<MilkData> milkDataList = operator.DateRangeReport(year1, month1, day1, year2, month2, day2);
 		String output = "";
 		for(int i=0; i<milkDataList.size(); i++) {
-			output += milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + 
+			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + 
 					milkDataList.get(i).getAmount() + "\tPercent of total over range: " + 
 						milkDataList.get(i).getPercentage();
 		}
