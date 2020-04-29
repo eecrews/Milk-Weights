@@ -12,7 +12,7 @@ public class Farm {
 	}
 
 	public void addEntry(int milkWeight, LocalDate date) {
-		entryList.addDay((double) milkWeight, date, farmID);
+		entryList.addDay(milkWeight, date, farmID);
 	}
 
 	public String getID() {
