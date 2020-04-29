@@ -91,4 +91,17 @@ public class Driver {
 		Application.launch(GUI.class, args);
 	}
 
+	public static String printAnnualReport(int year){
+		ArrayList<MilkOperations<Farm>.MilkData> milkDataList = operator.MonthlyReport(year, month);
+		String output = "";
+		for(int i=0; i<milkDataList.size(); i++) {
+			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " +
+					milkDataList.get(i).getAmount() + "\tPercent of total for month: " +
+					milkDataList.get(i).getPercentage();
+		}
+
+		return output;
+
+	}
+
 }

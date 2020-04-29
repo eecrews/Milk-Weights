@@ -22,6 +22,7 @@ public class mArray {
 	public Node getNext(int i) {
 		return year[i].getNext();
 	}
+	public int size() { return year.length;}
 
 	public void addDay(double milk, LocalDate date, String ID) {
 		int index = date.getDayOfYear();
