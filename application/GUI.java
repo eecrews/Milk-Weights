@@ -385,7 +385,7 @@ public class GUI extends Application {
 		enterButton.setLayoutY(WINDOW_HEIGHT - 150);
 		enterButton.setOnAction(value -> {
 			try {
-				farmOutputPage(primaryStage);
+				farmOutputPage(primaryStage, id.getText(), Integer.parseInt(year.getText()));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -530,11 +530,16 @@ public class GUI extends Application {
 		// Initialize and combine fields and labels
 		Label start = new Label("Start");
 		Label end = new Label("End");
-		HBox yearInput = new HBox(new Label("Year     "), new TextField());
-		HBox monthInput = new HBox(new Label("Month "), new TextField());
-		HBox dayInput = new HBox(new Label("Day      "), new TextField());
-		HBox monthInput2 = new HBox(new Label("Month "), new TextField());
-		HBox dayInput2 = new HBox(new Label("Day      "), new TextField());
+		TextField yearEntry = new TextField();
+		TextField monthEntry1 = new TextField();
+		TextField dayEntry1 = new TextField();
+		TextField monthEntry2 = new TextField();
+		TextField dayEntry2 = new TextField();
+		HBox yearInput = new HBox(new Label("Year     "), yearEntry);
+		HBox monthInput = new HBox(new Label("Month "), monthEntry1);
+		HBox dayInput = new HBox(new Label("Day      "), dayEntry1);
+		HBox monthInput2 = new HBox(new Label("Month "), monthEntry2);
+		HBox dayInput2 = new HBox(new Label("Day      "), dayEntry2);
 		VBox startInputs = new VBox(start, yearInput, monthInput, dayInput);
 		VBox endInputs = new VBox(end, monthInput2, dayInput2);
 		HBox inputs = new HBox(startInputs, endInputs);
@@ -552,14 +557,17 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
+		
 		// Sends user to data range analysis output page
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
 		enter.setLayoutY(450);
+		
 		enter.setOnAction(value -> {
 			try {
-				dateRangeOutputPage(primaryStage);
+				dateRangeOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()), Integer.parseInt(monthEntry1.getText()), 
+						Integer.parseInt(dayEntry1.getText()), Integer.parseInt(monthEntry2.getText()), Integer.parseInt(dayEntry2.getText()));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -580,7 +588,7 @@ public class GUI extends Application {
 
 	}
 
-	public void farmOutputPage(Stage primaryStage) throws Exception {
+	public void farmOutputPage(Stage primaryStage, String farmId, int outputYear) throws Exception {
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
 		Label idLabel = new Label("Total Weight: ");
@@ -592,7 +600,7 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-		id.setLayoutX((WINDOW_WIDTH / 2) - 75);
+		/*id.setLayoutX((WINDOW_WIDTH / 2) - 75);
 		id.setLayoutY(WINDOW_HEIGHT / 4);
 		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
 		idLabel.setLayoutY(WINDOW_HEIGHT / 4);
@@ -607,7 +615,12 @@ public class GUI extends Application {
 		root.getChildren().add(year);
 		root.getChildren().add(yearLabel);
 		backButton.setLayoutY(WINDOW_HEIGHT - 30);
-		backButton.setLayoutX(10);
+		backButton.setLayoutX(10);*/
+		
+		Label lab = new Label(Driver.printFarmReport(farmId, outputYear));
+		ScrollPane sp = new ScrollPane(lab);
+		sp.setFitToHeight(true);
+		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		backButton.setOnAction(value -> {
 			try {
 				farmAnalysisPage(primaryStage);
@@ -748,7 +761,7 @@ public class GUI extends Application {
 	 *
 	 * @author Richard
 	 */
-	public void dateRangeOutputPage(Stage primaryStage) {
+	public void dateRangeOutputPage(Stage primaryStage, int year1, int month1, int day1, int month2, int day2) {
 
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
@@ -761,7 +774,7 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+		/*idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
 		idLabel.setLayoutY(WINDOW_HEIGHT / 4);
 		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
 		yearLabel.setLayoutY(WINDOW_HEIGHT * (3 / 4));
@@ -778,7 +791,12 @@ public class GUI extends Application {
 		root.getChildren().add(year);
 		root.getChildren().add(yearLabel);
 		backButton.setLayoutY(WINDOW_HEIGHT - 30);
-		backButton.setLayoutX(10);
+		backButton.setLayoutX(10);*/
+		
+		Label lab = new Label(Driver.printDateRangeReport(year1, month1, day1, month2, day2));
+		ScrollPane sp = new ScrollPane(lab);
+		sp.setFitToHeight(true);
+		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		backButton.setOnAction(value -> {
 			try {
 				dateRangeAnalysisPage(primaryStage);
