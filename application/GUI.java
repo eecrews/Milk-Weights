@@ -719,7 +719,6 @@ public class GUI extends Application {
 			}
 		});
 		root.getChildren().add(backButton);
-		root.getChildren().add(enterButton);
 		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		// Add the stuff and set the primary stage
