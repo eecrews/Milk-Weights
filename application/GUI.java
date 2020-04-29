@@ -152,10 +152,6 @@ public class GUI extends Application {
 		// dataAddPage (#3) -- by Erin
 		BorderPane pageThreeRoot = new BorderPane();
 
-		HBox fileEntry = new HBox(new Label("File location "), new TextField());
-		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, new Button(
-				"Enter"));
-
 		TextField fileEntryField = new TextField();
 		
 		HBox fileEntry = new HBox(new Label("File location "), fileEntryField);

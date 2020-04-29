@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javafx.application.Application;
+
 /**
  * Driver - TODO Describe purpose of this user-defined type
  * 
