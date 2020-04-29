@@ -14,7 +14,7 @@ import javafx.application.Application;
 public class Driver {
 
 	private static ArrayList<Farm> farmArray = new ArrayList<Farm>();
-	private static MilkOperations<Farm> operator;
+	private static MilkOperations operator;
 
 	public static void parseFile(String fileName) {
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
@@ -47,12 +47,12 @@ public class Driver {
 			}
 		}
 
-		operator = new MilkOperations<Farm>((Farm[]) farmArray.toArray());
+		operator = new MilkOperations((Farm[]) farmArray.toArray());
 
 	}
 
 	public static String printFarmReport(String farmID, int year) {
-		ArrayList<MilkOperations<Farm>.MilkData> milkDataList = operator.farmReport(farmID, year);
+		ArrayList<MilkOperations.MilkData> milkDataList = operator.farmReport(farmID, year);
 		String output = "";
 		for (int i = 0; i < milkDataList.size(); i++) {
 			output += "\nMonth: " + (i + 1) + "\tTotal Weight: " + milkDataList.get(i).getAmount()
@@ -63,7 +63,7 @@ public class Driver {
 	}
 
 	public static String printMonthlyReport(int year, int month) {
-		ArrayList<MilkOperations<Farm>.MilkData> milkDataList = operator.MonthlyReport(year, month);
+		ArrayList<MilkOperations.MilkData> milkDataList = operator.MonthlyReport(year, month);
 		String output = "";
 		for (int i = 0; i < milkDataList.size(); i++) {
 			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + milkDataList
@@ -77,7 +77,7 @@ public class Driver {
 
 	public static String printDateRangeReport(int year1, int month1, int day1, int year2,
 			int month2, int day2) {
-		ArrayList<MilkOperations<Farm>.MilkData> milkDataList = operator.DateRangeReport(year1,
+		ArrayList<MilkOperations.MilkData> milkDataList = operator.DateRangeReport(year1,
 				month1, day1, year2, month2, day2);
 		String output = "";
 		for (int i = 0; i < milkDataList.size(); i++) {
@@ -88,22 +88,23 @@ public class Driver {
 
 		return output;
 	}
-	
-	public static void main(String[] args) {
-		Application.launch(GUI.class, args);
-	}
+
 
 	public static String printAnnualReport(int year){
-		ArrayList<MilkOperations<Farm>.MilkData> milkDataList = operator.MonthlyReport(year, month);
+		ArrayList<MilkOperations.MilkData> milkDataList = operator.AnnualReport(year);
 		String output = "";
 		for(int i=0; i<milkDataList.size(); i++) {
 			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " +
-					milkDataList.get(i).getAmount() + "\tPercent of total for month: " +
+					milkDataList.get(i).getAmount() + "\tPercent of total for year: " +
 					milkDataList.get(i).getPercentage();
 		}
 
 		return output;
 
+	}
+	
+	public static void main(String[] args) {
+		Application.launch(GUI.class, args);
 	}
 
 }
