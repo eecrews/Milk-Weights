@@ -3,6 +3,7 @@ package application;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -20,20 +21,22 @@ public class Driver {
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
 		ArrayList<String> farmIDArray = new ArrayList<String>();
 		ArrayList<Integer> weightArray = new ArrayList<Integer>();
-
+		DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-M-d");
+		
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			String line = "";
 			String splitBy = ",";
+			br.readLine();
 			while ((line = br.readLine()) != null) {
 				String[] lineInfo = line.split(splitBy);
-				dateArray.add(LocalDate.parse(lineInfo[0]));
+				dateArray.add(LocalDate.parse(lineInfo[0],df));
 				farmIDArray.add(lineInfo[1]);
 				weightArray.add(Integer.parseInt(lineInfo[2]));
 				
 			} 
 		}
 			catch(Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println(e);
 		}
 
 		for (int i = 0; i < farmIDArray.size(); i++) {
@@ -47,7 +50,7 @@ public class Driver {
 			}
 		}
 
-		operator = new MilkOperations((Farm[]) farmArray.toArray());
+		operator = new MilkOperations(farmArray.toArray(new Farm[farmArray.size()]));
 
 	}
 
