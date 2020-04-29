@@ -158,9 +158,22 @@ public class GUI extends Application {
 				"Enter"));
 		((Labeled) pageThreeRightVbox.getChildren().get(0)).setFont(new Font("Arial", 20));
 
+<<<<<<< HEAD
 		pageThreeRightVbox.setLayoutX(270);
 		pageThreeRightVbox.setLayoutY(150);
 		pageThreeRightVbox.setSpacing(20);
+=======
+		TextField fileEntryField = new TextField();
+		
+		HBox fileEntry = new HBox(new Label("File location "), fileEntryField);
+		Button enterButton = new Button("Enter");
+		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, enterButton);
+		
+		enterButton.setOnAction(e -> Driver.parseFile(fileEntryField.getText()));
+
+
+		pageThreeRoot.setRight(pageThreeRightVbox);
+>>>>>>> 6e8cc207fa927f38debe88679afc4332177c0371
 
 		Button backButton = new Button("Back");
 		backButton.setPrefSize(150, 50);
@@ -453,9 +466,11 @@ public class GUI extends Application {
 	 */
 	public void monthlyAnalysisPage(Stage primaryStage) throws Exception {
 		BorderPane pageEightRoot = new BorderPane();
+		TextField yearEntry = new TextField();
+		TextField monthEntry = new TextField();
 
-		HBox yearInput = new HBox(new Label("Year     "), new TextField());
-		HBox monthInput = new HBox(new Label("Month "), new TextField());
+		HBox yearInput = new HBox(new Label("Year     "), yearEntry);
+		HBox monthInput = new HBox(new Label("Month "), monthEntry);
 		VBox inputs = new VBox(yearInput, monthInput);
 
 		// Sends user back to analysis menu page
@@ -478,7 +493,7 @@ public class GUI extends Application {
 		enter.setLayoutY(450);
 		enter.setOnAction(value -> {
 			try {
-				monthlyOutputPage(primaryStage);
+				monthlyOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()), Integer.parseInt(monthEntry.getText()));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -665,7 +680,7 @@ public class GUI extends Application {
 	 *
 	 * @author Richard
 	 */
-	public void monthlyOutputPage(Stage primaryStage) {
+	public void monthlyOutputPage(Stage primaryStage, int yearInput, int monthInput) {
 
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
@@ -678,23 +693,25 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
-		idLabel.setLayoutY(WINDOW_HEIGHT / 4);
-		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
-		yearLabel.setLayoutY(WINDOW_HEIGHT * (3 / 4));
-		enterButton.setLayoutX(WINDOW_WIDTH / 2);
-		enterButton.setLayoutY(WINDOW_HEIGHT - 150);
-		year.setPrefSize(300, 75);
-		id.setPrefSize(300, 75);
-		id.setLayoutX((WINDOW_WIDTH / 2) - 50);
-		id.setLayoutY(WINDOW_HEIGHT / 4);
-		year.setLayoutX((WINDOW_WIDTH / 2) - 40);
-		year.setLayoutY(WINDOW_HEIGHT * (3 / 4));
+		/*idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		idLabel.setLayoutY(WINDOW_HEIGHT/4);
+		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
+		enterButton.setLayoutX(WINDOW_WIDTH/2);
+		enterButton.setLayoutY(WINDOW_HEIGHT-150);
+		year.setPrefSize(300,75);
+		id.setPrefSize(300,75);
+		id.setLayoutX((WINDOW_WIDTH/2)-50);
+		id.setLayoutY(WINDOW_HEIGHT/4);
+		year.setLayoutX((WINDOW_WIDTH/2)-40);
+		year.setLayoutY(WINDOW_HEIGHT*(3/4));
 		root.getChildren().add(id);
 		root.getChildren().add(idLabel);
 		root.getChildren().add(year);
-		root.getChildren().add(yearLabel);
-		backButton.setLayoutY(WINDOW_HEIGHT - 30);
+		root.getChildren().add(yearLabel); */
+		
+		root.getChildren().add(new Label(Driver.printMonthlyReport(yearInput, monthInput)));
+		backButton.setLayoutY(WINDOW_HEIGHT-30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
 			try {
