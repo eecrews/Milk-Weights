@@ -90,10 +90,10 @@ public class Driver {
 
 	}
 
-	public static String printDateRangeReport(int year1, int month1, int day1, int year2,
+	public static String printDateRangeReport(int year1, int month1, int day1,
 			int month2, int day2) {
 		ArrayList<MilkOperations.MilkData> milkDataList = operator.DateRangeReport(year1,
-				month1, day1, year2, month2, day2);
+				month1, day1, month2, day2);
 		String output = "";
 		for (int i = 0; i < milkDataList.size(); i++) {
 			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + milkDataList
