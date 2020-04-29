@@ -68,7 +68,7 @@ public class MilkOperations {
         }
 
         for(int i=0;i<Farms[ind].getEntryList().size();i++) {
-            if (Farms[ind].getEntryList().getMilkDate(i).getYear()==year) {
+            if (Farms[ind].getEntryList().getMilkDate(i) != null && Farms[ind].getEntryList().getMilkDate(i).getYear()==year) {
                 weight += Farms[ind].getEntryList().getMilkWeight(i);
                 weights.get(Farms[ind].getEntryList().getMilkDate(i).getMonthValue()).addToAmount((int)Farms[ind].getEntryList().getMilkWeight(i));//Adding amount to specific month
             }
@@ -129,7 +129,8 @@ public class MilkOperations {
         int sold = 0;
         for(int i=0;i<Farms.length;i++) {
             for(int j=0;j<Farms[i].entryList.size();j++) {
-                if(Farms[i].getEntryList().getMilkDate(j).getYear()==year && Farms[i].getEntryList().getMilkDate(j).getMonthValue()==month) {
+            	
+                if(Farms[i].getEntryList().getMilkDate(j) != null && Farms[i].getEntryList().getMilkDate(j).getYear()==year && Farms[i].getEntryList().getMilkDate(j).getMonthValue()==month) {
                     sold+=Farms[i].getEntryList().getMilkWeight(j);
                     if(!farms.contains(Farms[i])) farms.add(Farms[i]);
                 }

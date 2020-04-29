@@ -13,14 +13,23 @@ public class mArray {
 	public double getMilkWeight(int i) {
 		return year[i].getMilkWeight();
 	}
+
 	public LocalDate getMilkDate(int i) {
-		return year[i].getMilkDate();
+		if(year[i] != null)
+			return year[i].getMilkDate();
+		return null;
 	}
+
 	public String getFarmID(int i) {
 		return year[i].getFarmID();
 	}
+
 	public Node getNext(int i) {
 		return year[i].getNext();
+	}
+
+	public int size() {
+		return year.length;
 	}
 
 	public void addDay(double milk, LocalDate date, String ID) {
