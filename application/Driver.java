@@ -27,8 +27,11 @@ public class Driver {
 				dateArray.add(LocalDate.parse(lineInfo[0]));
 				farmIDArray.add(lineInfo[1]);
 				weightArray.add(Integer.parseInt(lineInfo[2]));
-
-			}
+				
+			} 
+		}
+			catch(Exception e) {
+				System.out.println(e.getMessage());
 		}
 
 		for (int i = 0; i < farmIDArray.size(); i++) {
@@ -82,6 +85,10 @@ public class Driver {
 		}
 
 		return output;
+	}
+	
+	public static void main(String[] args) {
+		Application.launch(GUI.class, args);
 	}
 
 }
