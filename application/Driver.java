@@ -16,6 +16,7 @@ public class Driver {
 
 	private static ArrayList<Farm> farmArray = new ArrayList<Farm>();
 	private static MilkOperations operator;
+	private static ArrayList<String> farmIDs = new ArrayList<String>();
 
 	public static void parseFile(String fileName) {
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
@@ -40,19 +41,28 @@ public class Driver {
 		}
 
 		for (int i = 0; i < farmIDArray.size(); i++) {
-			if (!farmArray.contains(farmIDArray.get(i))) { // this line might not work, will
-															// .contains be effective
+			if (farmIDs.isEmpty() || !farmIDs.contains(farmIDArray.get(i))) { 
+				
+				farmIDs.add(farmIDArray.get(i));
 				Farm newFarm = new Farm(farmIDArray.get(i));
 				newFarm.addEntry(weightArray.get(i), dateArray.get(i));
 				farmArray.add(newFarm);
+				
 			} else {
-				farmArray.get(i).addEntry(weightArray.get(i), dateArray.get(i));
+				int indexOfRepeat;
+				for(indexOfRepeat=0; i<farmArray.size(); i++) {
+					if(farmArray.get(indexOfRepeat).getID().contentEquals(farmIDArray.get(i)))
+						break;
+				}
+				farmArray.get(indexOfRepeat).addEntry(weightArray.get(i), dateArray.get(i));
 			}
 		}
 
 		operator = new MilkOperations(farmArray.toArray(new Farm[farmArray.size()]));
 
 	}
+	
+
 
 	public static String printFarmReport(String farmID, int year) {
 		ArrayList<MilkOperations.MilkData> milkDataList = operator.farmReport(farmID, year);

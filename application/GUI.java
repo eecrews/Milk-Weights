@@ -7,6 +7,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -700,7 +702,12 @@ public class GUI extends Application {
 		root.getChildren().add(year);
 		root.getChildren().add(yearLabel); */
 		
-		root.getChildren().add(new Label(Driver.printMonthlyReport(yearInput, monthInput)));
+		Label lab = new Label(Driver.printMonthlyReport(yearInput,monthInput));
+		ScrollPane sp = new ScrollPane(lab);
+		sp.setFitToHeight(true);
+		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		
+		root.getChildren().add(sp);
 		backButton.setLayoutY(WINDOW_HEIGHT-30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
