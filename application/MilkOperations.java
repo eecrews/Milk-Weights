@@ -102,7 +102,7 @@ public class MilkOperations {
         int sold = 0;
         for(int i=0;i<Farms.length;i++) {
             for(int j=0;j<Farms[i].entryList.size();j++) {
-                if(Farms[i].getEntryList().getMilkDate(j).getYear()==year) {
+                if(Farms[i].getEntryList().getMilkDate(j) != null && Farms[i].getEntryList().getMilkDate(j).getYear()==year) {
                     sold+=Farms[i].getEntryList().getMilkWeight(j);
                     if(!farms.contains(Farms[i])) farms.add(Farms[i]);
                 }
@@ -110,7 +110,10 @@ public class MilkOperations {
         }
 
         for(int i=0;i<farms.size();i++) {
-            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), getTotal(farmReport(farms.get(i).getID(), year))/sold));
+        	double total = getTotal(farmReport(farms.get(i).getID(), year));
+        	double percent = total * 100 / sold;
+        	
+            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), percent));
 
         }
         Collections.sort(weights);

@@ -106,12 +106,14 @@ public class Driver {
 
 
 	public static String printAnnualReport(int year){
+		DecimalFormat df = new DecimalFormat("#.####");
 		ArrayList<MilkOperations.MilkData> milkDataList = operator.AnnualReport(year);
 		String output = "";
 		for(int i=0; i<milkDataList.size(); i++) {
 			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " +
 					milkDataList.get(i).getAmount() + "\tPercent of total for year: " +
-					milkDataList.get(i).getPercentage();
+					df.format(milkDataList.get(i)
+							.getPercentage());
 		}
 
 		return output; 
