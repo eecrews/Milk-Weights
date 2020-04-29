@@ -6,6 +6,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -150,13 +151,16 @@ public class GUI extends Application {
 
 	public void dataEntryPage(Stage primaryStage) throws Exception {
 		// dataAddPage (#3) -- by Erin
-		BorderPane pageThreeRoot = new BorderPane();
+		Pane pageThreeRoot = new Pane();
 
-		HBox fileEntry = new HBox(new Label("File location "), new TextField());
+		HBox fileEntry = new HBox(new Label("File location: "), new TextField());
 		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, new Button(
 				"Enter"));
+		((Labeled) pageThreeRightVbox.getChildren().get(0)).setFont(new Font("Arial", 20));
 
-		pageThreeRoot.setRight(pageThreeRightVbox);
+		pageThreeRightVbox.setLayoutX(270);
+		pageThreeRightVbox.setLayoutY(150);
+		pageThreeRightVbox.setSpacing(20);
 
 		Button backButton = new Button("Back");
 		backButton.setPrefSize(150, 50);
@@ -170,7 +174,7 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		pageThreeRoot.setBottom(backButton);
+		pageThreeRoot.getChildren().addAll(pageThreeRightVbox, backButton);
 
 		Scene dataEntryPage = new Scene(pageThreeRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -271,16 +275,20 @@ public class GUI extends Application {
 		// jk it's by Akshay
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
+
 		Button farmReportButton = new Button("Farm Report");
-		Button AnnualReportButton = new Button("Annual Report");
-		Button MonthlyReportButton = new Button("Monthly Report");
-		Button RangeReportButton = new Button("Date Range Report");
+		Button annualReportButton = new Button("Annual Report");
+		Button monthlyReportButton = new Button("Monthly Report");
+		Button rangeReportButton = new Button("Date Range Report");
 		Button backButton = new Button("Back");
+		VBox buttonBox = new VBox(farmReportButton, annualReportButton, monthlyReportButton,
+				rangeReportButton);
+		buttonBox.setLayoutX(270);
+		buttonBox.setLayoutY(150);
+		buttonBox.setSpacing(10);
 
 		// Add the vertical box to the center of the root pane
 
-		farmReportButton.setLayoutX(WINDOW_WIDTH / 2);
-		farmReportButton.setLayoutY(WINDOW_HEIGHT / 4);
 		farmReportButton.setOnAction(value -> {
 			try {
 				farmAnalysisPage(primaryStage);
@@ -289,27 +297,23 @@ public class GUI extends Application {
 			}
 		});
 
-		AnnualReportButton.setLayoutX(WINDOW_WIDTH / 2);
-		AnnualReportButton.setLayoutY(WINDOW_HEIGHT / 2);
-		AnnualReportButton.setOnAction(value -> {
+		annualReportButton.setOnAction(value -> {
 			try {
 				annualAnalysisPage(primaryStage);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
-		MonthlyReportButton.setLayoutX(WINDOW_WIDTH / 2);
-		MonthlyReportButton.setLayoutY((3 / 4) * WINDOW_HEIGHT);
-		MonthlyReportButton.setOnAction(value -> {
+
+		monthlyReportButton.setOnAction(value -> {
 			try {
 				monthlyAnalysisPage(primaryStage);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
-		RangeReportButton.setLayoutX(WINDOW_WIDTH / 2);
-		RangeReportButton.setLayoutY(WINDOW_HEIGHT - (WINDOW_HEIGHT / 4));
-		RangeReportButton.setOnAction(value -> {
+
+		rangeReportButton.setOnAction(value -> {
 			try {
 				dateRangeAnalysisPage(primaryStage);
 			} catch (Exception e) {
@@ -324,13 +328,11 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		root.getChildren().add(farmReportButton);
-		root.getChildren().add(AnnualReportButton);
-		root.getChildren().add(MonthlyReportButton);
-		root.getChildren().add(RangeReportButton);
-		backButton.setLayoutY(WINDOW_HEIGHT - 30);
-		backButton.setLayoutX(10);
-		root.getChildren().add(backButton);
+		backButton.setPrefSize(150, 50);
+		backButton.setLayoutX(0);
+		backButton.setLayoutY(450);
+
+		root.getChildren().addAll(buttonBox, backButton);
 		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		// Add the stuff and set the primary stage
