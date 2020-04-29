@@ -18,9 +18,9 @@ public class MilkOperations {
     public class MilkData implements Comparable<MilkData> {
         Farm F;
         int amount;
-        int percentage;
+        double percentage;
 
-        public MilkData(Farm temp, int a, int p) {
+        public MilkData(Farm temp, int a, double p) {
             F=temp;
             amount=a;
             percentage=p;
@@ -31,13 +31,13 @@ public class MilkOperations {
         public int getAmount() {
             return amount;
         }
-        public int getPercentage() {
+        public double getPercentage() {
             return percentage;
         }
         public void addToAmount(int add) {
             amount+=add;
         }
-        public void setPercentage(int p) {
+        public void setPercentage(double p) {
             percentage=p;
         }
 
@@ -138,7 +138,10 @@ public class MilkOperations {
         }
 
         for(int i=0;i<farms.size();i++) {
-            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), getTotal(farmReport(farms.get(i).getID(), year))/sold));
+        	double total = getTotal(farmReport(farms.get(i).getID(), year));
+        	double percent = total * 100 / sold;
+        	
+            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), percent));
 
         }
         Collections.sort(weights);

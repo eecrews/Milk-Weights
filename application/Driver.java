@@ -2,6 +2,7 @@ package application;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -76,12 +77,13 @@ public class Driver {
 	}
 
 	public static String printMonthlyReport(int year, int month) {
+		DecimalFormat df = new DecimalFormat("#.####");
 		ArrayList<MilkOperations.MilkData> milkDataList = operator.MonthlyReport(year, month);
 		String output = "";
 		for (int i = 0; i < milkDataList.size(); i++) {
 			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + milkDataList
-					.get(i).getAmount() + "\tPercent of total for month: " + milkDataList.get(i)
-							.getPercentage();
+					.get(i).getAmount() + "\tPercent of total for month: " + df.format(milkDataList.get(i)
+							.getPercentage());
 		}
 
 		return output;
