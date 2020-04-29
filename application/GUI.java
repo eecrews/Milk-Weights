@@ -1,6 +1,7 @@
 package application;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -141,8 +142,21 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
+		
+		Button exitButton = new Button("Exit");
+		exitButton.setPrefSize(150, 50);
+		exitButton.setLayoutX(550);
+		exitButton.setLayoutY(0);
+		exitButton.setOnAction(value -> {
+            try {
+                Platform.exit();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
 
-		pageTwoRoot.getChildren().addAll(centerBox, b4, b5);
+		pageTwoRoot.getChildren().addAll(centerBox, b4, exitButton, b5);
 		Scene menuPage = new Scene(pageTwoRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		primaryStage.setTitle(APP_TITLE);
