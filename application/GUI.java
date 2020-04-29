@@ -416,54 +416,56 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Annual Analysis Page (7)
-	 * 
-	 * @author Taidgh
-	 */
-	public void annualAnalysisPage(Stage primaryStage) throws Exception {
-		BorderPane pageSevenRoot = new BorderPane();
+   * Annual Analysis Page (7)
+   * 
+   * @author Taidgh
+   */
+  public void annualAnalysisPage(Stage primaryStage) throws Exception {
+    BorderPane pageSevenRoot = new BorderPane();
+    TextField yearEntry = new TextField();
 
-		HBox yearInput = new HBox(new Label("Year "), new TextField());
+    HBox yearInput = new HBox(new Label("Year     "), yearEntry);
 
-		// Sends user back to analysis menu page
-		Button back = new Button("Back");
-		back.setPrefSize(150, 50);
-		back.setLayoutX(0);
-		back.setLayoutY(450);
-		back.setOnAction(value -> {
-			try {
-				analysisMenuPage(primaryStage);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
-		// Sends user to annual analysis output page
-		Button enter = new Button("Enter");
-		enter.setPrefSize(150, 50);
-		enter.setLayoutX(550);
-		enter.setLayoutY(450);
-		enter.setOnAction(value -> {
-			try {
-				annualOutputPage(primaryStage);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
 
-		HBox buttons = new HBox(back, enter);
-		buttons.setSpacing(400);
+    // Sends user back to analysis menu page
+    Button back = new Button("Back");
+    back.setPrefSize(150, 50);
+    back.setLayoutX(0);
+    back.setLayoutY(450);
+    back.setOnAction(value -> {
+      try {
+        analysisMenuPage(primaryStage);
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    });
+    // Sends user to annual analysis output page
+    Button enter = new Button("Enter");
+    enter.setPrefSize(150, 50);
+    enter.setLayoutX(550);
+    enter.setLayoutY(450);
+    enter.setOnAction(value -> {
+      try {
+        annualOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()));
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    });
 
-		pageSevenRoot.setTop(yearInput);
-		pageSevenRoot.setBottom(buttons);
+    HBox buttons = new HBox(back, enter);
+    buttons.setSpacing(400);
 
-		Scene annualAnalysisPage = new Scene(pageSevenRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+    pageSevenRoot.setTop(yearInput);
+    pageSevenRoot.setBottom(buttons);
 
-		primaryStage.setTitle(APP_TITLE);
-		primaryStage.setScene(annualAnalysisPage);
-		primaryStage.show();
-	}
+    Scene annualAnalysisPage = new Scene(pageSevenRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    primaryStage.setTitle(APP_TITLE);
+    primaryStage.setScene(annualAnalysisPage);
+    primaryStage.show();
+  }
 
 	/**
 	 * Monthly Analysis Page (8)
@@ -645,54 +647,60 @@ public class GUI extends Application {
 	 * @author Richard
 	 */
 
-	public void annualOutputPage(Stage primaryStage) {
-		// Main layout is Border Pane example (top,left,center,right,bottom)
-		Pane root = new Pane();
-		Label idLabel = new Label("Annual Total Weight: ");
-		ListView id = new ListView();
-		Label yearLabel = new Label("Annual Percent of Total: ");
-		ListView year = new ListView();
-		Button backButton = new Button("Back");
-		Button enterButton = new Button("Enter");
-
-		// Add the vertical box to the center of the root pane
-
-		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
-		idLabel.setLayoutY(WINDOW_HEIGHT / 4);
-		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
-		yearLabel.setLayoutY(WINDOW_HEIGHT * (3 / 4));
-		enterButton.setLayoutX(WINDOW_WIDTH / 2);
-		enterButton.setLayoutY(WINDOW_HEIGHT - 150);
-		year.setPrefSize(300, 75);
-		id.setPrefSize(300, 75);
-		id.setLayoutX((WINDOW_WIDTH / 2) - 60);
-		id.setLayoutY(WINDOW_HEIGHT / 4);
-		year.setLayoutX((WINDOW_WIDTH / 2) - 50);
-		year.setLayoutY(WINDOW_HEIGHT * (3 / 4));
-		root.getChildren().add(id);
-		root.getChildren().add(idLabel);
-		root.getChildren().add(year);
-		root.getChildren().add(yearLabel);
-		backButton.setLayoutY(WINDOW_HEIGHT - 30);
-		backButton.setLayoutX(10);
-		backButton.setOnAction(value -> {
-			try {
-				annualAnalysisPage(primaryStage);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
-		root.getChildren().add(backButton);
-		root.getChildren().add(enterButton);
-		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-		// Add the stuff and set the primary stage
-		primaryStage.setTitle(APP_TITLE);
-		primaryStage.setScene(mainScene);
-		primaryStage.show();
-
-	}
+	 public void annualOutputPage(Stage primaryStage, int yearInput) {
+      // Main layout is Border Pane example (top,left,center,right,bottom)
+      Pane root = new Pane();
+      Label idLabel = new Label("Annual Total Weight: ");
+      ListView id = new ListView();
+      Label yearLabel = new Label("Annual Percent of Total: ");
+      ListView year = new ListView();
+      Button backButton = new Button("Back");
+      Button enterButton = new Button("Enter");
+  
+      // Add the vertical box to the center of the root pane
+  
+  //    idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+  //    idLabel.setLayoutY(WINDOW_HEIGHT / 4);
+  //    yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+  //    yearLabel.setLayoutY(WINDOW_HEIGHT * (3 / 4));
+  //    enterButton.setLayoutX(WINDOW_WIDTH / 2);
+  //    enterButton.setLayoutY(WINDOW_HEIGHT - 150);
+  //    year.setPrefSize(300, 75);
+  //    id.setPrefSize(300, 75);
+  //    id.setLayoutX((WINDOW_WIDTH / 2) - 60);
+  //    id.setLayoutY(WINDOW_HEIGHT / 4);
+  //    year.setLayoutX((WINDOW_WIDTH / 2) - 50);
+  //    year.setLayoutY(WINDOW_HEIGHT * (3 / 4));
+  //    root.getChildren().add(id);
+  //    root.getChildren().add(idLabel);
+  //    root.getChildren().add(year);
+  //    root.getChildren().add(yearLabel);
+      Label lab = new Label(Driver.printAnnualReport(yearInput));
+      ScrollPane sp = new ScrollPane(lab);
+      sp.setFitToHeight(true);
+      sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+  
+      root.getChildren().add(sp);
+      backButton.setLayoutY(WINDOW_HEIGHT - 30);
+      backButton.setLayoutX(10);
+      backButton.setOnAction(value -> {
+        try {
+          annualAnalysisPage(primaryStage);
+        } catch (Exception e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      });
+      root.getChildren().add(backButton);
+      root.getChildren().add(enterButton);
+      Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+  
+      // Add the stuff and set the primary stage
+      primaryStage.setTitle(APP_TITLE);
+      primaryStage.setScene(mainScene);
+      primaryStage.show();
+  
+    }
 
 	/**
 	 * Monthly Output Page (12)
