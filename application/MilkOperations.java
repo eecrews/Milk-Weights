@@ -148,9 +148,9 @@ public class MilkOperations {
         return weights;
     }
 
-    public ArrayList<MilkData> DateRangeReport(int year1, int month1, int day1, int year2, int month2, int day2) {
+    public ArrayList<MilkData> DateRangeReport(int year1, int month1, int day1, int month2, int day2) {
         LocalDate D1 = LocalDate.of((Integer)year1, (Integer)month1, (Integer)day1);
-        LocalDate D2 = LocalDate.of((Integer)year2, (Integer)month2, (Integer)day2);
+        LocalDate D2 = LocalDate.of((Integer)year1, (Integer)month2, (Integer)day2);
         ArrayList<MilkData> weights = new ArrayList<MilkData>();
         ArrayList<Farm> farms = new ArrayList<Farm>();
         int sold = 0;
