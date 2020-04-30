@@ -35,12 +35,6 @@ public class GUI extends Application {
 	private static final int WINDOW_HEIGHT = 500;
 	private static final String APP_TITLE = "Milk Weights";
 
-	private static final HBox idEntry = new HBox(new Label(" Farm ID "), new TextField());
-	private static final HBox yearEntry = new HBox(new Label(" Year "), new TextField());
-	private static final HBox monthEntry = new HBox(new Label(" Month "), new TextField());
-	private static final HBox dateEntry = new HBox(new Label(" Date "), new TextField());
-	private static final HBox weightEntry = new HBox(new Label(" Weight "), new TextField());
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// landingPage (#1) -- by Tushar

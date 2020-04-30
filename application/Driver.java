@@ -28,8 +28,6 @@ public class Driver {
 		public InformationOmittedException(String errorMessage) {
 			super(errorMessage);
 		}
-		
-
 	}
 	
 	public static class FarmDoesNotExistException extends Exception {
