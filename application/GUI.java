@@ -181,8 +181,10 @@ public class GUI extends Application {
 		Alert informationOmitted = new Alert(AlertType.ERROR);
 
 		Pane pageThreeRoot = new Pane();
+		
+		TextField fileEntryField = new TextField();
 
-		HBox fileEntry = new HBox(new Label("File location: "), new TextField());
+		HBox fileEntry = new HBox(new Label("File location: "), fileEntryField);
 		Button enterButton = new Button("Enter");
 		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, enterButton);
 		
@@ -206,14 +208,10 @@ public class GUI extends Application {
 		});
 		
 
-		pageThreeRoot.setRight(pageThreeRightVbox);
-
 		((Labeled) pageThreeRightVbox.getChildren().get(0)).setFont(new Font("Arial", 20));
 		pageThreeRightVbox.setLayoutX(270);
 		pageThreeRightVbox.setLayoutY(150);
 		pageThreeRightVbox.setSpacing(20);
-		TextField fileEntryField = new TextField();
-		enterButton.setOnAction(e -> Driver.parseFile(fileEntryField.getText()));
 
 		Button backButton = new Button("Back");
 		backButton.setPrefSize(150, 50);
@@ -909,6 +907,7 @@ public class GUI extends Application {
 		primaryStage.show();
 
 	}
-
 }
+
+
 
