@@ -2,6 +2,7 @@ package application;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -175,6 +176,8 @@ public class GUI extends Application {
 		Alert fileNotFound = new Alert(AlertType.ERROR);
 		fileNotFound.setContentText("File not found. Please try again.");
 		
+		Alert informationOmitted = new Alert(AlertType.ERROR);
+		
 		BorderPane pageThreeRoot = new BorderPane();
 
 		TextField fileEntryField = new TextField();
@@ -188,7 +191,16 @@ public class GUI extends Application {
 				Driver.parseFile(fileEntryField.getText());
 			} catch (FileNotFoundException e1) {
 				fileNotFound.showAndWait();
-			} catch (IOException e1) {
+			} catch(Driver.InformationOmittedException e1) {
+				ArrayList<Integer> linesOmitted = e1.getLinesOmitted();
+				String lines = "";
+				for(int i=0; i<linesOmitted.size(); i++) {
+					lines += linesOmitted.get(i).toString() + ", ";
+				}
+				informationOmitted.setContentText("Lines " + lines + " omitted due to missing information.");
+				informationOmitted.showAndWait();
+			}
+			catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		});

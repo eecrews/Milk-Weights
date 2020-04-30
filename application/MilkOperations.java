@@ -159,9 +159,7 @@ public class MilkOperations {
         int sold = 0;
         for(int i=0;i<Farms.length;i++) {
             for(int j=0;j<Farms[i].entryList.size();j++) {
-                LocalDate D3 = LocalDate.of((Integer)Farms[i].getEntryList().getMilkDate(j).getYear(),
-                        (Integer)Farms[i].getEntryList().getMilkDate(j).getMonthValue(),
-                        (Integer)Farms[i].getEntryList().getMilkDate(j).getDayOfMonth());
+                LocalDate D3 = Farms[i].getEntryList().getMilkDate(j);
                 if(D3.compareTo(D1)==1&&D3.compareTo(D2)==-1) {//is in year range
                     sold+=Farms[i].getEntryList().getMilkWeight(j);
                     if(!farms.contains(Farms[i])) farms.add(Farms[i]);
