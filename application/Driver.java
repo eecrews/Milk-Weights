@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -40,31 +42,38 @@ public class Driver {
 	private static MilkOperations operator;
 	private static ArrayList<String> farmIDs = new ArrayList<String>();
 
-	public static void parseFile(String fileName) throws FileNotFoundException, IOException, InformationOmittedException {
+	public static void parseFile(String fileName) throws FileNotFoundException, IOException, NumberFormatException {
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
 		ArrayList<String> farmIDArray = new ArrayList<String>();
-		ArrayList<Integer> weightArray = new ArrayList<Integer>();
-		DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-M-d");
+		ArrayList<Double> weightArray = new ArrayList<Double>();
+		//DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-M-d");
 		
-		ArrayList<Integer> linesOmitted = new ArrayList<Integer>();
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+	            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d"))
+	            .appendOptional(DateTimeFormatter.ofPattern(("yyyy-MM-d")))
+	            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+	            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-dd"))
+	            .toFormatter();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			String line = "";
 			String splitBy = ",";
 			br.readLine();
-			int lineNumber = 1;
 			while ((line = br.readLine()) != null) {
-				String[] lineInfo = line.split(splitBy);
-				if(lineInfo[0] == null || lineInfo[1] == null || lineInfo[2] == null) {
-					linesOmitted.add(lineNumber);
-					lineNumber++;
+				try {
+					String[] lineInfo = line.split(splitBy);
+					if(lineInfo[0] == null || lineInfo[1] == null || lineInfo[2] == null) {
+						continue;
+					}
+						dateArray.add(LocalDate.parse(lineInfo[0],formatter));
+						farmIDArray.add(lineInfo[1]);
+						weightArray.add(Double.parseDouble(lineInfo[2]));
+				} catch(DateTimeParseException e1) {
+					continue;
+				} catch(NumberFormatException e1) {
 					continue;
 				}
-					dateArray.add(LocalDate.parse(lineInfo[0],df));
-					farmIDArray.add(lineInfo[1]);
-					weightArray.add(Integer.parseInt(lineInfo[2]));
-					lineNumber++;
-			} 
+			}
 		} 
 
 
@@ -78,7 +87,7 @@ public class Driver {
 				
 			} else {
 				int indexOfRepeat;
-				for(indexOfRepeat=0; i<farmArray.size(); i++) {
+				for(indexOfRepeat=0; indexOfRepeat<farmArray.size(); indexOfRepeat++) {
 					if(farmArray.get(indexOfRepeat).getID().contentEquals(farmIDArray.get(i)))
 						break;
 				}
@@ -88,12 +97,19 @@ public class Driver {
 
 		operator = new MilkOperations(farmArray.toArray(new Farm[farmArray.size()]));
 		
-		if(!linesOmitted.isEmpty()) {
-			throw new InformationOmittedException(linesOmitted);
-		}
 
 	}
 	
+	public static String printFarms() {
+		String output = "";
+		for(int i=0; i<farmArray.size(); i++) {
+			output+= farmArray.get(i).getID() + "\n";
+			output += farmArray.get(i).printAllEntries();
+			output += "\n\n";
+		}
+		
+		return output;
+	}
 
 
 	public static String printFarmReport(String farmID, int year) {
@@ -123,8 +139,7 @@ public class Driver {
 
 	public static String printDateRangeReport(int year1, int month1, int day1,
 			int month2, int day2) {
-		ArrayList<MilkOperations.MilkData> milkDataList = operator.DateRangeReport(year1,
-				month1, day1, month2, day2);
+		ArrayList<MilkOperations.MilkData> milkDataList = operator.DateRangeReport(year1, month1, day1, month2, day2);
 		String output = "";
 		for (int i = 0; i < milkDataList.size(); i++) {
 			output += "\n" + milkDataList.get(i).getF().getID() + ":\tTotal Weight: " + milkDataList

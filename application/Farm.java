@@ -11,7 +11,7 @@ public class Farm {
 		entryList = new mArray();
 	}
 
-	public void addEntry(int milkWeight, LocalDate date) {
+	public void addEntry(double milkWeight, LocalDate date) {
 		entryList.addDay(milkWeight, date, farmID);
 	}
 
@@ -23,7 +23,7 @@ public class Farm {
 		return entryList;
 	}
 
-	public int getMilkWeight(LocalDate date) {
+	public double getMilkWeight(LocalDate date) {
 		Node[] entries = entryList.year;
 		Node entryFound = null;
 		for (Node entry : entries) {
@@ -32,7 +32,18 @@ public class Farm {
 		}
 		if (entryFound == null)
 			return -1;
-		return (int) entryFound.milkWeight;
+		return entryFound.milkWeight;
+	}
+	
+	public String printAllEntries() {
+		String output = "";
+		for(int i=0; i<entryList.size(); i++) {
+			if(entryList.getMilkWeight(i) != 0 && 
+					entryList.getMilkDate(i) != null)
+				output += entryList.getMilkWeight(i) + "\t\t" + entryList.getMilkDate(i).getDayOfMonth() + "\n";
+		}
+		
+		return output;
 	}
 
 }

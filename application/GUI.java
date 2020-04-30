@@ -178,6 +178,7 @@ public class GUI extends Application {
 		fileNotFound.setContentText("File not found. Please try again.");
 
 		Alert informationOmitted = new Alert(AlertType.ERROR);
+		informationOmitted.setContentText("Lines were omitted due to missing information.");
 
 		Pane pageThreeRoot = new Pane();
 
@@ -192,14 +193,7 @@ public class GUI extends Application {
 				Driver.parseFile(fileEntryField.getText());
 			} catch (FileNotFoundException e1) {
 				fileNotFound.showAndWait();
-			} catch (Driver.InformationOmittedException e1) {
-				ArrayList<Integer> linesOmitted = e1.getLinesOmitted();
-				String lines = "";
-				for (int i = 0; i < linesOmitted.size(); i++) {
-					lines += linesOmitted.get(i).toString() + ", ";
-				}
-				informationOmitted.setContentText("Lines " + lines
-						+ " omitted due to missing information.");
+			} catch (NumberFormatException e1) {
 				informationOmitted.showAndWait();
 			} catch (IOException e1) {
 				e1.printStackTrace();

@@ -11,7 +11,9 @@ public class mArray {
 	}
 
 	public double getMilkWeight(int i) {
-		return year[i].getMilkWeight();
+		if(year[i] != null)
+			return year[i].getMilkWeight();
+		return 0;
 	}
 
 	public LocalDate getMilkDate(int i) {
