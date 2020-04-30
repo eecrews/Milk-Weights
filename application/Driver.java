@@ -67,6 +67,7 @@ public class Driver {
 			} 
 		} 
 
+
 		for (int i = 0; i < farmIDArray.size(); i++) {
 			if (farmIDs.isEmpty() || !farmIDs.contains(farmIDArray.get(i))) { 
 				
@@ -132,6 +133,10 @@ public class Driver {
 		}
 
 		return output;
+	}
+	
+	public static void main(String[] args) {
+		Application.launch(GUI.class, args);
 	}
 
 
