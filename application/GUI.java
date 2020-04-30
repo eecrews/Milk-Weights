@@ -172,12 +172,15 @@ public class GUI extends Application {
 
 		Alert informationOmitted = new Alert(AlertType.ERROR);
 		informationOmitted.setContentText("Lines were omitted due to missing information.");
+		
+		Alert incorrectFile = new Alert(AlertType.ERROR);
+		incorrectFile.setContentText("Wrong file type used.");
 
 		Pane pageThreeRoot = new Pane();
 
 		TextField fileEntryField = new TextField();
 
-		HBox fileEntry = new HBox(new Label("File location: "), fileEntryField);
+		HBox fileEntry = new HBox(new Label("File location(.csv): "), fileEntryField);
 		Button enterButton = new Button("Enter");
 		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, enterButton);
 
@@ -188,6 +191,8 @@ public class GUI extends Application {
 				fileNotFound.showAndWait();
 			} catch (Driver.InformationOmittedException e1) {
 				informationOmitted.showAndWait();
+			} catch(Driver.IncorrectFileTypeException e1) {
+				incorrectFile.showAndWait();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -858,6 +863,7 @@ public class GUI extends Application {
 		sp.setPannable(true);
 		sp.setVisible(true);
 		root.getChildren().add(sp);
+		
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
 		backButton.setOnAction(value -> {
