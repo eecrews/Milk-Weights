@@ -174,39 +174,37 @@ public class GUI extends Application {
 	public void dataEntryPage(Stage primaryStage) throws Exception {
 		// dataAddPage (#3) -- by Erin
 
-		
 		Alert fileNotFound = new Alert(AlertType.ERROR);
 		fileNotFound.setContentText("File not found. Please try again.");
-		
+
 		Alert informationOmitted = new Alert(AlertType.ERROR);
 
 		Pane pageThreeRoot = new Pane();
-		
+
 		TextField fileEntryField = new TextField();
 
 		HBox fileEntry = new HBox(new Label("File location: "), fileEntryField);
 		Button enterButton = new Button("Enter");
 		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, enterButton);
-		
+
 		enterButton.setOnAction(e -> {
 			try {
 				Driver.parseFile(fileEntryField.getText());
 			} catch (FileNotFoundException e1) {
 				fileNotFound.showAndWait();
-			} catch(Driver.InformationOmittedException e1) {
+			} catch (Driver.InformationOmittedException e1) {
 				ArrayList<Integer> linesOmitted = e1.getLinesOmitted();
 				String lines = "";
-				for(int i=0; i<linesOmitted.size(); i++) {
+				for (int i = 0; i < linesOmitted.size(); i++) {
 					lines += linesOmitted.get(i).toString() + ", ";
 				}
-				informationOmitted.setContentText("Lines " + lines + " omitted due to missing information.");
+				informationOmitted.setContentText("Lines " + lines
+						+ " omitted due to missing information.");
 				informationOmitted.showAndWait();
-			}
-			catch (IOException e1) {
+			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		});
-		
 
 		((Labeled) pageThreeRightVbox.getChildren().get(0)).setFont(new Font("Arial", 20));
 		pageThreeRightVbox.setLayoutX(270);
@@ -462,7 +460,7 @@ public class GUI extends Application {
 	 */
 	public void annualAnalysisPage(Stage primaryStage) throws Exception {
 		Pane pageSevenRoot = new Pane();
-    TextField yearEntry = new TextField();
+		TextField yearEntry = new TextField();
 
 		HBox yearInput = new HBox(new Label("Enter the year: "), yearEntry);
 		((Labeled) yearInput.getChildren().get(0)).setFont(new Font("Arial", 20));
@@ -571,7 +569,7 @@ public class GUI extends Application {
 		Label start = new Label("Start");
 		start.setFont(new Font("Times New Roman", 20));
 		Label end = new Label("End");
-    end.setFont(new Font("Times New Roman", 20));
+		end.setFont(new Font("Times New Roman", 20));
 		TextField yearEntry = new TextField();
 		TextField monthEntry1 = new TextField();
 		TextField dayEntry1 = new TextField();
@@ -603,17 +601,19 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		
+
 		// Sends user to data range analysis output page
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
 		enter.setLayoutY(450);
-		
+
 		enter.setOnAction(value -> {
 			try {
-				dateRangeOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()), Integer.parseInt(monthEntry1.getText()), 
-						Integer.parseInt(dayEntry1.getText()), Integer.parseInt(monthEntry2.getText()), Integer.parseInt(dayEntry2.getText()));
+				dateRangeOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()), Integer
+						.parseInt(monthEntry1.getText()), Integer.parseInt(dayEntry1.getText()),
+						Integer.parseInt(monthEntry2.getText()), Integer.parseInt(dayEntry2
+								.getText()));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -657,28 +657,21 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-
 		/*
-		id.setLayoutX((WINDOW_WIDTH / 2) - 75);
-		id.setLayoutY(150);
-		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
-		idLabel.setLayoutY(150);
-		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
-		yearLabel.setLayoutY(250);
-		year.setLayoutX((WINDOW_WIDTH / 2) - 75);
-		year.setLayoutY(250);
-		root.getChildren().add(id);
-		root.getChildren().add(idLabel);
-		root.getChildren().add(year);
-		root.getChildren().add(yearLabel);
-		backButton.setLayoutY(WINDOW_HEIGHT - 30);
-		backButton.setLayoutX(10);*/
-		
+		 * id.setLayoutX((WINDOW_WIDTH / 2) - 75); id.setLayoutY(150);
+		 * idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); idLabel.setLayoutY(150);
+		 * yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); yearLabel.setLayoutY(250);
+		 * year.setLayoutX((WINDOW_WIDTH / 2) - 75); year.setLayoutY(250);
+		 * root.getChildren().add(id); root.getChildren().add(idLabel);
+		 * root.getChildren().add(year); root.getChildren().add(yearLabel);
+		 * backButton.setLayoutY(WINDOW_HEIGHT - 30); backButton.setLayoutX(10);
+		 */
+
 		Label lab = new Label(Driver.printFarmReport(farmId, outputYear));
 		ScrollPane sp = new ScrollPane(lab);
 		sp.setFitToHeight(true);
 		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		
+
 		root.getChildren().add(sp);
 
 		backButton.setLayoutY(450);
@@ -731,28 +724,23 @@ public class GUI extends Application {
 		root.getChildren().add(enterButton);
 
 		// Add the vertical box to the center of the root pane
-  
-  Label lab = new Label(Driver.printAnnualReport(yearInput));
-      ScrollPane sp = new ScrollPane(lab);
-      sp.setFitToHeight(true);
-      sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-  
-      root.getChildren().add(sp);
 
-		/*idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
-		idLabel.setLayoutY(150);
-		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 190);
-		yearLabel.setLayoutY(250);
-		year.setPrefSize(300, 75);
-		id.setPrefSize(300, 75);
-		id.setLayoutX((WINDOW_WIDTH / 2) - 60);
-		id.setLayoutY(150);
-		year.setLayoutX((WINDOW_WIDTH / 2) - 60);
-		year.setLayoutY(250);
-		root.getChildren().add(id);
-		root.getChildren().add(idLabel);
-		root.getChildren().add(year);
-		root.getChildren().add(yearLabel);*/ 
+		Label lab = new Label(Driver.printAnnualReport(yearInput));
+		ScrollPane sp = new ScrollPane(lab);
+		sp.setFitToHeight(true);
+		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+
+		root.getChildren().add(sp);
+
+		/*
+		 * idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); idLabel.setLayoutY(150);
+		 * yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 190); yearLabel.setLayoutY(250);
+		 * year.setPrefSize(300, 75); id.setPrefSize(300, 75);
+		 * id.setLayoutX((WINDOW_WIDTH / 2) - 60); id.setLayoutY(150);
+		 * year.setLayoutX((WINDOW_WIDTH / 2) - 60); year.setLayoutY(250);
+		 * root.getChildren().add(id); root.getChildren().add(idLabel);
+		 * root.getChildren().add(year); root.getChildren().add(yearLabel);
+		 */
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
 		backButton.setOnAction(value -> {
@@ -787,7 +775,18 @@ public class GUI extends Application {
 		Label yearLabel = new Label("Monthly Percent of Total: ");
 		ListView year = new ListView();
 		Button backButton = new Button("Back");
-		Button enterButton = new Button("Enter");
+		Button enterButton = new Button("Main Menu");
+		enterButton.setLayoutX(550);
+		enterButton.setLayoutY(450);
+		enterButton.setPrefSize(150, 50);
+		enterButton.setOnAction(value -> {
+			try {
+				menuPage(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 
 		// Add the vertical box to the center of the root pane
 
@@ -837,7 +836,8 @@ public class GUI extends Application {
 	 *
 	 * @author Richard
 	 */
-	public void dateRangeOutputPage(Stage primaryStage, int year1, int month1, int day1, int month2, int day2) {
+	public void dateRangeOutputPage(Stage primaryStage, int year1, int month1, int day1, int month2,
+			int day2) {
 
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
@@ -862,31 +862,24 @@ public class GUI extends Application {
 		// Add the vertical box to the center of the root pane
 
 		/*
-		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
-		idLabel.setLayoutY(150);
+		 * idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); idLabel.setLayoutY(150);
+		 * 
+		 * yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); yearLabel.setLayoutY(250);
+		 * 
+		 * year.setPrefSize(300, 75); id.setPrefSize(300, 75);
+		 * id.setLayoutX((WINDOW_WIDTH / 2) - 80); id.setLayoutY(150);
+		 * year.setLayoutX((WINDOW_WIDTH / 2) - 80); year.setLayoutY(250);
+		 * root.getChildren().add(id); root.getChildren().add(idLabel);
+		 * root.getChildren().add(year); root.getChildren().add(yearLabel);
+		 * 
+		 * backButton.setLayoutY(WINDOW_HEIGHT - 30); backButton.setLayoutX(10);
+		 */
 
-		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
-		yearLabel.setLayoutY(250);
-
-		year.setPrefSize(300, 75);
-		id.setPrefSize(300, 75);
-		id.setLayoutX((WINDOW_WIDTH / 2) - 80);
-		id.setLayoutY(150);
-		year.setLayoutX((WINDOW_WIDTH / 2) - 80);
-		year.setLayoutY(250);
-		root.getChildren().add(id);
-		root.getChildren().add(idLabel);
-		root.getChildren().add(year);
-		root.getChildren().add(yearLabel);
-
-		backButton.setLayoutY(WINDOW_HEIGHT - 30);
-		backButton.setLayoutX(10);*/
-		
 		Label lab = new Label(Driver.printDateRangeReport(year1, month1, day1, month2, day2));
 		ScrollPane sp = new ScrollPane(lab);
 		sp.setFitToHeight(true);
 		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		
+
 		root.getChildren().add(sp);
 
 		backButton.setLayoutX(0);
@@ -912,6 +905,3 @@ public class GUI extends Application {
 
 	}
 }
-
-
-
