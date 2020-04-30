@@ -18,9 +18,9 @@ public class MilkOperations {
     public class MilkData implements Comparable<MilkData> {
         Farm F;
         int amount;
-        int percentage;
+        double percentage;
 
-        public MilkData(Farm temp, int a, int p) {
+        public MilkData(Farm temp, int a, double p) {
             F=temp;
             amount=a;
             percentage=p;
@@ -31,13 +31,13 @@ public class MilkOperations {
         public int getAmount() {
             return amount;
         }
-        public int getPercentage() {
+        public double getPercentage() {
             return percentage;
         }
         public void addToAmount(int add) {
             amount+=add;
         }
-        public void setPercentage(int p) {
+        public void setPercentage(double p) {
             percentage=p;
         }
 
@@ -102,7 +102,7 @@ public class MilkOperations {
         int sold = 0;
         for(int i=0;i<Farms.length;i++) {
             for(int j=0;j<Farms[i].entryList.size();j++) {
-                if(Farms[i].getEntryList().getMilkDate(j).getYear()==year) {
+                if(Farms[i].getEntryList().getMilkDate(j) != null && Farms[i].getEntryList().getMilkDate(j).getYear()==year) {
                     sold+=Farms[i].getEntryList().getMilkWeight(j);
                     if(!farms.contains(Farms[i])) farms.add(Farms[i]);
                 }
@@ -110,7 +110,10 @@ public class MilkOperations {
         }
 
         for(int i=0;i<farms.size();i++) {
-            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), getTotal(farmReport(farms.get(i).getID(), year))/sold));
+        	double total = getTotal(farmReport(farms.get(i).getID(), year));
+        	double percent = total * 100 / sold;
+        	
+            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), percent));
 
         }
         Collections.sort(weights);
@@ -138,24 +141,25 @@ public class MilkOperations {
         }
 
         for(int i=0;i<farms.size();i++) {
-            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), getTotal(farmReport(farms.get(i).getID(), year))/sold));
+        	double total = getTotal(farmReport(farms.get(i).getID(), year));
+        	double percent = total * 100 / sold;
+        	
+            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), percent));
 
         }
         Collections.sort(weights);
         return weights;
     }
 
-    public ArrayList<MilkData> DateRangeReport(int year1, int month1, int day1, int year2, int month2, int day2) {
+    public ArrayList<MilkData> DateRangeReport(int year1, int month1, int day1, int month2, int day2) {
         LocalDate D1 = LocalDate.of((Integer)year1, (Integer)month1, (Integer)day1);
-        LocalDate D2 = LocalDate.of((Integer)year2, (Integer)month2, (Integer)day2);
+        LocalDate D2 = LocalDate.of((Integer)year1, (Integer)month2, (Integer)day2);
         ArrayList<MilkData> weights = new ArrayList<MilkData>();
         ArrayList<Farm> farms = new ArrayList<Farm>();
         int sold = 0;
         for(int i=0;i<Farms.length;i++) {
             for(int j=0;j<Farms[i].entryList.size();j++) {
-                LocalDate D3 = LocalDate.of((Integer)Farms[i].getEntryList().getMilkDate(j).getYear(),
-                        (Integer)Farms[i].getEntryList().getMilkDate(j).getMonthValue(),
-                        (Integer)Farms[i].getEntryList().getMilkDate(j).getDayOfMonth());
+                LocalDate D3 = Farms[i].getEntryList().getMilkDate(j);
                 if(D3.compareTo(D1)==1&&D3.compareTo(D2)==-1) {//is in year range
                     sold+=Farms[i].getEntryList().getMilkWeight(j);
                     if(!farms.contains(Farms[i])) farms.add(Farms[i]);

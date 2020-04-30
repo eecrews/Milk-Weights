@@ -1,10 +1,16 @@
 package application;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
@@ -167,11 +173,41 @@ public class GUI extends Application {
 
 	public void dataEntryPage(Stage primaryStage) throws Exception {
 		// dataAddPage (#3) -- by Erin
+
+		
+		Alert fileNotFound = new Alert(AlertType.ERROR);
+		fileNotFound.setContentText("File not found. Please try again.");
+		
+		Alert informationOmitted = new Alert(AlertType.ERROR);
+
 		Pane pageThreeRoot = new Pane();
 
 		HBox fileEntry = new HBox(new Label("File location: "), new TextField());
 		Button enterButton = new Button("Enter");
 		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, enterButton);
+		
+		enterButton.setOnAction(e -> {
+			try {
+				Driver.parseFile(fileEntryField.getText());
+			} catch (FileNotFoundException e1) {
+				fileNotFound.showAndWait();
+			} catch(Driver.InformationOmittedException e1) {
+				ArrayList<Integer> linesOmitted = e1.getLinesOmitted();
+				String lines = "";
+				for(int i=0; i<linesOmitted.size(); i++) {
+					lines += linesOmitted.get(i).toString() + ", ";
+				}
+				informationOmitted.setContentText("Lines " + lines + " omitted due to missing information.");
+				informationOmitted.showAndWait();
+			}
+			catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
+		
+
+		pageThreeRoot.setRight(pageThreeRightVbox);
+
 		((Labeled) pageThreeRightVbox.getChildren().get(0)).setFont(new Font("Arial", 20));
 		pageThreeRightVbox.setLayoutX(270);
 		pageThreeRightVbox.setLayoutY(150);
@@ -391,7 +427,7 @@ public class GUI extends Application {
 		enterButton.setLayoutY(450);
 		enterButton.setOnAction(value -> {
 			try {
-				farmOutputPage(primaryStage);
+				farmOutputPage(primaryStage, id.getText(), Integer.parseInt(year.getText()));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -428,8 +464,9 @@ public class GUI extends Application {
 	 */
 	public void annualAnalysisPage(Stage primaryStage) throws Exception {
 		Pane pageSevenRoot = new Pane();
+    TextField yearEntry = new TextField();
 
-		HBox yearInput = new HBox(new Label("Enter the year: "), new TextField());
+		HBox yearInput = new HBox(new Label("Enter the year: "), yearEntry);
 		((Labeled) yearInput.getChildren().get(0)).setFont(new Font("Arial", 20));
 		yearInput.setLayoutX(180);
 		yearInput.setLayoutY(220);
@@ -453,7 +490,7 @@ public class GUI extends Application {
 		enter.setLayoutY(450);
 		enter.setOnAction(value -> {
 			try {
-				annualOutputPage(primaryStage);
+				annualOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -536,12 +573,18 @@ public class GUI extends Application {
 		Label start = new Label("Start");
 		start.setFont(new Font("Times New Roman", 20));
 		Label end = new Label("End");
-		end.setFont(new Font("Times New Roman", 20));
-		HBox yearInput = new HBox(new Label("Year     "), new TextField());
-		HBox monthInput = new HBox(new Label("Month "), new TextField());
-		HBox dayInput = new HBox(new Label("Day      "), new TextField());
-		HBox monthInput2 = new HBox(new Label("Month "), new TextField());
-		HBox dayInput2 = new HBox(new Label("Day      "), new TextField());
+    end.setFont(new Font("Times New Roman", 20));
+		TextField yearEntry = new TextField();
+		TextField monthEntry1 = new TextField();
+		TextField dayEntry1 = new TextField();
+		TextField monthEntry2 = new TextField();
+		TextField dayEntry2 = new TextField();
+		HBox yearInput = new HBox(new Label("Year     "), yearEntry);
+		HBox monthInput = new HBox(new Label("Month "), monthEntry1);
+		HBox dayInput = new HBox(new Label("Day      "), dayEntry1);
+		HBox monthInput2 = new HBox(new Label("Month "), monthEntry2);
+		HBox dayInput2 = new HBox(new Label("Day      "), dayEntry2);
+
 		VBox startInputs = new VBox(start, yearInput, monthInput, dayInput);
 		startInputs.setLayoutX(150);
 		startInputs.setLayoutY(150);
@@ -562,14 +605,17 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
+		
 		// Sends user to data range analysis output page
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
 		enter.setLayoutY(450);
+		
 		enter.setOnAction(value -> {
 			try {
-				dateRangeOutputPage(primaryStage);
+				dateRangeOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()), Integer.parseInt(monthEntry1.getText()), 
+						Integer.parseInt(dayEntry1.getText()), Integer.parseInt(monthEntry2.getText()), Integer.parseInt(dayEntry2.getText()));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -586,7 +632,7 @@ public class GUI extends Application {
 
 	}
 
-	public void farmOutputPage(Stage primaryStage) throws Exception {
+	public void farmOutputPage(Stage primaryStage, String farmId, int outputYear) throws Exception {
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
 		Label idLabel = new Label("Total Weight: ");
@@ -613,6 +659,8 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
+
+		/*
 		id.setLayoutX((WINDOW_WIDTH / 2) - 75);
 		id.setLayoutY(150);
 		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
@@ -625,8 +673,17 @@ public class GUI extends Application {
 		root.getChildren().add(idLabel);
 		root.getChildren().add(year);
 		root.getChildren().add(yearLabel);
+		backButton.setLayoutY(WINDOW_HEIGHT - 30);
+		backButton.setLayoutX(10);*/
+		
+		Label lab = new Label(Driver.printFarmReport(farmId, outputYear));
+		ScrollPane sp = new ScrollPane(lab);
+		sp.setFitToHeight(true);
+		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
+
 		backButton.setOnAction(value -> {
 			try {
 				farmAnalysisPage(primaryStage);
@@ -650,7 +707,7 @@ public class GUI extends Application {
 	 * @author Richard
 	 */
 
-	public void annualOutputPage(Stage primaryStage) {
+	public void annualOutputPage(Stage primaryStage, int yearInput) {
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
 		Label idLabel = new Label("Annual Total Weight: ");
@@ -674,8 +731,15 @@ public class GUI extends Application {
 		root.getChildren().add(enterButton);
 
 		// Add the vertical box to the center of the root pane
+  
+  Label lab = new Label(Driver.printAnnualReport(yearInput));
+      ScrollPane sp = new ScrollPane(lab);
+      sp.setFitToHeight(true);
+      sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+  
+      root.getChildren().add(sp);
 
-		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
+		/*idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
 		idLabel.setLayoutY(150);
 		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 190);
 		yearLabel.setLayoutY(250);
@@ -688,7 +752,7 @@ public class GUI extends Application {
 		root.getChildren().add(id);
 		root.getChildren().add(idLabel);
 		root.getChildren().add(year);
-		root.getChildren().add(yearLabel);
+		root.getChildren().add(yearLabel);*/ 
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
 		backButton.setOnAction(value -> {
@@ -773,7 +837,7 @@ public class GUI extends Application {
 	 *
 	 * @author Richard
 	 */
-	public void dateRangeOutputPage(Stage primaryStage) {
+	public void dateRangeOutputPage(Stage primaryStage, int year1, int month1, int day1, int month2, int day2) {
 
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
@@ -797,8 +861,10 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
+		/*
 		idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
 		idLabel.setLayoutY(150);
+
 		yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175);
 		yearLabel.setLayoutY(250);
 
@@ -812,9 +878,19 @@ public class GUI extends Application {
 		root.getChildren().add(idLabel);
 		root.getChildren().add(year);
 		root.getChildren().add(yearLabel);
+
+		backButton.setLayoutY(WINDOW_HEIGHT - 30);
+		backButton.setLayoutX(10);*/
+		
+		Label lab = new Label(Driver.printDateRangeReport(year1, month1, day1, month2, day2));
+		ScrollPane sp = new ScrollPane(lab);
+		sp.setFitToHeight(true);
+		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+
 		backButton.setLayoutX(0);
 		backButton.setLayoutY(450);
 		backButton.setPrefSize(150, 50);
+
 		backButton.setOnAction(value -> {
 			try {
 				dateRangeAnalysisPage(primaryStage);
@@ -835,3 +911,4 @@ public class GUI extends Application {
 	}
 
 }
+
