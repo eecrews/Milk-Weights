@@ -813,14 +813,21 @@ public class GUI extends Application {
 		 * root.getChildren().add(idLabel); root.getChildren().add(year);
 		 * root.getChildren().add(yearLabel);
 		 */
+		
+		VBox lab = new VBox();
+        ArrayList<Label> nodes = getOutput(Driver.printAnnualReport(yearInput));
+        for(Label node: nodes) {
+            lab.getChildren().add(node);
+        }
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(lab);
+        sp.setPrefHeight(WINDOW_HEIGHT);
+        sp.setPrefWidth(WINDOW_WIDTH/1.9);
+        sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));
+        sp.setPannable(true);
+        sp.setVisible(true);
+        root.getChildren().add(sp);
 
-		System.out.println(Driver.printMonthlyReport(yearInput, monthInput));
-		Label lab = new Label(Driver.printMonthlyReport(yearInput, monthInput));
-		ScrollPane sp = new ScrollPane(lab);
-		sp.setFitToHeight(true);
-		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
-		root.getChildren().add(sp);
 		backButton.setLayoutY(WINDOW_HEIGHT - 30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
@@ -915,4 +922,13 @@ public class GUI extends Application {
 		primaryStage.show();
 
 	}
+	
+	private ArrayList<Label> getOutput(String input) {
+        ArrayList<Label> nodes = new ArrayList<Label>();
+        String[] lines = input.split("\r?\n");
+        for(String line: lines) {
+            nodes.add(new Label(line));
+        }
+        return nodes;
+    }
 }
