@@ -193,7 +193,7 @@ public class GUI extends Application {
 				Driver.parseFile(fileEntryField.getText());
 			} catch (FileNotFoundException e1) {
 				fileNotFound.showAndWait();
-			} catch (NumberFormatException e1) {
+			} catch (Driver.InformationOmittedException e1) {
 				informationOmitted.showAndWait();
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -404,6 +404,15 @@ public class GUI extends Application {
 		enterButton.setPrefSize(150, 50);
 
 		// Add the vertical box to the center of the root pane
+		
+		Alert inputError = new Alert(AlertType.ERROR);
+		inputError.setContentText("Please enter valid inputs.\nFarm name format: \"Farm #\" (omit quotes)");
+		
+		Alert farmDoesntExist = new Alert(AlertType.ERROR);
+		farmDoesntExist.setContentText("Farm doesn't exist in the current data set. Please try again.");
+		
+		Alert yearDoesntExist = new Alert(AlertType.ERROR);
+		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
 
 		id.setLayoutX((WINDOW_WIDTH / 2) - 75);
 		id.setLayoutY(150);
@@ -418,9 +427,16 @@ public class GUI extends Application {
 		enterButton.setOnAction(value -> {
 			try {
 				farmOutputPage(primaryStage, id.getText(), Integer.parseInt(year.getText()));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (NumberFormatException e1) {
+				inputError.showAndWait();
+			} catch(IndexOutOfBoundsException e1) {
+				yearDoesntExist.showAndWait();
+			} catch(Driver.FarmDoesNotExistException e1) {
+				farmDoesntExist.showAndWait();
+			} catch(Driver.YearDoesNotExistException e1) {
+				yearDoesntExist.showAndWait();
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
 		root.getChildren().add(id);
@@ -798,7 +814,6 @@ public class GUI extends Application {
 		 * root.getChildren().add(yearLabel);
 		 */
 
-		System.out.println(Driver.printMonthlyReport(yearInput, monthInput));
 		Label lab = new Label(Driver.printMonthlyReport(yearInput, monthInput));
 		ScrollPane sp = new ScrollPane(lab);
 		sp.setFitToHeight(true);
