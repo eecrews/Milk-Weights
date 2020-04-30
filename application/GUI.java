@@ -831,6 +831,7 @@ public class GUI extends Application {
 		Label yearLabel = new Label("Monthly Percent of Total: ");
 		ListView year = new ListView();
 		Button backButton = new Button("Back");
+		backButton.setPrefSize(150, 50);
 		Button enterButton = new Button("Main Menu");
 		enterButton.setLayoutX(550);
 		enterButton.setLayoutY(450);
@@ -857,8 +858,8 @@ public class GUI extends Application {
 		sp.setPannable(true);
 		sp.setVisible(true);
 		root.getChildren().add(sp);
-		backButton.setLayoutY(WINDOW_HEIGHT - 30);
-		backButton.setLayoutX(10);
+		backButton.setLayoutY(450);
+		backButton.setLayoutX(0);
 		backButton.setOnAction(value -> {
 			try {
 				monthlyAnalysisPage(primaryStage);
