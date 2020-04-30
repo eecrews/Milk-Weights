@@ -798,6 +798,7 @@ public class GUI extends Application {
 		 * root.getChildren().add(yearLabel);
 		 */
 
+		System.out.println(Driver.printMonthlyReport(yearInput, monthInput));
 		Label lab = new Label(Driver.printMonthlyReport(yearInput, monthInput));
 		ScrollPane sp = new ScrollPane(lab);
 		sp.setFitToHeight(true);
@@ -808,7 +809,7 @@ public class GUI extends Application {
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
 			try {
-				annualAnalysisPage(primaryStage);
+				monthlyAnalysisPage(primaryStage);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

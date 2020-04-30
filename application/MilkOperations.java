@@ -69,7 +69,7 @@ public class MilkOperations {
      * @return
      */
     public ArrayList<MilkData> farmReport(String farmID, int year) {//210,093 for 2019-1.csv in small (wrong)
-        System.out.println(inputWorks());
+       // System.out.println(inputWorks());
         int ind=-1;
         for(int i=0;i<Farms.length;i++) {
             if(Farms[i].getID().equals(farmID)) {
@@ -158,7 +158,7 @@ public class MilkOperations {
         for(int i=0;i<Farms.length;i++) {
             for(int j=0;j<Farms[i].entryList.size();j++) {
             	
-                if(Farms[i].getEntryList().getMilkDate(j) != null && Farms[i].getEntryList().getMilkDate(j).getYear()==year && Farms[i].getEntryList().getMilkDate(j).getMonthValue()-1==month) {
+                if(Farms[i].getEntryList().getMilkDate(j) != null && Farms[i].getEntryList().getMilkDate(j).getYear()==year && Farms[i].getEntryList().getMilkDate(j).getMonthValue()==month) {
                     sold+=Farms[i].getEntryList().getMilkWeight(j);
                     if(!farms.contains(Farms[i])) farms.add(Farms[i]);
                 }
