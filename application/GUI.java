@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -90,15 +89,15 @@ public class GUI extends Application {
 			}
 		});
 
-		Button b2 = new Button("Edit Current Data");
-		b2.setPrefSize(150, 50);
-		b2.setOnAction(value -> {
-			try {
-				dataEditPage(primaryStage);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
+//		Button b2 = new Button("Edit Current Data");
+//		b2.setPrefSize(150, 50);
+//		b2.setOnAction(value -> {
+//			try {
+//				dataEditPage(primaryStage);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		});
 
 		Button b3 = new Button("View Analysis");
 		b3.setPrefSize(150, 50);
@@ -111,10 +110,10 @@ public class GUI extends Application {
 		});
 
 		// Vbox for 3 main buttons
-		VBox centerBox = new VBox(b1, b2, b3);
+		VBox centerBox = new VBox(b1, b3);
 		centerBox.setLayoutX(270);
 		centerBox.setLayoutY(150);
-		centerBox.setSpacing(10);
+		centerBox.setSpacing(25);
 
 		// Sends user back to landing page
 		Button b4 = new Button("Back");
@@ -226,7 +225,7 @@ public class GUI extends Application {
 
 		HBox idEntry = new HBox(new Label(" Farm ID "), new TextField());
 		HBox yearEntry = new HBox(new Label(" Year "), new TextField());
-		HBox monthEntry = new HBox(new Label(" Month "), new TextField());
+		HBox monthEntry = new HBox(new Label(" Month (#) "), new TextField());
 		HBox dateEntry = new HBox(new Label(" Date "), new TextField());
 
 		Pane pageFourRoot = new Pane();
@@ -398,13 +397,15 @@ public class GUI extends Application {
 		enterButton.setPrefSize(150, 50);
 
 		// Add the vertical box to the center of the root pane
-		
+
 		Alert inputError = new Alert(AlertType.ERROR);
-		inputError.setContentText("Please enter valid inputs.\nFarm name format: \"Farm #\" (omit quotes)");
-		
+		inputError.setContentText(
+				"Please enter valid inputs.\nFarm name format: \"Farm #\" (omit quotes)");
+
 		Alert farmDoesntExist = new Alert(AlertType.ERROR);
-		farmDoesntExist.setContentText("Farm doesn't exist in the current data set. Please try again.");
-		
+		farmDoesntExist.setContentText(
+				"Farm doesn't exist in the current data set. Please try again.");
+
 		Alert yearDoesntExist = new Alert(AlertType.ERROR);
 		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
 
@@ -423,11 +424,11 @@ public class GUI extends Application {
 				farmOutputPage(primaryStage, id.getText(), Integer.parseInt(year.getText()));
 			} catch (NumberFormatException e1) {
 				inputError.showAndWait();
-			} catch(IndexOutOfBoundsException e1) {
+			} catch (IndexOutOfBoundsException e1) {
 				yearDoesntExist.showAndWait();
-			} catch(Driver.FarmDoesNotExistException e1) {
+			} catch (Driver.FarmDoesNotExistException e1) {
 				farmDoesntExist.showAndWait();
-			} catch(Driver.YearDoesNotExistException e1) {
+			} catch (Driver.YearDoesNotExistException e1) {
 				yearDoesntExist.showAndWait();
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -484,13 +485,13 @@ public class GUI extends Application {
 			}
 		});
 		// Sends user to annual analysis output page
-		
+
 		Alert inputError = new Alert(AlertType.ERROR);
 		inputError.setContentText("Please enter valid input.");
-		
+
 		Alert yearDoesntExist = new Alert(AlertType.ERROR);
 		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
-		
+
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
@@ -500,9 +501,9 @@ public class GUI extends Application {
 				annualOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()));
 			} catch (NumberFormatException e1) {
 				inputError.showAndWait();
-			} catch(IndexOutOfBoundsException e1) {
+			} catch (IndexOutOfBoundsException e1) {
 				yearDoesntExist.showAndWait();
-			} catch(Driver.YearDoesNotExistException e1) {
+			} catch (Driver.YearDoesNotExistException e1) {
 				yearDoesntExist.showAndWait();
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -529,7 +530,7 @@ public class GUI extends Application {
 		TextField monthEntry = new TextField();
 
 		HBox yearInput = new HBox(new Label("Year:     "), yearEntry);
-		HBox monthInput = new HBox(new Label("Month: "), monthEntry);
+		HBox monthInput = new HBox(new Label("Month (#): "), monthEntry);
 
 		VBox inputs = new VBox(yearInput, monthInput);
 		inputs.setLayoutX(250);
@@ -550,16 +551,17 @@ public class GUI extends Application {
 			}
 		});
 		// Sends user to monthly analysis output page
-		
+
 		Alert inputError = new Alert(AlertType.ERROR);
 		inputError.setContentText("Please enter valid inputs.)");
-		
+
 		Alert yearDoesntExist = new Alert(AlertType.ERROR);
 		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
-		
+
 		Alert monthDoesntExist = new Alert(AlertType.ERROR);
-		monthDoesntExist.setContentText("No data currently exists for that month. Please try again.");
-		
+		monthDoesntExist.setContentText(
+				"No data currently exists for that month. Please try again.");
+
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
@@ -570,11 +572,11 @@ public class GUI extends Application {
 						.parseInt(monthEntry.getText()));
 			} catch (NumberFormatException e1) {
 				inputError.showAndWait();
-			} catch(IndexOutOfBoundsException e1) {
+			} catch (IndexOutOfBoundsException e1) {
 				yearDoesntExist.showAndWait();
-			} catch(Driver.MonthDoesNotExistException e1) {
+			} catch (Driver.MonthDoesNotExistException e1) {
 				monthDoesntExist.showAndWait();
-			} catch(Driver.YearDoesNotExistException e1) {
+			} catch (Driver.YearDoesNotExistException e1) {
 				yearDoesntExist.showAndWait();
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -609,16 +611,16 @@ public class GUI extends Application {
 		TextField monthEntry2 = new TextField();
 		TextField dayEntry2 = new TextField();
 		HBox yearInput = new HBox(new Label("Year     "), yearEntry);
-		HBox monthInput = new HBox(new Label("Month "), monthEntry1);
+		HBox monthInput = new HBox(new Label("Month (#) "), monthEntry1);
 		HBox dayInput = new HBox(new Label("Day      "), dayEntry1);
-		HBox monthInput2 = new HBox(new Label("Month "), monthEntry2);
+		HBox monthInput2 = new HBox(new Label("Month (#) "), monthEntry2);
 		HBox dayInput2 = new HBox(new Label("Day      "), dayEntry2);
 
 		VBox startInputs = new VBox(start, yearInput, monthInput, dayInput);
 		startInputs.setLayoutX(150);
 		startInputs.setLayoutY(150);
 		VBox endInputs = new VBox(end, monthInput2, dayInput2);
-		endInputs.setLayoutX(350);
+		endInputs.setLayoutX(370);
 		endInputs.setLayoutY(150);
 
 		// Sends user back to analysis menu page
@@ -636,19 +638,22 @@ public class GUI extends Application {
 		});
 
 		// Sends user to data range analysis output page
-		
+
 		Alert inputError = new Alert(AlertType.ERROR);
-		inputError.setContentText("Please enter valid inputs.\nFarm name format: \"Farm #\" (omit quotes)");
-		
+		inputError.setContentText(
+				"Please enter valid inputs.\nFarm name format: \"Farm #\" (omit quotes)");
+
 		Alert yearDoesntExist = new Alert(AlertType.ERROR);
 		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
-		
+
 		Alert monthDoesntExist = new Alert(AlertType.ERROR);
-		monthDoesntExist.setContentText("No data currently exists for one of the months entered. Please try again.");
-		
+		monthDoesntExist.setContentText(
+				"No data currently exists for one of the months entered. Please try again.");
+
 		Alert dayDoesntExist = new Alert(AlertType.ERROR);
-		dayDoesntExist.setContentText("No data currently exists for one of the days entered. Please try again.");
-		
+		dayDoesntExist.setContentText(
+				"No data currently exists for one of the days entered. Please try again.");
+
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
@@ -662,13 +667,13 @@ public class GUI extends Application {
 								.getText()));
 			} catch (NumberFormatException e1) {
 				inputError.showAndWait();
-			} catch(IndexOutOfBoundsException e1) {
+			} catch (IndexOutOfBoundsException e1) {
 				yearDoesntExist.showAndWait();
-			} catch(Driver.DayDoesNotExistException e1) {
+			} catch (Driver.DayDoesNotExistException e1) {
 				dayDoesntExist.showAndWait();
-			} catch(Driver.MonthDoesNotExistException e1) {
+			} catch (Driver.MonthDoesNotExistException e1) {
 				monthDoesntExist.showAndWait();
-			} catch(Driver.YearDoesNotExistException e1) {
+			} catch (Driver.YearDoesNotExistException e1) {
 				yearDoesntExist.showAndWait();
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -712,19 +717,19 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-		VBox lab = new VBox();	
-		ArrayList<Label> nodes = getOutput(Driver.printFarmReport(farmId, outputYear));	
-		for(Label node: nodes) {	
-			lab.getChildren().add(node);	
-		}	
-		ScrollPane sp = new ScrollPane();	
-		sp.setContent(lab);	
-        sp.setPrefHeight(WINDOW_HEIGHT);	
-        sp.setPrefWidth(WINDOW_WIDTH/1.9);	
-        sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));	
-        sp.setPannable(true);	
-        sp.setVisible(true);		
-        root.getChildren().add(sp);
+		VBox lab = new VBox();
+		ArrayList<Label> nodes = getOutput(Driver.printFarmReport(farmId, outputYear));
+		for (Label node : nodes) {
+			lab.getChildren().add(node);
+		}
+		ScrollPane sp = new ScrollPane();
+		sp.setContent(lab);
+		sp.setPrefHeight(WINDOW_HEIGHT);
+		sp.setPrefWidth(WINDOW_WIDTH / 1.9);
+		sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));
+		sp.setPannable(true);
+		sp.setVisible(true);
+		root.getChildren().add(sp);
 
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
@@ -777,20 +782,20 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-		VBox lab = new VBox();	
-		ArrayList<Label> nodes = getOutput(Driver.printAnnualReport(yearInput));	
-		for(Label node: nodes) {	
-			lab.getChildren().add(node);	
-		}	
-		ScrollPane sp = new ScrollPane();	
-		sp.setContent(lab);	
-        sp.setPrefHeight(WINDOW_HEIGHT);	
-        sp.setPrefWidth(WINDOW_WIDTH/1.9);	
-        sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));	
-        sp.setPannable(true);	
-        sp.setVisible(true);
-        root.getChildren().add(sp);
-        
+		VBox lab = new VBox();
+		ArrayList<Label> nodes = getOutput(Driver.printAnnualReport(yearInput));
+		for (Label node : nodes) {
+			lab.getChildren().add(node);
+		}
+		ScrollPane sp = new ScrollPane();
+		sp.setContent(lab);
+		sp.setPrefHeight(WINDOW_HEIGHT);
+		sp.setPrefWidth(WINDOW_WIDTH / 1.9);
+		sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));
+		sp.setPannable(true);
+		sp.setVisible(true);
+		root.getChildren().add(sp);
+
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
 		backButton.setOnAction(value -> {
@@ -816,7 +821,8 @@ public class GUI extends Application {
 	 *
 	 * @author Richard
 	 */
-	public void monthlyOutputPage(Stage primaryStage, int yearInput, int monthInput) throws Exception {
+	public void monthlyOutputPage(Stage primaryStage, int yearInput, int monthInput)
+			throws Exception {
 
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
@@ -837,20 +843,20 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-			
-		VBox lab = new VBox();	
-		ArrayList<Label> nodes = getOutput(Driver.printMonthlyReport(yearInput, monthInput));	
-		for(Label node: nodes) {	
-			lab.getChildren().add(node);	
-		}	
-		ScrollPane sp = new ScrollPane();	
-		sp.setContent(lab);	
-        sp.setPrefHeight(WINDOW_HEIGHT);	
-        sp.setPrefWidth(WINDOW_WIDTH/1.9);	
-        sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));	
-        sp.setPannable(true);	
-        sp.setVisible(true);
-        root.getChildren().add(sp);
+
+		VBox lab = new VBox();
+		ArrayList<Label> nodes = getOutput(Driver.printMonthlyReport(yearInput, monthInput));
+		for (Label node : nodes) {
+			lab.getChildren().add(node);
+		}
+		ScrollPane sp = new ScrollPane();
+		sp.setContent(lab);
+		sp.setPrefHeight(WINDOW_HEIGHT);
+		sp.setPrefWidth(WINDOW_WIDTH / 1.9);
+		sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));
+		sp.setPannable(true);
+		sp.setVisible(true);
+		root.getChildren().add(sp);
 		backButton.setLayoutY(WINDOW_HEIGHT - 30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
@@ -900,19 +906,20 @@ public class GUI extends Application {
 			}
 		});
 
-		VBox lab = new VBox();	
-		ArrayList<Label> nodes = getOutput(Driver.printDateRangeReport(year1, month1, day1, month2, day2));	
-		for(Label node: nodes) {	
-			lab.getChildren().add(node);	
-		}	
-		ScrollPane sp = new ScrollPane();	
-		sp.setContent(lab);	
-        sp.setPrefHeight(WINDOW_HEIGHT);	
-        sp.setPrefWidth(WINDOW_WIDTH/1.9);	
-        sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));	
-        sp.setPannable(true);	
-        sp.setVisible(true);
-        root.getChildren().add(sp);
+		VBox lab = new VBox();
+		ArrayList<Label> nodes = getOutput(Driver.printDateRangeReport(year1, month1, day1, month2,
+				day2));
+		for (Label node : nodes) {
+			lab.getChildren().add(node);
+		}
+		ScrollPane sp = new ScrollPane();
+		sp.setContent(lab);
+		sp.setPrefHeight(WINDOW_HEIGHT);
+		sp.setPrefWidth(WINDOW_WIDTH / 1.9);
+		sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));
+		sp.setPannable(true);
+		sp.setVisible(true);
+		root.getChildren().add(sp);
 
 		backButton.setLayoutX(0);
 		backButton.setLayoutY(450);
@@ -936,13 +943,13 @@ public class GUI extends Application {
 		primaryStage.show();
 
 	}
-    
-    private ArrayList<Label> getOutput(String input) {	
-		ArrayList<Label> nodes = new ArrayList<Label>();	
-		String[] lines = input.split("\\r?\\n");	
-		for(String line: lines) {	
-			nodes.add(new Label(line));	
-		}	
-		return nodes;	
+
+	private ArrayList<Label> getOutput(String input) {
+		ArrayList<Label> nodes = new ArrayList<Label>();
+		String[] lines = input.split("\\r?\\n");
+		for (String line : lines) {
+			nodes.add(new Label(line));
+		}
+		return nodes;
 	}
 }
