@@ -667,16 +667,6 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-		/*
-		 * id.setLayoutX((WINDOW_WIDTH / 2) - 75); id.setLayoutY(150);
-		 * idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); idLabel.setLayoutY(150);
-		 * yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); yearLabel.setLayoutY(250);
-		 * year.setLayoutX((WINDOW_WIDTH / 2) - 75); year.setLayoutY(250);
-		 * root.getChildren().add(id); root.getChildren().add(idLabel);
-		 * root.getChildren().add(year); root.getChildren().add(yearLabel);
-		 * backButton.setLayoutY(WINDOW_HEIGHT - 30); backButton.setLayoutX(10);
-		 */
-
 		VBox lab = new VBox();	
 		ArrayList<Label> nodes = getOutput(Driver.printFarmReport(farmId, outputYear));	
 		for(Label node: nodes) {	
@@ -754,16 +744,7 @@ public class GUI extends Application {
         sp.setPannable(true);	
         sp.setVisible(true);
         root.getChildren().add(sp);
-
-		/*
-		 * idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); idLabel.setLayoutY(150);
-		 * yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 190); yearLabel.setLayoutY(250);
-		 * year.setPrefSize(300, 75); id.setPrefSize(300, 75);
-		 * id.setLayoutX((WINDOW_WIDTH / 2) - 60); id.setLayoutY(150);
-		 * year.setLayoutX((WINDOW_WIDTH / 2) - 60); year.setLayoutY(250);
-		 * root.getChildren().add(id); root.getChildren().add(idLabel);
-		 * root.getChildren().add(year); root.getChildren().add(yearLabel);
-		 */
+        
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
 		backButton.setOnAction(value -> {
@@ -810,22 +791,6 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-
-		// Add the vertical box to the center of the root pane
-
-		/*
-		 * idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		 * idLabel.setLayoutY(WINDOW_HEIGHT/4);
-		 * yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		 * yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
-		 * enterButton.setLayoutX(WINDOW_WIDTH/2);
-		 * enterButton.setLayoutY(WINDOW_HEIGHT-150); year.setPrefSize(300,75);
-		 * id.setPrefSize(300,75); id.setLayoutX((WINDOW_WIDTH/2)-50);
-		 * id.setLayoutY(WINDOW_HEIGHT/4); year.setLayoutX((WINDOW_WIDTH/2)-40);
-		 * year.setLayoutY(WINDOW_HEIGHT*(3/4)); root.getChildren().add(id);
-		 * root.getChildren().add(idLabel); root.getChildren().add(year);
-		 * root.getChildren().add(yearLabel);
-		 */
 			
 		VBox lab = new VBox();	
 		ArrayList<Label> nodes = getOutput(Driver.printMonthlyReport(yearInput, monthInput));	
@@ -888,22 +853,6 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-
-		// Add the vertical box to the center of the root pane
-
-		/*
-		 * idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); idLabel.setLayoutY(150);
-		 * 
-		 * yearLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); yearLabel.setLayoutY(250);
-		 * 
-		 * year.setPrefSize(300, 75); id.setPrefSize(300, 75);
-		 * id.setLayoutX((WINDOW_WIDTH / 2) - 80); id.setLayoutY(150);
-		 * year.setLayoutX((WINDOW_WIDTH / 2) - 80); year.setLayoutY(250);
-		 * root.getChildren().add(id); root.getChildren().add(idLabel);
-		 * root.getChildren().add(year); root.getChildren().add(yearLabel);
-		 * 
-		 * backButton.setLayoutY(WINDOW_HEIGHT - 30); backButton.setLayoutX(10);
-		 */
 
 		VBox lab = new VBox();	
 		ArrayList<Label> nodes = getOutput(Driver.printDateRangeReport(year1, month1, day1, month2, day2));	
