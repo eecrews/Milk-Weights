@@ -143,19 +143,19 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		
+
 		Button exitButton = new Button("Exit");
 		exitButton.setPrefSize(150, 50);
 		exitButton.setLayoutX(550);
 		exitButton.setLayoutY(0);
 		exitButton.setOnAction(value -> {
-            try {
-                Platform.exit();
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });
+			try {
+				Platform.exit();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 
 		pageTwoRoot.getChildren().addAll(centerBox, b4, exitButton, b5);
 		Scene menuPage = new Scene(pageTwoRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -170,7 +170,7 @@ public class GUI extends Application {
 		Pane pageThreeRoot = new Pane();
 
 		HBox fileEntry = new HBox(new Label("File location: "), new TextField());
-    Button enterButton = new Button ("Enter"
+		Button enterButton = new Button("Enter");
 		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, enterButton);
 		((Labeled) pageThreeRightVbox.getChildren().get(0)).setFont(new Font("Arial", 20));
 		pageThreeRightVbox.setLayoutX(270);
@@ -727,30 +727,27 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-		/*idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		idLabel.setLayoutY(WINDOW_HEIGHT/4);
-		yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
-		yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
-		enterButton.setLayoutX(WINDOW_WIDTH/2);
-		enterButton.setLayoutY(WINDOW_HEIGHT-150);
-		year.setPrefSize(300,75);
-		id.setPrefSize(300,75);
-		id.setLayoutX((WINDOW_WIDTH/2)-50);
-		id.setLayoutY(WINDOW_HEIGHT/4);
-		year.setLayoutX((WINDOW_WIDTH/2)-40);
-		year.setLayoutY(WINDOW_HEIGHT*(3/4));
-		root.getChildren().add(id);
-		root.getChildren().add(idLabel);
-		root.getChildren().add(year);
-		root.getChildren().add(yearLabel); */
-		
-		Label lab = new Label(Driver.printMonthlyReport(yearInput,monthInput));
+		/*
+		 * idLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		 * idLabel.setLayoutY(WINDOW_HEIGHT/4);
+		 * yearLabel.setLayoutX((WINDOW_WIDTH/2)-175);
+		 * yearLabel.setLayoutY(WINDOW_HEIGHT*(3/4));
+		 * enterButton.setLayoutX(WINDOW_WIDTH/2);
+		 * enterButton.setLayoutY(WINDOW_HEIGHT-150); year.setPrefSize(300,75);
+		 * id.setPrefSize(300,75); id.setLayoutX((WINDOW_WIDTH/2)-50);
+		 * id.setLayoutY(WINDOW_HEIGHT/4); year.setLayoutX((WINDOW_WIDTH/2)-40);
+		 * year.setLayoutY(WINDOW_HEIGHT*(3/4)); root.getChildren().add(id);
+		 * root.getChildren().add(idLabel); root.getChildren().add(year);
+		 * root.getChildren().add(yearLabel);
+		 */
+
+		Label lab = new Label(Driver.printMonthlyReport(yearInput, monthInput));
 		ScrollPane sp = new ScrollPane(lab);
 		sp.setFitToHeight(true);
 		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		
+
 		root.getChildren().add(sp);
-		backButton.setLayoutY(WINDOW_HEIGHT-30);
+		backButton.setLayoutY(WINDOW_HEIGHT - 30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
 			try {
