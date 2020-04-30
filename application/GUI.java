@@ -678,6 +678,8 @@ public class GUI extends Application {
 		ScrollPane sp = new ScrollPane(lab);
 		sp.setFitToHeight(true);
 		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		
+		root.getChildren().add(sp);
 
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
