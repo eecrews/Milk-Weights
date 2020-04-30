@@ -484,6 +484,13 @@ public class GUI extends Application {
 			}
 		});
 		// Sends user to annual analysis output page
+		
+		Alert inputError = new Alert(AlertType.ERROR);
+		inputError.setContentText("Please enter valid input.");
+		
+		Alert yearDoesntExist = new Alert(AlertType.ERROR);
+		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
+		
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
@@ -491,9 +498,14 @@ public class GUI extends Application {
 		enter.setOnAction(value -> {
 			try {
 				annualOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (NumberFormatException e1) {
+				inputError.showAndWait();
+			} catch(IndexOutOfBoundsException e1) {
+				yearDoesntExist.showAndWait();
+			} catch(Driver.YearDoesNotExistException e1) {
+				yearDoesntExist.showAndWait();
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
 
@@ -624,6 +636,19 @@ public class GUI extends Application {
 		});
 
 		// Sends user to data range analysis output page
+		
+		Alert inputError = new Alert(AlertType.ERROR);
+		inputError.setContentText("Please enter valid inputs.\nFarm name format: \"Farm #\" (omit quotes)");
+		
+		Alert farmDoesntExist = new Alert(AlertType.ERROR);
+		farmDoesntExist.setContentText("Farm doesn't exist in the current data set. Please try again.");
+		
+		Alert yearDoesntExist = new Alert(AlertType.ERROR);
+		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
+		
+		Alert monthDoesntExist = new Alert(AlertType.ERROR);
+		monthDoesntExist.setContentText("No data currently exists for that month. Please try again.");
+		
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
@@ -718,7 +743,7 @@ public class GUI extends Application {
 	 * @author Richard
 	 */
 
-	public void annualOutputPage(Stage primaryStage, int yearInput) {
+	public void annualOutputPage(Stage primaryStage, int yearInput) throws Exception {
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
 		Label idLabel = new Label("Annual Total Weight: ");
