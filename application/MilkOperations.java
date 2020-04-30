@@ -46,17 +46,34 @@ public class MilkOperations {
             return k.getF().getID().compareTo(this.getF().getID());
         }
     }
+
+    public boolean inputWorks() {
+        for(int i=0;i<Farms.length;i++) {
+            for(int j=0;j<Farms[i].getEntryList().size();j++) {
+                if(Farms[i].getEntryList().getMilkDate(j)!=null&&Farms[i].getEntryList().getFarmID(j)!=Farms[i].getID()) {
+                    return false;
+                }
+                else {
+                    System.out.println(Farms[i].getID());
+                    System.out.println(i);
+                    System.out.println(Farms[i].getEntryList().getMilkWeight(j));
+                }
+            }
+        }
+        return true;
+    }
     /**
      * Returns a farm's output for each month in a given year as well as its percentage of total output for each month
      * @param farmID
      * @param year
      * @return
      */
-    public ArrayList<MilkData> farmReport(String farmID, int year) {
+    public ArrayList<MilkData> farmReport(String farmID, int year) {//210,093 for 2019-1.csv in small (wrong)
+        System.out.println(inputWorks());
         int ind=-1;
         for(int i=0;i<Farms.length;i++) {
             if(Farms[i].getID().equals(farmID)) {
-                ind=i;
+                ind=i;//finding the farm with the specified ID in the array
                 break;
             }
         }
@@ -64,13 +81,21 @@ public class MilkOperations {
        // MilkData[] weights = new MilkData[12];
         ArrayList<MilkData> weights = new ArrayList<MilkData>();
         for(int i=0;i<12;i++) {
-            weights.add(new MilkData(Farms[ind], 0, 0));
+            weights.add(new MilkData(Farms[ind], 0, 0));//initializing all 12 months to be 0
         }
+        for(int i=0;i<Farms[ind].getEntryList().size();i++) {
+            if(Farms[ind].getEntryList().getMilkDate(i) != null) {
+                System.out.println(Farms[ind].getID());
+                System.out.println(i);
+                System.out.println(Farms[ind].getEntryList().getMilkWeight(i));
+            }
 
+        }
         for(int i=0;i<Farms[ind].getEntryList().size();i++) {
             if (Farms[ind].getEntryList().getMilkDate(i) != null && Farms[ind].getEntryList().getMilkDate(i).getYear()==year) {
                 weight += Farms[ind].getEntryList().getMilkWeight(i);
-                weights.get(Farms[ind].getEntryList().getMilkDate(i).getMonthValue()).addToAmount((int)Farms[ind].getEntryList().getMilkWeight(i));//Adding amount to specific month
+                weights.get(Farms[ind].getEntryList().getMilkDate(i).getMonthValue()-1).addToAmount((int)Farms[ind].getEntryList().getMilkWeight(i));//Adding amount to specific month
+                //System.out.println(Farms[ind].getEntryList().getMilkWeight(i));
             }
         }
 
@@ -78,7 +103,7 @@ public class MilkOperations {
             weights.get(i).setPercentage((weights.get(i).getAmount()/weight)*100);
         }
 
-
+        System.out.println(weight);
         return weights;
         //return format: First 12 values are percentages and amounts for each month, last entry is total.
     }
@@ -133,7 +158,7 @@ public class MilkOperations {
         for(int i=0;i<Farms.length;i++) {
             for(int j=0;j<Farms[i].entryList.size();j++) {
             	
-                if(Farms[i].getEntryList().getMilkDate(j) != null && Farms[i].getEntryList().getMilkDate(j).getYear()==year && Farms[i].getEntryList().getMilkDate(j).getMonthValue()==month) {
+                if(Farms[i].getEntryList().getMilkDate(j) != null && Farms[i].getEntryList().getMilkDate(j).getYear()==year && Farms[i].getEntryList().getMilkDate(j).getMonthValue()-1==month) {
                     sold+=Farms[i].getEntryList().getMilkWeight(j);
                     if(!farms.contains(Farms[i])) farms.add(Farms[i]);
                 }
