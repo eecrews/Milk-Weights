@@ -538,6 +538,16 @@ public class GUI extends Application {
 			}
 		});
 		// Sends user to monthly analysis output page
+		
+		Alert inputError = new Alert(AlertType.ERROR);
+		inputError.setContentText("Please enter valid inputs.)");
+		
+		Alert yearDoesntExist = new Alert(AlertType.ERROR);
+		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
+		
+		Alert monthDoesntExist = new Alert(AlertType.ERROR);
+		monthDoesntExist.setContentText("No data currently exists for that month. Please try again.");
+		
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
 		enter.setLayoutX(550);
@@ -546,9 +556,16 @@ public class GUI extends Application {
 			try {
 				monthlyOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()), Integer
 						.parseInt(monthEntry.getText()));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (NumberFormatException e1) {
+				inputError.showAndWait();
+			} catch(IndexOutOfBoundsException e1) {
+				yearDoesntExist.showAndWait();
+			} catch(Driver.MonthDoesNotExistException e1) {
+				monthDoesntExist.showAndWait();
+			} catch(Driver.YearDoesNotExistException e1) {
+				yearDoesntExist.showAndWait();
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
 
@@ -672,7 +689,8 @@ public class GUI extends Application {
         sp.setPrefWidth(WINDOW_WIDTH/1.9);	
         sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));	
         sp.setPannable(true);	
-        sp.setVisible(true);		root.getChildren().add(sp);
+        sp.setVisible(true);		
+        root.getChildren().add(sp);
 
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
@@ -764,7 +782,7 @@ public class GUI extends Application {
 	 *
 	 * @author Richard
 	 */
-	public void monthlyOutputPage(Stage primaryStage, int yearInput, int monthInput) {
+	public void monthlyOutputPage(Stage primaryStage, int yearInput, int monthInput) throws Exception {
 
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();

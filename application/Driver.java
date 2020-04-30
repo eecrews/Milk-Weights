@@ -47,11 +47,21 @@ public class Driver {
 			super(errorMessage);
 		}
 	}
+	
+	public static class MonthDoesNotExistException extends Exception {
+		public MonthDoesNotExistException() {
+			super();
+		}
+		public MonthDoesNotExistException(String errorMessage) {
+			super(errorMessage);
+		}
+	}
 
 	private static ArrayList<Farm> farmArray = new ArrayList<Farm>();
 	private static MilkOperations operator;
 	private static ArrayList<String> farmIDs = new ArrayList<String>();
 	private static ArrayList<Integer> years = new ArrayList<Integer>();
+	private static ArrayList<Integer> months = new ArrayList<Integer>();
 
 	public static void parseFile(String fileName) throws FileNotFoundException, IOException, InformationOmittedException {		
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
@@ -113,6 +123,9 @@ public class Driver {
 				if(!years.contains(dateArray.get(i).getYear()))
 					years.add(dateArray.get(i).getYear());
 				
+				if(!months.contains(dateArray.get(i).getMonthValue())) 
+					months.add(dateArray.get(i).getMonthValue());
+				
 			} else {
 				int indexOfRepeat;
 				for(indexOfRepeat=0; indexOfRepeat<farmArray.size(); indexOfRepeat++) {
@@ -138,6 +151,10 @@ public class Driver {
 	
 	public static boolean doesYearExist(int year) {
 		return years.contains(year);
+	}
+	
+	public static boolean doesMonthExist(int month) {
+		return months.contains(month);
 	}
 	
 	public static String printFarms() {
@@ -169,7 +186,11 @@ public class Driver {
 		return output;
 	}
 
-	public static String printMonthlyReport(int year, int month) {
+	public static String printMonthlyReport(int year, int month) throws MonthDoesNotExistException, YearDoesNotExistException {
+		if(!doesMonthExist(month))
+			throw new MonthDoesNotExistException();
+		if(!doesYearExist(year))
+			throw new YearDoesNotExistException();
 		DecimalFormat df = new DecimalFormat("#.####");
 		ArrayList<MilkOperations.MilkData> milkDataList = operator.MonthlyReport(year, month);
 		String output = "";
