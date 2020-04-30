@@ -30,6 +30,17 @@ public class Driver {
 		}
 	}
 	
+	public static class IncorrectFileTypeException extends Exception {
+		
+		public IncorrectFileTypeException() {
+			super();
+		}
+		
+		public IncorrectFileTypeException(String errorMessage) {
+			super(errorMessage);
+		}
+	}
+
 	public static class FarmDoesNotExistException extends Exception {
 		public FarmDoesNotExistException() {
 			super();
@@ -73,11 +84,13 @@ public class Driver {
 	private static ArrayList<Integer> months = new ArrayList<Integer>();
 	private static ArrayList<Integer> days = new ArrayList<Integer>();
 
-	public static void parseFile(String fileName) throws FileNotFoundException, IOException, InformationOmittedException {		
+	public static void parseFile(String fileName) throws FileNotFoundException, IOException, InformationOmittedException, IncorrectFileTypeException {		
+		if(!fileName.contains(".csv"))
+			throw new IncorrectFileTypeException();
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
 		ArrayList<String> farmIDArray = new ArrayList<String>();
 		ArrayList<Double> weightArray = new ArrayList<Double>();
-		
+	
 		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
 	            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d"))
 	            .appendOptional(DateTimeFormatter.ofPattern(("yyyy-MM-d")))
