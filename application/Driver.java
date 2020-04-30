@@ -20,33 +20,26 @@ import javafx.application.Application;
 public class Driver {
 	
 	public static class InformationOmittedException extends Exception {
-		ArrayList<Integer> linesOmitted;
 		
 		public InformationOmittedException() {
 			super();
-		}
-		public InformationOmittedException(ArrayList<Integer> linesOmitted) {
-			this.linesOmitted = linesOmitted;
 		}
 		
 		public InformationOmittedException(String errorMessage) {
 			super(errorMessage);
 		}
 		
-		public ArrayList<Integer> getLinesOmitted() {
-			return linesOmitted;
-		}
+
 	}
 
 	private static ArrayList<Farm> farmArray = new ArrayList<Farm>();
 	private static MilkOperations operator;
 	private static ArrayList<String> farmIDs = new ArrayList<String>();
 
-	public static void parseFile(String fileName) throws FileNotFoundException, IOException, NumberFormatException {
+	public static void parseFile(String fileName) throws FileNotFoundException, IOException, InformationOmittedException {		
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
 		ArrayList<String> farmIDArray = new ArrayList<String>();
 		ArrayList<Double> weightArray = new ArrayList<Double>();
-		//DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-M-d");
 		
 		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
 	            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d"))
@@ -55,25 +48,40 @@ public class Driver {
 	            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-dd"))
 	            .toFormatter();
 		
+		boolean informationOmitted = false;
+		
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			String line = "";
 			String splitBy = ",";
 			br.readLine();
 			while ((line = br.readLine()) != null) {
-				try {
 					String[] lineInfo = line.split(splitBy);
 					if(lineInfo[0] == null || lineInfo[1] == null || lineInfo[2] == null) {
 						continue;
 					}
-						dateArray.add(LocalDate.parse(lineInfo[0],formatter));
-						farmIDArray.add(lineInfo[1]);
-						weightArray.add(Double.parseDouble(lineInfo[2]));
-				} catch(DateTimeParseException e1) {
-					continue;
-				} catch(NumberFormatException e1) {
-					continue;
-				}
-			}
+					if(!lineInfo[1].substring(0,4).contentEquals("Farm")) {
+						informationOmitted = true;
+						continue;
+					}
+					
+					LocalDate dateToBeAdded;
+					String farmIDToBeAdded;
+					Double weightToBeAdded;
+										
+					try {
+						dateToBeAdded = LocalDate.parse(lineInfo[0],formatter);
+						farmIDToBeAdded = lineInfo[1];
+						weightToBeAdded = Double.parseDouble(lineInfo[2]);
+					} catch(DateTimeParseException e) {
+						informationOmitted = true;
+						continue;
+					} catch(NumberFormatException e) {
+						informationOmitted = true;
+						continue;
+					}
+						dateArray.add(dateToBeAdded);
+						farmIDArray.add(farmIDToBeAdded);
+						weightArray.add(weightToBeAdded);
 		} 
 
 
@@ -97,7 +105,11 @@ public class Driver {
 
 		operator = new MilkOperations(farmArray.toArray(new Farm[farmArray.size()]));
 		
-
+		}
+		
+		if(informationOmitted) 
+			throw new InformationOmittedException();
+		
 	}
 	
 	public static String printFarms() {

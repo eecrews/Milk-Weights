@@ -193,7 +193,7 @@ public class GUI extends Application {
 				Driver.parseFile(fileEntryField.getText());
 			} catch (FileNotFoundException e1) {
 				fileNotFound.showAndWait();
-			} catch (NumberFormatException e1) {
+			} catch (Driver.InformationOmittedException e1) {
 				informationOmitted.showAndWait();
 			} catch (IOException e1) {
 				e1.printStackTrace();
