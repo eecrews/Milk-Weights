@@ -43,7 +43,9 @@ public class MilkOperations {
 
         @Override
         public int compareTo(MilkData k) {
-            return k.getF().getID().compareTo(this.getF().getID());
+            Integer kID = Integer.parseInt(k.getF().getID().substring(4).trim());
+            Integer FID = Integer.parseInt(this.getF().getID().substring(4).trim());
+            return kID.compareTo(FID);
         }
     }
 
@@ -68,7 +70,7 @@ public class MilkOperations {
      * @param year
      * @return
      */
-    public ArrayList<MilkData> farmReport(String farmID, int year) {//210,093 for 2019-1.csv in small (wrong)
+    public ArrayList<MilkData> farmReport(String farmID, int year) {
        // System.out.println(inputWorks());
         int ind=-1;
         for(int i=0;i<Farms.length;i++) {
@@ -84,11 +86,14 @@ public class MilkOperations {
             weights.add(new MilkData(Farms[ind], 0, 0));//initializing all 12 months to be 0
         }
         for(int i=0;i<Farms[ind].getEntryList().size();i++) {
-            if(Farms[ind].getEntryList().getMilkDate(i) != null) {
-                System.out.println(Farms[ind].getID());
-                System.out.println(i);
-                System.out.println(Farms[ind].getEntryList().getMilkWeight(i));
-            }
+            /**
+             * if(Farms[ind].getEntryList().getMilkDate(i) != null) {
+             *                 System.out.println(Farms[ind].getID());
+             *                 System.out.println(i);
+             *                 System.out.println(Farms[ind].getEntryList().getMilkWeight(i));
+             *             }
+             */
+
 
         }
         for(int i=0;i<Farms[ind].getEntryList().size();i++) {
@@ -125,20 +130,28 @@ public class MilkOperations {
         ArrayList<MilkData> weights = new ArrayList<MilkData>();
         ArrayList<Farm> farms = new ArrayList<Farm>();
         int sold = 0;
+        int F0 = 0;
+        int F1 = 0;
+        int F2 = 0;
         for(int i=0;i<Farms.length;i++) {
             for(int j=0;j<Farms[i].entryList.size();j++) {
                 if(Farms[i].getEntryList().getMilkDate(j) != null && Farms[i].getEntryList().getMilkDate(j).getYear()==year) {
                     sold+=Farms[i].getEntryList().getMilkWeight(j);
+                    if(Farms[i].getID().equals("Farm 0")) F0++;
+                    if(Farms[i].getID().equals("Farm 1")) F1++;
+                    if(Farms[i].getID().equals("Farm 2")) F2++;
                     if(!farms.contains(Farms[i])) farms.add(Farms[i]);
                 }
             }
         }
 
+        System.out.println(F0+"|"+F1+"|"+F2);
+
         for(int i=0;i<farms.size();i++) {
-        	double total = getTotal(farmReport(farms.get(i).getID(), year));
-        	double percent = total * 100 / sold;
-        	
-            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), percent));
+            double total = getTotal(farmReport(farms.get(i).getID(), year));
+            double percent = total * 100 / sold;
+
+            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), percent));//should be farm, total output of farm for that month, and percent of output for that month.
 
         }
         Collections.sort(weights);
@@ -155,21 +168,33 @@ public class MilkOperations {
         ArrayList<MilkData> weights = new ArrayList<MilkData>();
         ArrayList<Farm> farms = new ArrayList<Farm>();
         int sold = 0;
+        int F0 = 0;
+        int F1 = 0;
+        int F2 = 0;
         for(int i=0;i<Farms.length;i++) {
             for(int j=0;j<Farms[i].entryList.size();j++) {
             	
                 if(Farms[i].getEntryList().getMilkDate(j) != null && Farms[i].getEntryList().getMilkDate(j).getYear()==year && Farms[i].getEntryList().getMilkDate(j).getMonthValue()==month) {
+                    //if statement checks if current entry is null, then checks if it's in the correct year and month to be added.
                     sold+=Farms[i].getEntryList().getMilkWeight(j);
-                    if(!farms.contains(Farms[i])) farms.add(Farms[i]);
+                    if(Farms[i].getID().equals("Farm 0")) F0++;
+                    if(Farms[i].getID().equals("Farm 1")) F1++;
+                    if(Farms[i].getID().equals("Farm 2")) F2++;
+
+                    if(!farms.contains(Farms[i])) {
+                        farms.add(Farms[i]);
+                        System.out.println(Farms[i].getID());
+                    }
                 }
             }
         }
+        System.out.println(F0+"|"+F1+"|"+F2);
 
         for(int i=0;i<farms.size();i++) {
-        	double total = getTotal(farmReport(farms.get(i).getID(), year));
+        	double total = farmReport(farms.get(i).getID(), year).get(month-1).getAmount();
         	double percent = total * 100 / sold;
-        	
-            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year)), percent));
+        	System.out.println(farms.get(i).getID()+": "+farmReport(farms.get(i).getID(), year).get(month-1).getAmount());
+            weights.add(new MilkData(farms.get(i), farmReport(farms.get(i).getID(), year).get(month-1).getAmount(), percent));//should be farm, total output of farm for that month, and percent of output for that month.
 
         }
         Collections.sort(weights);
