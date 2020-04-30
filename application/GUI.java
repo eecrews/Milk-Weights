@@ -826,8 +826,6 @@ public class GUI extends Application {
 		 * root.getChildren().add(idLabel); root.getChildren().add(year);
 		 * root.getChildren().add(yearLabel);
 		 */
-
-		root.getChildren().add(sp);*/	
 			
 		VBox lab = new VBox();	
 		ArrayList<Label> nodes = getOutput(Driver.printMonthlyReport(yearInput, monthInput));	
