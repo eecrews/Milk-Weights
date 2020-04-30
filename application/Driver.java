@@ -28,8 +28,6 @@ public class Driver {
 		public InformationOmittedException(String errorMessage) {
 			super(errorMessage);
 		}
-		
-
 	}
 	
 	public static class FarmDoesNotExistException extends Exception {
@@ -49,11 +47,31 @@ public class Driver {
 			super(errorMessage);
 		}
 	}
+	
+	public static class MonthDoesNotExistException extends Exception {
+		public MonthDoesNotExistException() {
+			super();
+		}
+		public MonthDoesNotExistException(String errorMessage) {
+			super(errorMessage);
+		}
+	}
+	
+	public static class DayDoesNotExistException extends Exception {
+		public DayDoesNotExistException() {
+			super();
+		}
+		public DayDoesNotExistException(String errorMessage) {
+			super(errorMessage);
+		}
+	}
 
 	private static ArrayList<Farm> farmArray = new ArrayList<Farm>();
 	private static MilkOperations operator;
 	private static ArrayList<String> farmIDs = new ArrayList<String>();
 	private static ArrayList<Integer> years = new ArrayList<Integer>();
+	private static ArrayList<Integer> months = new ArrayList<Integer>();
+	private static ArrayList<Integer> days = new ArrayList<Integer>();
 
 	public static void parseFile(String fileName) throws FileNotFoundException, IOException, InformationOmittedException {		
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
@@ -115,6 +133,12 @@ public class Driver {
 				if(!years.contains(dateArray.get(i).getYear()))
 					years.add(dateArray.get(i).getYear());
 				
+				if(!months.contains(dateArray.get(i).getMonthValue())) 
+					months.add(dateArray.get(i).getMonthValue());
+				
+				if(!days.contains(dateArray.get(i).getDayOfYear()))
+					days.add(dateArray.get(i).getDayOfYear());
+				
 			} else {
 				int indexOfRepeat;
 				for(indexOfRepeat=0; indexOfRepeat<farmArray.size(); indexOfRepeat++) {
@@ -140,6 +164,14 @@ public class Driver {
 	
 	public static boolean doesYearExist(int year) {
 		return years.contains(year);
+	}
+	
+	public static boolean doesMonthExist(int month) {
+		return months.contains(month);
+	}
+	
+	public static boolean doesDayExist(int day) {
+		return days.contains(day);
 	}
 	
 	public static String printFarms() {
@@ -171,7 +203,11 @@ public class Driver {
 		return output;
 	}
 
-	public static String printMonthlyReport(int year, int month) {
+	public static String printMonthlyReport(int year, int month) throws MonthDoesNotExistException, YearDoesNotExistException {
+		if(!doesMonthExist(month))
+			throw new MonthDoesNotExistException();
+		if(!doesYearExist(year))
+			throw new YearDoesNotExistException();
 		DecimalFormat df = new DecimalFormat("#.####");
 		ArrayList<MilkOperations.MilkData> milkDataList = operator.MonthlyReport(year, month);
 		String output = "";
@@ -186,7 +222,14 @@ public class Driver {
 	}
 
 	public static String printDateRangeReport(int year1, int month1, int day1,
-			int month2, int day2) {
+			int month2, int day2) throws DayDoesNotExistException, MonthDoesNotExistException, YearDoesNotExistException {
+		if(!doesYearExist(year1)) 
+			throw new YearDoesNotExistException();
+		if(!doesDayExist(day1) || !doesDayExist(day2))
+			throw new DayDoesNotExistException();
+		if(!doesMonthExist(month1) || !doesMonthExist(month2))
+			throw new MonthDoesNotExistException();
+		
 		ArrayList<MilkOperations.MilkData> milkDataList = operator.DateRangeReport(year1, month1, day1, month2, day2);
 		String output = "";
 		for (int i = 0; i < milkDataList.size(); i++) {
