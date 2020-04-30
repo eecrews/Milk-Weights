@@ -37,7 +37,7 @@ public class Driver {
 			} 
 		}
 			catch(Exception e) {
-				System.out.println(e);
+				System.out.println(e.getMessage());
 		}
 
 		for (int i = 0; i < farmIDArray.size(); i++) {
@@ -100,6 +100,10 @@ public class Driver {
 		}
 
 		return output;
+	}
+	
+	public static void main(String[] args) {
+		Application.launch(GUI.class, args);
 	}
 
 
