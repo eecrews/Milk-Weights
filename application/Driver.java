@@ -31,10 +31,29 @@ public class Driver {
 		
 
 	}
+	
+	public static class FarmDoesNotExistException extends Exception {
+		public FarmDoesNotExistException() {
+			super();
+		}
+		public FarmDoesNotExistException(String errorMessage) {
+			super(errorMessage);
+		}
+	}
+	
+	public static class YearDoesNotExistException extends Exception {
+		public YearDoesNotExistException() {
+			super();
+		}
+		public YearDoesNotExistException(String errorMessage) {
+			super(errorMessage);
+		}
+	}
 
 	private static ArrayList<Farm> farmArray = new ArrayList<Farm>();
 	private static MilkOperations operator;
 	private static ArrayList<String> farmIDs = new ArrayList<String>();
+	private static ArrayList<Integer> years = new ArrayList<Integer>();
 
 	public static void parseFile(String fileName) throws FileNotFoundException, IOException, InformationOmittedException {		
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
@@ -59,7 +78,7 @@ public class Driver {
 					if(lineInfo[0] == null || lineInfo[1] == null || lineInfo[2] == null) {
 						continue;
 					}
-					if(!lineInfo[1].substring(0,4).contentEquals("Farm")) {
+					if(lineInfo[1].length() < 4 || !lineInfo[1].substring(0,4).contentEquals("Farm")) {
 						informationOmitted = true;
 						continue;
 					}
@@ -93,6 +112,9 @@ public class Driver {
 				newFarm.addEntry(weightArray.get(i), dateArray.get(i));
 				farmArray.add(newFarm);
 				
+				if(!years.contains(dateArray.get(i).getYear()))
+					years.add(dateArray.get(i).getYear());
+				
 			} else {
 				int indexOfRepeat;
 				for(indexOfRepeat=0; indexOfRepeat<farmArray.size(); indexOfRepeat++) {
@@ -112,6 +134,14 @@ public class Driver {
 		
 	}
 	
+	public static boolean doesFarmExist(String farm) {
+		return farmIDs.contains(farm);
+	}
+	
+	public static boolean doesYearExist(int year) {
+		return years.contains(year);
+	}
+	
 	public static String printFarms() {
 		String output = "";
 		for(int i=0; i<farmArray.size(); i++) {
@@ -124,7 +154,13 @@ public class Driver {
 	}
 
 
-	public static String printFarmReport(String farmID, int year) {
+	public static String printFarmReport(String farmID, int year) throws FarmDoesNotExistException, YearDoesNotExistException {
+		if(!doesFarmExist(farmID)) {
+			throw new FarmDoesNotExistException();
+		}
+		if(!doesYearExist(year)) {
+			throw new YearDoesNotExistException();
+		}
 		ArrayList<MilkOperations.MilkData> milkDataList = operator.farmReport(farmID, year);
 		String output = "";
 		for (int i = 0; i < milkDataList.size(); i++) {
