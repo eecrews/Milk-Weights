@@ -640,14 +640,14 @@ public class GUI extends Application {
 		Alert inputError = new Alert(AlertType.ERROR);
 		inputError.setContentText("Please enter valid inputs.\nFarm name format: \"Farm #\" (omit quotes)");
 		
-		Alert farmDoesntExist = new Alert(AlertType.ERROR);
-		farmDoesntExist.setContentText("Farm doesn't exist in the current data set. Please try again.");
-		
 		Alert yearDoesntExist = new Alert(AlertType.ERROR);
 		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
 		
 		Alert monthDoesntExist = new Alert(AlertType.ERROR);
-		monthDoesntExist.setContentText("No data currently exists for that month. Please try again.");
+		monthDoesntExist.setContentText("No data currently exists for one of the months entered. Please try again.");
+		
+		Alert dayDoesntExist = new Alert(AlertType.ERROR);
+		dayDoesntExist.setContentText("No data currently exists for one of the days entered. Please try again.");
 		
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
@@ -660,9 +660,18 @@ public class GUI extends Application {
 						.parseInt(monthEntry1.getText()), Integer.parseInt(dayEntry1.getText()),
 						Integer.parseInt(monthEntry2.getText()), Integer.parseInt(dayEntry2
 								.getText()));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (NumberFormatException e1) {
+				inputError.showAndWait();
+			} catch(IndexOutOfBoundsException e1) {
+				yearDoesntExist.showAndWait();
+			} catch(Driver.DayDoesNotExistException e1) {
+				dayDoesntExist.showAndWait();
+			} catch(Driver.MonthDoesNotExistException e1) {
+				monthDoesntExist.showAndWait();
+			} catch(Driver.YearDoesNotExistException e1) {
+				yearDoesntExist.showAndWait();
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
 
@@ -869,7 +878,7 @@ public class GUI extends Application {
 	 * @author Richard
 	 */
 	public void dateRangeOutputPage(Stage primaryStage, int year1, int month1, int day1, int month2,
-			int day2) {
+			int day2) throws Exception {
 
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();

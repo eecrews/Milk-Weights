@@ -56,12 +56,22 @@ public class Driver {
 			super(errorMessage);
 		}
 	}
+	
+	public static class DayDoesNotExistException extends Exception {
+		public DayDoesNotExistException() {
+			super();
+		}
+		public DayDoesNotExistException(String errorMessage) {
+			super(errorMessage);
+		}
+	}
 
 	private static ArrayList<Farm> farmArray = new ArrayList<Farm>();
 	private static MilkOperations operator;
 	private static ArrayList<String> farmIDs = new ArrayList<String>();
 	private static ArrayList<Integer> years = new ArrayList<Integer>();
 	private static ArrayList<Integer> months = new ArrayList<Integer>();
+	private static ArrayList<Integer> days = new ArrayList<Integer>();
 
 	public static void parseFile(String fileName) throws FileNotFoundException, IOException, InformationOmittedException {		
 		ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
@@ -126,6 +136,9 @@ public class Driver {
 				if(!months.contains(dateArray.get(i).getMonthValue())) 
 					months.add(dateArray.get(i).getMonthValue());
 				
+				if(!days.contains(dateArray.get(i).getDayOfYear()))
+					days.add(dateArray.get(i).getDayOfYear());
+				
 			} else {
 				int indexOfRepeat;
 				for(indexOfRepeat=0; indexOfRepeat<farmArray.size(); indexOfRepeat++) {
@@ -155,6 +168,10 @@ public class Driver {
 	
 	public static boolean doesMonthExist(int month) {
 		return months.contains(month);
+	}
+	
+	public static boolean doesDayExist(int day) {
+		return days.contains(day);
 	}
 	
 	public static String printFarms() {
@@ -205,7 +222,14 @@ public class Driver {
 	}
 
 	public static String printDateRangeReport(int year1, int month1, int day1,
-			int month2, int day2) {
+			int month2, int day2) throws DayDoesNotExistException, MonthDoesNotExistException, YearDoesNotExistException {
+		if(!doesYearExist(year1)) 
+			throw new YearDoesNotExistException();
+		if(!doesDayExist(day1) || !doesDayExist(day2))
+			throw new DayDoesNotExistException();
+		if(!doesMonthExist(month1) || !doesMonthExist(month2))
+			throw new MonthDoesNotExistException();
+		
 		ArrayList<MilkOperations.MilkData> milkDataList = operator.DateRangeReport(year1, month1, day1, month2, day2);
 		String output = "";
 		for (int i = 0; i < milkDataList.size(); i++) {
