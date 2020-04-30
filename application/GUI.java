@@ -1,10 +1,15 @@
 package application;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -166,6 +171,10 @@ public class GUI extends Application {
 
 	public void dataEntryPage(Stage primaryStage) throws Exception {
 		// dataAddPage (#3) -- by Erin
+		
+		Alert fileNotFound = new Alert(AlertType.ERROR);
+		fileNotFound.setContentText("File not found. Please try again.");
+		
 		BorderPane pageThreeRoot = new BorderPane();
 
 		TextField fileEntryField = new TextField();
@@ -174,8 +183,16 @@ public class GUI extends Application {
 		Button enterButton = new Button("Enter");
 		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, enterButton);
 		
-		enterButton.setOnAction(e -> Driver.parseFile(fileEntryField.getText()));
-
+		enterButton.setOnAction(e -> {
+			try {
+				Driver.parseFile(fileEntryField.getText());
+			} catch (FileNotFoundException e1) {
+				fileNotFound.showAndWait();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
+		
 
 		pageThreeRoot.setRight(pageThreeRightVbox);
 
