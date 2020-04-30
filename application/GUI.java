@@ -677,12 +677,18 @@ public class GUI extends Application {
 		 * backButton.setLayoutY(WINDOW_HEIGHT - 30); backButton.setLayoutX(10);
 		 */
 
-		Label lab = new Label(Driver.printFarmReport(farmId, outputYear));
-		ScrollPane sp = new ScrollPane(lab);
-		sp.setFitToHeight(true);
-		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
-		root.getChildren().add(sp);
+		VBox lab = new VBox();	
+		ArrayList<Label> nodes = getOutput(Driver.printFarmReport(farmId, outputYear));	
+		for(Label node: nodes) {	
+			lab.getChildren().add(node);	
+		}	
+		ScrollPane sp = new ScrollPane();	
+		sp.setContent(lab);	
+        sp.setPrefHeight(WINDOW_HEIGHT);	
+        sp.setPrefWidth(WINDOW_WIDTH/1.9);	
+        sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));	
+        sp.setPannable(true);	
+        sp.setVisible(true);		root.getChildren().add(sp);
 
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
@@ -735,12 +741,19 @@ public class GUI extends Application {
 
 		// Add the vertical box to the center of the root pane
 
-		Label lab = new Label(Driver.printAnnualReport(yearInput));
-		ScrollPane sp = new ScrollPane(lab);
-		sp.setFitToHeight(true);
-		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
-		root.getChildren().add(sp);
+		VBox lab = new VBox();	
+		ArrayList<Label> nodes = getOutput(Driver.printAnnualReport(yearInput));	
+		for(Label node: nodes) {	
+			lab.getChildren().add(node);	
+		}	
+		ScrollPane sp = new ScrollPane();	
+		sp.setContent(lab);	
+        sp.setPrefHeight(WINDOW_HEIGHT);	
+        sp.setPrefWidth(WINDOW_WIDTH/1.9);	
+        sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));	
+        sp.setPannable(true);	
+        sp.setVisible(true);
+        root.getChildren().add(sp);
 
 		/*
 		 * idLabel.setLayoutX((WINDOW_WIDTH / 2) - 175); idLabel.setLayoutY(150);
@@ -814,12 +827,21 @@ public class GUI extends Application {
 		 * root.getChildren().add(yearLabel);
 		 */
 
-		Label lab = new Label(Driver.printMonthlyReport(yearInput, monthInput));
-		ScrollPane sp = new ScrollPane(lab);
-		sp.setFitToHeight(true);
-		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
-		root.getChildren().add(sp);
+		root.getChildren().add(sp);*/	
+			
+		VBox lab = new VBox();	
+		ArrayList<Label> nodes = getOutput(Driver.printMonthlyReport(yearInput, monthInput));	
+		for(Label node: nodes) {	
+			lab.getChildren().add(node);	
+		}	
+		ScrollPane sp = new ScrollPane();	
+		sp.setContent(lab);	
+        sp.setPrefHeight(WINDOW_HEIGHT);	
+        sp.setPrefWidth(WINDOW_WIDTH/1.9);	
+        sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));	
+        sp.setPannable(true);	
+        sp.setVisible(true);
+        root.getChildren().add(sp);
 		backButton.setLayoutY(WINDOW_HEIGHT - 30);
 		backButton.setLayoutX(10);
 		backButton.setOnAction(value -> {
@@ -885,12 +907,19 @@ public class GUI extends Application {
 		 * backButton.setLayoutY(WINDOW_HEIGHT - 30); backButton.setLayoutX(10);
 		 */
 
-		Label lab = new Label(Driver.printDateRangeReport(year1, month1, day1, month2, day2));
-		ScrollPane sp = new ScrollPane(lab);
-		sp.setFitToHeight(true);
-		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
-		root.getChildren().add(sp);
+		VBox lab = new VBox();	
+		ArrayList<Label> nodes = getOutput(Driver.printDateRangeReport(year1, month1, day1, month2, day2));	
+		for(Label node: nodes) {	
+			lab.getChildren().add(node);	
+		}	
+		ScrollPane sp = new ScrollPane();	
+		sp.setContent(lab);	
+        sp.setPrefHeight(WINDOW_HEIGHT);	
+        sp.setPrefWidth(WINDOW_WIDTH/1.9);	
+        sp.setLayoutX((WINDOW_WIDTH / 2) - (WINDOW_WIDTH / 3.8));	
+        sp.setPannable(true);	
+        sp.setVisible(true);
+        root.getChildren().add(sp);
 
 		backButton.setLayoutX(0);
 		backButton.setLayoutY(450);
@@ -913,5 +942,14 @@ public class GUI extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 
+	}
+    
+    private ArrayList<Label> getOutput(String input) {	
+		ArrayList<Label> nodes = new ArrayList<Label>();	
+		String[] lines = input.split("\\r?\\n");	
+		for(String line: lines) {	
+			nodes.add(new Label(line));	
+		}	
+		return nodes;	
 	}
 }
