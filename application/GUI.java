@@ -101,16 +101,6 @@ public class GUI extends Application {
 			}
 		});
 
-//		Button b2 = new Button("Edit Current Data");
-//		b2.setPrefSize(150, 50);
-//		b2.setOnAction(value -> {
-//			try {
-//				dataEditPage(primaryStage);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		});
-
 		Button b3 = new Button("View Analysis");
 		b3.setPrefSize(150, 50);
 		b3.setOnAction(value -> {
