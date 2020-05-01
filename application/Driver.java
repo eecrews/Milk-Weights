@@ -74,7 +74,7 @@ public class Driver {
 	private static ArrayList<Farm> farmArray = new ArrayList<Farm>();
 	private static MilkOperations operator;
 	private static ArrayList<String> farmIDs = new ArrayList<String>();
-	private static ArrayList<Integer> years = new ArrayList<Integer>();
+	private static int year;
 	private static ArrayList<Integer> months = new ArrayList<Integer>();
 
 	public static void parseFile(String fileName)
@@ -140,11 +140,10 @@ public class Driver {
 					newFarm.addEntry(weightArray.get(i), dateArray.get(i));
 					farmArray.add(newFarm);
 
-					if (!years.contains(dateArray.get(i).getYear()))
-						years.add(dateArray.get(i).getYear());
-
 					if (!months.contains(dateArray.get(i).getMonthValue()))
 						months.add(dateArray.get(i).getMonthValue());
+					
+					year = dateArray.get(i).getYear();
 
 				} else {
 					int indexOfRepeat;
@@ -168,13 +167,17 @@ public class Driver {
 			throw new InformationOmittedException();
 
 	}
+	
+	public static int currYear() {
+		return year;
+	}
 
 	public static boolean doesFarmExist(String farm) {
 		return farmIDs.contains(farm);
 	}
 
-	public static boolean doesYearExist(int year) {
-		return years.contains(year);
+	public static boolean doesYearExist(int inputYear) {
+		return year == inputYear;
 	}
 
 	public static boolean doesMonthExist(int month) {
