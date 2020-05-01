@@ -156,8 +156,7 @@ public class GUI extends Application {
 		});
 
 		// Exits out of app
-		Button 
-      = new Button("Exit");
+		Button exitButton = new Button("Exit");
 		exitButton.setPrefSize(150, 50);
 		exitButton.setLayoutX(550);
 		exitButton.setLayoutY(0);

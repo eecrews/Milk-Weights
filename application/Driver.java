@@ -167,7 +167,7 @@ public class Driver {
   private static ArrayList<Farm> farmArray = new ArrayList<Farm>();
   private static MilkOperations operator;
   private static ArrayList<String> farmIDs = new ArrayList<String>();
-  private static ArrayList<Integer> years = new ArrayList<Integer>();
+  private static int year;
   private static ArrayList<Integer> months = new ArrayList<Integer>();
 
 
@@ -249,8 +249,7 @@ public class Driver {
           newFarm.addEntry(weightArray.get(i), dateArray.get(i));
           farmArray.add(newFarm);
 
-          if (!years.contains(dateArray.get(i).getYear()))
-            years.add(dateArray.get(i).getYear());
+           year = dateArray.get(i).getYear();
 
           if (!months.contains(dateArray.get(i).getMonthValue()))
             months.add(dateArray.get(i).getMonthValue());
@@ -304,8 +303,8 @@ public class Driver {
    * @return boolean - false if the year is not in the system true otherwise
    * 
    */
-  public static boolean doesYearExist(int year) {
-    return years.contains(year);
+  public static boolean doesYearExist(int inputYear) {
+    return inputYear == year;
   }
 
 
