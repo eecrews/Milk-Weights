@@ -203,7 +203,10 @@ public class MilkOperations {
 
     public ArrayList<MilkData> DateRangeReport(int year1, int month1, int day1, int month2, int day2) {
         LocalDate D1 = LocalDate.of((Integer)year1, (Integer)month1, (Integer)day1);
+        System.out.println(D1);
         LocalDate D2 = LocalDate.of((Integer)year1, (Integer)month2, (Integer)day2);
+        System.out.println(D2);
+        System.out.println("--------------------");
         ArrayList<MilkData> weights = new ArrayList<MilkData>();
         ArrayList<Farm> farms = new ArrayList<Farm>();
         int sold = 0;
@@ -211,18 +214,34 @@ public class MilkOperations {
             for(int j=0;j<Farms[i].entryList.size();j++) {
             	if(Farms[i].getEntryList().getMilkDate(j) != null) {
             		LocalDate D3 = Farms[i].getEntryList().getMilkDate(j);
-            		if(D3.compareTo(D1)==1&&D3.compareTo(D2)==-1) {//is in year range
+            		System.out.print(D3);
+            		if(D3.getDayOfYear()>=D1.getDayOfYear()&&D3.getDayOfYear()<=D2.getDayOfYear()) {//D3 is between D1 and D2
             			sold+=Farms[i].getEntryList().getMilkWeight(j);
-            			if(!farms.contains(Farms[i])) farms.add(Farms[i]);
+            			System.out.println("   +");
+            			if(!farms.contains(Farms[i])) {//Farm has not already been added
+            			    farms.add(Farms[i]);
+            			    weights.add(new MilkData(Farms[i], (int) Farms[i].getEntryList().getMilkWeight(j), Farms[i].getEntryList().getMilkWeight(j)/sold));
+                        }
+            			else {//farm is already there
+            			    int tempInd=-1;
+            			    for(int n=0;n<weights.size();n++) {
+            			        if(weights.get(i).getF().equals(Farms[i])) tempInd=i;
+                            }
+            			    weights.get(tempInd).addToAmount((int) Farms[i].getEntryList().getMilkWeight(j));
+            			    weights.get(tempInd).setPercentage(weights.get(tempInd).getAmount()/sold);
+                        }
             		}
             	}
             }
         }
 
-        for(int i=0;i<farms.size();i++) {
-            weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year1)), getTotal(farmReport(farms.get(i).getID(), year1))/sold));
+        /**
+         * for(int i=0;i<farms.size();i++) {
+         *             weights.add(new MilkData(farms.get(i), getTotal(farmReport(farms.get(i).getID(), year1)), getTotal(farmReport(farms.get(i).getID(), year1))/sold));
+         *
+         *         }
+         */
 
-        }
         Collections.sort(weights);
         return weights;
     }
