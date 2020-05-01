@@ -234,7 +234,7 @@ public class MilkOperations {
 	 * @return
 	 */
 	public ArrayList<MilkData> DateRangeReport(int year1, int month1, int day1, int month2,
-			int day2) {
+			int day2) throws Driver.MonthDoesNotExistException {
 		LocalDate D1 = LocalDate.of((Integer) year1, (Integer) month1, (Integer) day1);
 		LocalDate D2 = LocalDate.of((Integer) year1, (Integer) month2, (Integer) day2);
 		ArrayList<MilkData> weights = new ArrayList<MilkData>();
@@ -269,6 +269,7 @@ public class MilkOperations {
 					}
 				}
 			}
+			if(farms.size()==0) throw new Driver.MonthDoesNotExistException();
 		}
 
 		for (int i = 0; i < weights.size(); i++) {

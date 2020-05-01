@@ -424,8 +424,8 @@ public class Driver {
       throws MonthDoesNotExistException, YearDoesNotExistException {
     if (!doesYearExist(year1))
       throw new YearDoesNotExistException();
-    if (!doesMonthExist(month1) || !doesMonthExist(month2))
-      throw new MonthDoesNotExistException();
+    /*if (!doesMonthExist(month1) || !doesMonthExist(month2))
+      throw new MonthDoesNotExistException(); */
 
     ArrayList<MilkOperations.MilkData> milkDataList =
         operator.DateRangeReport(year1, month1, day1, month2, day2);
