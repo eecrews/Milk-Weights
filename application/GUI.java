@@ -1,6 +1,8 @@
 package application;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -33,6 +35,7 @@ public class GUI extends Application {
 	private static final int WINDOW_WIDTH = 700;
 	private static final int WINDOW_HEIGHT = 500;
 	private static final String APP_TITLE = "Milk Weights";
+	private static int chosenYear;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -142,6 +145,9 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
+		
+		Alert outputAlert = new Alert(AlertType.INFORMATION);
+		outputAlert.setContentText("Annual report has been printed to file output.txt.");
 
 		Button exitButton = new Button("Exit");
 		exitButton.setPrefSize(150, 50);
@@ -149,7 +155,15 @@ public class GUI extends Application {
 		exitButton.setLayoutY(0);
 		exitButton.setOnAction(value -> {
 			try {
-				Platform.exit();
+				if(chosenYear != 0) {
+					FileWriter writer = new FileWriter("output.txt");
+					BufferedWriter bw = new BufferedWriter(writer);
+					bw.write(Driver.printAnnualReport(chosenYear));
+					bw.flush();
+					bw.close();
+					outputAlert.showAndWait();
+				}
+				primaryStage.close();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -187,6 +201,7 @@ public class GUI extends Application {
 		enterButton.setOnAction(e -> {
 			try {
 				Driver.parseFile(fileEntryField.getText());
+				chosenYear = Driver.currYear();
 			} catch (FileNotFoundException e1) {
 				fileNotFound.showAndWait();
 			} catch (Driver.InformationOmittedException e1) {
@@ -674,7 +689,10 @@ public class GUI extends Application {
 				inputError.showAndWait();
 			} catch (IndexOutOfBoundsException e1) {
 				yearDoesntExist.showAndWait();
-			} catch (Driver.MonthDoesNotExistException e1) {
+			} //catch (Driver.DayDoesNotExistException e1) {
+				//dayDoesntExist.showAndWait();
+			//} 
+			catch (Driver.MonthDoesNotExistException e1) {
 				monthDoesntExist.showAndWait();
 			} catch (Driver.YearDoesNotExistException e1) {
 				yearDoesntExist.showAndWait();
