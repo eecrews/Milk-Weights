@@ -674,10 +674,7 @@ public class GUI extends Application {
 				inputError.showAndWait();
 			} catch (IndexOutOfBoundsException e1) {
 				yearDoesntExist.showAndWait();
-			} //catch (Driver.DayDoesNotExistException e1) {
-				//dayDoesntExist.showAndWait();
-			//} 
-			catch (Driver.MonthDoesNotExistException e1) {
+			} catch (Driver.MonthDoesNotExistException e1) {
 				monthDoesntExist.showAndWait();
 			} catch (Driver.YearDoesNotExistException e1) {
 				yearDoesntExist.showAndWait();
