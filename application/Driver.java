@@ -274,6 +274,14 @@ public class Driver {
 
   }
 
+	/*
+    * Returns the current year being analyzed.
+    *
+    * @return int - year
+    */
+	public static int currYear() {	
+		return year;	
+	}
 
   /*
    * this method is to check to see if a given farm exists

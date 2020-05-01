@@ -156,13 +156,22 @@ public class GUI extends Application {
 		});
 
 		// Exits out of app
-		Button exitButton = new Button("Exit");
+		Button 
+      = new Button("Exit");
 		exitButton.setPrefSize(150, 50);
 		exitButton.setLayoutX(550);
 		exitButton.setLayoutY(0);
 		exitButton.setOnAction(value -> {
 			try {
-				Platform.exit();
+				if(chosenYear != 0) {
+					FileWriter writer = new FileWriter("output.txt");
+					BufferedWriter bw = new BufferedWriter(writer);
+					bw.write(Driver.printAnnualReport(chosenYear));
+					bw.flush();
+					bw.close();
+					outputAlert.showAndWait();
+				}
+				primaryStage.close();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
