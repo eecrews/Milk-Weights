@@ -1,8 +1,6 @@
 package application;
 
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -32,11 +30,16 @@ import javafx.stage.Stage;
  * 
  */
 public class GUI extends Application {
+	/**
+	 * Window dimensions, Application Title
+	 */
 	private static final int WINDOW_WIDTH = 700;
 	private static final int WINDOW_HEIGHT = 500;
 	private static final String APP_TITLE = "Milk Weights";
-	private static int chosenYear;
 
+	/**
+	 * Landing page, with Single button that leads to main menu
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// landingPage (#1) -- by Tushar
@@ -76,6 +79,12 @@ public class GUI extends Application {
 		primaryStage.show();
 	}
 
+	/**
+	 * Main menu page, 2 button options (Add data and view data)
+	 * 
+	 * @param primaryStage
+	 * @throws Exception
+	 */
 	public void menuPage(Stage primaryStage) throws Exception {
 		// menuPage (#2) -- by Tushar
 
@@ -145,11 +154,10 @@ public class GUI extends Application {
 				e.printStackTrace();
 			}
 		});
-		
-		Alert outputAlert = new Alert(AlertType.INFORMATION);
-		outputAlert.setContentText("Annual report has been printed to file output.txt.");
 
-		Button exitButton = new Button("Exit");
+		// Exits out of app
+		Button 
+      = new Button("Exit");
 		exitButton.setPrefSize(150, 50);
 		exitButton.setLayoutX(550);
 		exitButton.setLayoutY(0);
@@ -178,6 +186,12 @@ public class GUI extends Application {
 		primaryStage.show();
 	}
 
+	/**
+	 * User enters file path, runs file parse algorithm from driver
+	 * 
+	 * @param primaryStage
+	 * @throws Exception
+	 */
 	public void dataEntryPage(Stage primaryStage) throws Exception {
 		// dataAddPage (#3) -- by Erin
 
@@ -186,7 +200,7 @@ public class GUI extends Application {
 
 		Alert informationOmitted = new Alert(AlertType.ERROR);
 		informationOmitted.setContentText("Lines were omitted due to missing information.");
-		
+
 		Alert incorrectFile = new Alert(AlertType.ERROR);
 		incorrectFile.setContentText("Wrong file type used.");
 
@@ -201,12 +215,11 @@ public class GUI extends Application {
 		enterButton.setOnAction(e -> {
 			try {
 				Driver.parseFile(fileEntryField.getText());
-				chosenYear = Driver.currYear();
 			} catch (FileNotFoundException e1) {
 				fileNotFound.showAndWait();
 			} catch (Driver.InformationOmittedException e1) {
 				informationOmitted.showAndWait();
-			} catch(Driver.IncorrectFileTypeException e1) {
+			} catch (Driver.IncorrectFileTypeException e1) {
 				incorrectFile.showAndWait();
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -240,6 +253,12 @@ public class GUI extends Application {
 
 	}
 
+	/**
+	 * Data Edit page (Unused)
+	 * 
+	 * @param primaryStage
+	 * @throws Exception
+	 */
 	public void dataEditPage(Stage primaryStage) throws Exception {
 		// edit data (#4) -- by Erin
 
@@ -281,6 +300,12 @@ public class GUI extends Application {
 
 	}
 
+	/**
+	 * Allows user to input feedback (Aesthetic)
+	 * 
+	 * @param primaryStage
+	 * @throws Exception
+	 */
 	public void feedbackPage(Stage primaryStage) throws Exception {
 		// feedbackPage (#14) -- by Tushar
 
@@ -326,7 +351,8 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * TODO: implement this. I just needed the method to call from my page methods
+	 * Shows four different kinds of analysis available (Individual Farm, Annual,
+	 * Monthly, Date Range)
 	 */
 	public void analysisMenuPage(Stage primaryStage) {
 		// Analysis menu page (#5) by Me
@@ -403,6 +429,13 @@ public class GUI extends Application {
 		primaryStage.show();
 	}
 
+	/**
+	 * Lets user input an ID and a year to find specific farm Throws exceptions for
+	 * wrong inputs or invalid characters
+	 * 
+	 * @param primaryStage
+	 * @throws Exception
+	 */
 	public void farmAnalysisPage(Stage primaryStage) throws Exception {
 		// Farm Analysis Page (#6) by Akshay
 		// Main layout is Border Pane example (top,left,center,right,bottom)
@@ -479,7 +512,7 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Annual Analysis Page (7)
+	 * Annual Analysis Page (7) Asks for the year in which to find farm data
 	 * 
 	 * @author Taidgh
 	 */
@@ -541,6 +574,10 @@ public class GUI extends Application {
 
 	/**
 	 * Monthly Analysis Page (8)
+	 * 
+	 * Asks for the year and the month to find farm data
+	 * 
+	 * Month is asked for in numerical format
 	 * 
 	 * @author Taidgh
 	 */
@@ -614,7 +651,8 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Data Range Analysis Page (9)
+	 * Data Range Analysis Page (9) Asks for the year and two months and days to
+	 * find data in between those two dates
 	 * 
 	 * @author Taidgh
 	 */
@@ -689,10 +727,7 @@ public class GUI extends Application {
 				inputError.showAndWait();
 			} catch (IndexOutOfBoundsException e1) {
 				yearDoesntExist.showAndWait();
-			} //catch (Driver.DayDoesNotExistException e1) {
-				//dayDoesntExist.showAndWait();
-			//} 
-			catch (Driver.MonthDoesNotExistException e1) {
+			} catch (Driver.MonthDoesNotExistException e1) {
 				monthDoesntExist.showAndWait();
 			} catch (Driver.YearDoesNotExistException e1) {
 				yearDoesntExist.showAndWait();
@@ -711,6 +746,14 @@ public class GUI extends Application {
 
 	}
 
+	/**
+	 * Output page for farm analysis, outputs list of data
+	 * 
+	 * @param primaryStage
+	 * @param farmId
+	 * @param outputYear
+	 * @throws Exception
+	 */
 	public void farmOutputPage(Stage primaryStage, String farmId, int outputYear) throws Exception {
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
@@ -773,8 +816,8 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Annual output Page (11)
-	 *
+	 * Annual output Page (11) Output page for annual analysis, outputs list of data
+	 * 
 	 * @author Richard
 	 */
 
@@ -838,8 +881,9 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Monthly Output Page (12)
-	 *
+	 * Monthly Output Page (12) Output page for monthly analysis, outputs list of
+	 * data
+	 * 
 	 * @author Richard
 	 */
 	public void monthlyOutputPage(Stage primaryStage, int yearInput, int monthInput)
@@ -879,7 +923,7 @@ public class GUI extends Application {
 		sp.setPannable(true);
 		sp.setVisible(true);
 		root.getChildren().add(sp);
-		
+
 		backButton.setLayoutY(450);
 		backButton.setLayoutX(0);
 		backButton.setOnAction(value -> {
@@ -902,8 +946,9 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Data Range Analysis Page (13)
-	 *
+	 * Data Range Analysis Page (13) Output page for date range analysis, outputs
+	 * list of data
+	 * 
 	 * @author Richard
 	 */
 	public void dateRangeOutputPage(Stage primaryStage, int year1, int month1, int day1, int month2,
@@ -967,6 +1012,12 @@ public class GUI extends Application {
 
 	}
 
+	/**
+	 * Returns list of labels to output in analysis pages
+	 * 
+	 * @param input
+	 * @return
+	 */
 	private ArrayList<Label> getOutput(String input) {
 		ArrayList<Label> nodes = new ArrayList<Label>();
 		String[] lines = input.split("\\r?\\n");
