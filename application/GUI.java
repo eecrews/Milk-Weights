@@ -1,6 +1,8 @@
 package application;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -36,6 +38,7 @@ public class GUI extends Application {
 	private static final int WINDOW_WIDTH = 700;
 	private static final int WINDOW_HEIGHT = 500;
 	private static final String APP_TITLE = "Milk Weights";
+	private static int chosenYear;
 
 	/**
 	 * Landing page, with Single button that leads to main menu
@@ -145,6 +148,9 @@ public class GUI extends Application {
 			}
 		});
 
+		Alert outputAlert = new Alert(AlertType.INFORMATION);
+		outputAlert.setContentText("Printed annual report to output.txt.");
+
 		// Exits out of app
 		Button exitButton = new Button("Exit");
 		exitButton.setPrefSize(150, 50);
@@ -152,7 +158,7 @@ public class GUI extends Application {
 		exitButton.setLayoutY(0);
 		exitButton.setOnAction(value -> {
 			try {
-				if(chosenYear != 0) {
+				if (chosenYear != 0) {
 					FileWriter writer = new FileWriter("output.txt");
 					BufferedWriter bw = new BufferedWriter(writer);
 					bw.write(Driver.printAnnualReport(chosenYear));
@@ -188,7 +194,8 @@ public class GUI extends Application {
 		fileNotFound.setContentText("File not found. Please try again.");
 
 		Alert informationOmitted = new Alert(AlertType.ERROR);
-		informationOmitted.setContentText("Lines were omitted due to missing information.");
+		informationOmitted.setContentText(
+				"Lines were omitted due to missing information.");
 
 		Alert incorrectFile = new Alert(AlertType.ERROR);
 		incorrectFile.setContentText("Wrong file type used.");
@@ -197,13 +204,16 @@ public class GUI extends Application {
 
 		TextField fileEntryField = new TextField();
 
-		HBox fileEntry = new HBox(new Label("File location(.csv): "), fileEntryField);
+		HBox fileEntry = new HBox(new Label("File location(.csv): "),
+				fileEntryField);
 		Button enterButton = new Button("Enter");
-		VBox pageThreeRightVbox = new VBox(new Label("Add from File "), fileEntry, enterButton);
+		VBox pageThreeRightVbox = new VBox(new Label("Add from File "),
+				fileEntry, enterButton);
 
 		enterButton.setOnAction(e -> {
 			try {
 				Driver.parseFile(fileEntryField.getText());
+				chosenYear = Driver.currYear();
 			} catch (FileNotFoundException e1) {
 				fileNotFound.showAndWait();
 			} catch (Driver.InformationOmittedException e1) {
@@ -215,7 +225,8 @@ public class GUI extends Application {
 			}
 		});
 
-		((Labeled) pageThreeRightVbox.getChildren().get(0)).setFont(new Font("Arial", 20));
+		((Labeled) pageThreeRightVbox.getChildren().get(0))
+				.setFont(new Font("Arial", 20));
 		pageThreeRightVbox.setLayoutX(270);
 		pageThreeRightVbox.setLayoutY(150);
 		pageThreeRightVbox.setSpacing(20);
@@ -234,7 +245,8 @@ public class GUI extends Application {
 		});
 		pageThreeRoot.getChildren().addAll(pageThreeRightVbox, backButton);
 
-		Scene dataEntryPage = new Scene(pageThreeRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+		Scene dataEntryPage = new Scene(pageThreeRoot, WINDOW_WIDTH,
+				WINDOW_HEIGHT);
 
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(dataEntryPage);
@@ -258,10 +270,12 @@ public class GUI extends Application {
 
 		Pane pageFourRoot = new Pane();
 
-		VBox pageFourRightVbox = new VBox(new Label(
-				"Edit an Entry!\n(Leave field blank if no change)"), idEntry, yearEntry, monthEntry,
-				dateEntry, new Button("Enter "));
-		((Labeled) pageFourRightVbox.getChildren().get(0)).setFont(new Font("Arial", 20));
+		VBox pageFourRightVbox = new VBox(
+				new Label("Edit an Entry!\n(Leave field blank if no change)"),
+				idEntry, yearEntry, monthEntry, dateEntry,
+				new Button("Enter "));
+		((Labeled) pageFourRightVbox.getChildren().get(0))
+				.setFont(new Font("Arial", 20));
 		pageFourRightVbox.setLayoutX(240);
 		pageFourRightVbox.setLayoutY(100);
 		pageFourRightVbox.setSpacing(15);
@@ -281,7 +295,8 @@ public class GUI extends Application {
 
 		pageFourRoot.getChildren().addAll(pageFourRightVbox, backButton);
 
-		Scene dataEditPage = new Scene(pageFourRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+		Scene dataEditPage = new Scene(pageFourRoot, WINDOW_WIDTH,
+				WINDOW_HEIGHT);
 
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(dataEditPage);
@@ -332,7 +347,8 @@ public class GUI extends Application {
 		pageFourteenRoot.setTop(lines);
 		pageFourteenRoot.setBottom(buttons);
 
-		Scene feedbackPage = new Scene(pageFourteenRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+		Scene feedbackPage = new Scene(pageFourteenRoot, WINDOW_WIDTH,
+				WINDOW_HEIGHT);
 
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(feedbackPage);
@@ -340,8 +356,8 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Shows four different kinds of analysis available (Individual Farm, Annual,
-	 * Monthly, Date Range)
+	 * Shows four different kinds of analysis available (Individual Farm,
+	 * Annual, Monthly, Date Range)
 	 */
 	public void analysisMenuPage(Stage primaryStage) {
 		// Analysis menu page (#5) by Me
@@ -358,8 +374,8 @@ public class GUI extends Application {
 		Button rangeReportButton = new Button("Date Range Report");
 		rangeReportButton.setPrefSize(150, 50);
 		Button backButton = new Button("Back");
-		VBox buttonBox = new VBox(farmReportButton, annualReportButton, monthlyReportButton,
-				rangeReportButton);
+		VBox buttonBox = new VBox(farmReportButton, annualReportButton,
+				monthlyReportButton, rangeReportButton);
 		buttonBox.setLayoutX(270);
 		buttonBox.setLayoutY(100);
 		buttonBox.setSpacing(10);
@@ -419,8 +435,8 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Lets user input an ID and a year to find specific farm Throws exceptions for
-	 * wrong inputs or invalid characters
+	 * Lets user input an ID and a year to find specific farm Throws exceptions
+	 * for wrong inputs or invalid characters
 	 * 
 	 * @param primaryStage
 	 * @throws Exception
@@ -449,7 +465,8 @@ public class GUI extends Application {
 				"Farm doesn't exist in the current data set. Please try again.");
 
 		Alert yearDoesntExist = new Alert(AlertType.ERROR);
-		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
+		yearDoesntExist.setContentText(
+				"No data currently exists for that year. Please try again.");
 
 		id.setLayoutX((WINDOW_WIDTH / 2) - 75);
 		id.setLayoutY(150);
@@ -463,7 +480,8 @@ public class GUI extends Application {
 		enterButton.setLayoutY(450);
 		enterButton.setOnAction(value -> {
 			try {
-				farmOutputPage(primaryStage, id.getText(), Integer.parseInt(year.getText()));
+				farmOutputPage(primaryStage, id.getText(),
+						Integer.parseInt(year.getText()));
 			} catch (NumberFormatException e1) {
 				inputError.showAndWait();
 			} catch (IndexOutOfBoundsException e1) {
@@ -510,7 +528,8 @@ public class GUI extends Application {
 		TextField yearEntry = new TextField();
 
 		HBox yearInput = new HBox(new Label("Enter the year: "), yearEntry);
-		((Labeled) yearInput.getChildren().get(0)).setFont(new Font("Arial", 20));
+		((Labeled) yearInput.getChildren().get(0))
+				.setFont(new Font("Arial", 20));
 		yearInput.setLayoutX(180);
 		yearInput.setLayoutY(220);
 		// Sends user back to analysis menu page
@@ -532,7 +551,8 @@ public class GUI extends Application {
 		inputError.setContentText("Please enter valid input.");
 
 		Alert yearDoesntExist = new Alert(AlertType.ERROR);
-		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
+		yearDoesntExist.setContentText(
+				"No data currently exists for that year. Please try again.");
 
 		Button enter = new Button("Enter");
 		enter.setPrefSize(150, 50);
@@ -540,7 +560,8 @@ public class GUI extends Application {
 		enter.setLayoutY(450);
 		enter.setOnAction(value -> {
 			try {
-				annualOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()));
+				annualOutputPage(primaryStage,
+						Integer.parseInt(yearEntry.getText()));
 			} catch (NumberFormatException e1) {
 				inputError.showAndWait();
 			} catch (IndexOutOfBoundsException e1) {
@@ -554,7 +575,8 @@ public class GUI extends Application {
 
 		pageSevenRoot.getChildren().addAll(back, enter, yearInput);
 
-		Scene annualAnalysisPage = new Scene(pageSevenRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+		Scene annualAnalysisPage = new Scene(pageSevenRoot, WINDOW_WIDTH,
+				WINDOW_HEIGHT);
 
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(annualAnalysisPage);
@@ -602,7 +624,8 @@ public class GUI extends Application {
 		inputError.setContentText("Please enter valid inputs.)");
 
 		Alert yearDoesntExist = new Alert(AlertType.ERROR);
-		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
+		yearDoesntExist.setContentText(
+				"No data currently exists for that year. Please try again.");
 
 		Alert monthDoesntExist = new Alert(AlertType.ERROR);
 		monthDoesntExist.setContentText(
@@ -614,8 +637,9 @@ public class GUI extends Application {
 		enter.setLayoutY(450);
 		enter.setOnAction(value -> {
 			try {
-				monthlyOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()), Integer
-						.parseInt(monthEntry.getText()));
+				monthlyOutputPage(primaryStage,
+						Integer.parseInt(yearEntry.getText()),
+						Integer.parseInt(monthEntry.getText()));
 			} catch (NumberFormatException e1) {
 				inputError.showAndWait();
 			} catch (IndexOutOfBoundsException e1) {
@@ -631,7 +655,8 @@ public class GUI extends Application {
 
 		pageEightRoot.getChildren().addAll(back, enter, inputs);
 
-		Scene annualAnalysisPage = new Scene(pageEightRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+		Scene annualAnalysisPage = new Scene(pageEightRoot, WINDOW_WIDTH,
+				WINDOW_HEIGHT);
 
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(annualAnalysisPage);
@@ -691,7 +716,8 @@ public class GUI extends Application {
 				"Please enter valid inputs.\nFarm name format: \"Farm #\" (omit quotes)");
 
 		Alert yearDoesntExist = new Alert(AlertType.ERROR);
-		yearDoesntExist.setContentText("No data currently exists for that year. Please try again.");
+		yearDoesntExist.setContentText(
+				"No data currently exists for that year. Please try again.");
 
 		Alert monthDoesntExist = new Alert(AlertType.ERROR);
 		monthDoesntExist.setContentText(
@@ -708,10 +734,12 @@ public class GUI extends Application {
 
 		enter.setOnAction(value -> {
 			try {
-				dateRangeOutputPage(primaryStage, Integer.parseInt(yearEntry.getText()), Integer
-						.parseInt(monthEntry1.getText()), Integer.parseInt(dayEntry1.getText()),
-						Integer.parseInt(monthEntry2.getText()), Integer.parseInt(dayEntry2
-								.getText()));
+				dateRangeOutputPage(primaryStage,
+						Integer.parseInt(yearEntry.getText()),
+						Integer.parseInt(monthEntry1.getText()),
+						Integer.parseInt(dayEntry1.getText()),
+						Integer.parseInt(monthEntry2.getText()),
+						Integer.parseInt(dayEntry2.getText()));
 			} catch (NumberFormatException e1) {
 				inputError.showAndWait();
 			} catch (IndexOutOfBoundsException e1) {
@@ -727,7 +755,8 @@ public class GUI extends Application {
 
 		pageNineRoot.getChildren().addAll(enter, back, startInputs, endInputs);
 
-		Scene annualAnalysisPage = new Scene(pageNineRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+		Scene annualAnalysisPage = new Scene(pageNineRoot, WINDOW_WIDTH,
+				WINDOW_HEIGHT);
 
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(annualAnalysisPage);
@@ -743,7 +772,8 @@ public class GUI extends Application {
 	 * @param outputYear
 	 * @throws Exception
 	 */
-	public void farmOutputPage(Stage primaryStage, String farmId, int outputYear) throws Exception {
+	public void farmOutputPage(Stage primaryStage, String farmId,
+			int outputYear) throws Exception {
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
 		Label idLabel = new Label("Total Weight: ");
@@ -771,7 +801,8 @@ public class GUI extends Application {
 		// Add the vertical box to the center of the root pane
 
 		VBox lab = new VBox();
-		ArrayList<Label> nodes = getOutput(Driver.printFarmReport(farmId, outputYear));
+		ArrayList<Label> nodes = getOutput(
+				Driver.printFarmReport(farmId, outputYear));
 		for (Label node : nodes) {
 			lab.getChildren().add(node);
 		}
@@ -805,12 +836,14 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Annual output Page (11) Output page for annual analysis, outputs list of data
+	 * Annual output Page (11) Output page for annual analysis, outputs list of
+	 * data
 	 * 
 	 * @author Richard
 	 */
 
-	public void annualOutputPage(Stage primaryStage, int yearInput) throws Exception {
+	public void annualOutputPage(Stage primaryStage, int yearInput)
+			throws Exception {
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
 		Label idLabel = new Label("Annual Total Weight: ");
@@ -870,13 +903,13 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Monthly Output Page (12) Output page for monthly analysis, outputs list of
-	 * data
+	 * Monthly Output Page (12) Output page for monthly analysis, outputs list
+	 * of data
 	 * 
 	 * @author Richard
 	 */
-	public void monthlyOutputPage(Stage primaryStage, int yearInput, int monthInput)
-			throws Exception {
+	public void monthlyOutputPage(Stage primaryStage, int yearInput,
+			int monthInput) throws Exception {
 
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
@@ -900,7 +933,8 @@ public class GUI extends Application {
 		});
 
 		VBox lab = new VBox();
-		ArrayList<Label> nodes = getOutput(Driver.printMonthlyReport(yearInput, monthInput));
+		ArrayList<Label> nodes = getOutput(
+				Driver.printMonthlyReport(yearInput, monthInput));
 		for (Label node : nodes) {
 			lab.getChildren().add(node);
 		}
@@ -935,13 +969,13 @@ public class GUI extends Application {
 	}
 
 	/**
-	 * Data Range Analysis Page (13) Output page for date range analysis, outputs
-	 * list of data
+	 * Data Range Analysis Page (13) Output page for date range analysis,
+	 * outputs list of data
 	 * 
 	 * @author Richard
 	 */
-	public void dateRangeOutputPage(Stage primaryStage, int year1, int month1, int day1, int month2,
-			int day2) throws Exception {
+	public void dateRangeOutputPage(Stage primaryStage, int year1, int month1,
+			int day1, int month2, int day2) throws Exception {
 
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		Pane root = new Pane();
@@ -964,8 +998,8 @@ public class GUI extends Application {
 		});
 
 		VBox lab = new VBox();
-		ArrayList<Label> nodes = getOutput(Driver.printDateRangeReport(year1, month1, day1, month2,
-				day2));
+		ArrayList<Label> nodes = getOutput(
+				Driver.printDateRangeReport(year1, month1, day1, month2, day2));
 		for (Label node : nodes) {
 			lab.getChildren().add(node);
 		}
