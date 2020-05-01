@@ -249,13 +249,17 @@ public class MilkOperations {
 							}
 							weights.get(tempInd).addToAmount((int) Farms[i]
 									.getEntryList().getMilkWeight(j));
-							weights.get(tempInd).setPercentage(
-									weights.get(tempInd).getAmount() / sold);
 						}
 					}
 				}
 			}
 		}
+
+		for (int i = 0; i < weights.size(); i++) {
+			weights.get(i).setPercentage(
+					((weights.get(i).getAmount() * 1.0) / (sold * 1.0)) * 100);
+		}
+
 		Collections.sort(weights);
 		return weights;
 	}
