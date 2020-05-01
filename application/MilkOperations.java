@@ -151,7 +151,7 @@ public class MilkOperations {
 					getTotal(farmReport(farms.get(i).getID(), year)), percent)); // should be farm, total output of farm for that month, and percent of output for that month
 		}
 		
-		Collections.sort(weights);
+		Collections.sort(weights, Collections.reverseOrder());
 		return weights;
 	}
 
@@ -209,7 +209,7 @@ public class MilkOperations {
 								// month, and percent of output for that month.
 
 		}
-		Collections.sort(weights);
+		Collections.sort(weights, Collections.reverseOrder());
 		return weights;
 	}
 
@@ -260,7 +260,7 @@ public class MilkOperations {
 					((weights.get(i).getAmount() * 1.0) / (sold * 1.0)) * 100);
 		}
 
-		Collections.sort(weights);
+		Collections.sort(weights, Collections.reverseOrder());
 		return weights;
 	}
 
