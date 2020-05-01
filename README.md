@@ -10,4 +10,5 @@
 # Akshay Suresh, Lec 001, XTeam  103
 # No one was on an XTeam together. 
 # Other notes / comments to the grader: we love u. 
-# No other comments 
+# Bug Report: No Known Bugs
+# Future Work: Options for Sorting Outputs, Manual Farm # Input/Removal, Editing Farm Data
